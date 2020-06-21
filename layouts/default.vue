@@ -31,13 +31,13 @@
 <script lang="ts">
 import Vue from 'vue'
 
-type Item = {
+export type Item = {
   icon: String
   title: String
   to: String
 }
 
-type DataType = {
+export type DataType = {
   items: Array<Item>
   title: String
 }

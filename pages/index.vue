@@ -1,9 +1,51 @@
 <template>
-  <div><v-icon>fas fa-lock</v-icon></div>
+  <div>
+    <span v-if="loggedIn">ログイン中</span>
+    <span v-else>ログアウト中</span>
+    <v-btn @click="login">Login</v-btn>
+    <v-btn @click="logout">Logout</v-btn>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({})
+export type Data = {
+  loggedIn: Boolean
+}
+
+export type DataType = {
+  data: Data
+}
+
+export default Vue.extend({
+  async asyncData({ $axios }) {
+    try {
+      const { data } = await $axios.get('/api')
+      return { data }
+    } catch (e) {
+      console.error(e)
+    }
+  },
+  data(): DataType {
+    return {
+      data: {
+        loggedIn: false
+      }
+    }
+  },
+  computed: {
+    loggedIn(): Boolean {
+      return this.data.loggedIn
+    }
+  },
+  methods: {
+    login(): void {
+      this.$auth.loginWith('github')
+    },
+    logout(): void {
+      this.$auth.logout()
+    }
+  }
+})
 </script>

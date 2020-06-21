@@ -15,14 +15,8 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@types/node", "@nuxt/types", "@nuxtjs/axios"],
+    "types": ["@types/node", "@nuxt/types", "@nuxtjs/axios", "@nuxtjs/auth"],
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules", ".nuxt", "dist"],
-  "include": [
-    "server/**/*.ts",
-    "store/**/*.ts",
-    "middleware/**/*.ts",
-    "api/**/*.ts"
-  ]
+  "exclude": ["node_modules", ".nuxt", "dist"]
 }

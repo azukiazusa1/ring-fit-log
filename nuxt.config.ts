@@ -1,4 +1,8 @@
-module.exports = {
+import { Configuration } from '@nuxt/types'
+require('dotenv').config()
+const { GITHUB_CLIENT, GITHUB_CLIENT_SECRET } = process.env
+
+const config: Configuration = {
   serverMiddleware: ['~/api'],
 
   mode: 'universal',
@@ -43,7 +47,8 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
@@ -58,6 +63,14 @@ module.exports = {
     customVariables: ['~/assets/variables.scss'],
     defaultAssets: { icons: 'fa' }
   },
+  auth: {
+    strategies: {
+      github: {
+        client_id: GITHUB_CLIENT,
+        client_secret: GITHUB_CLIENT_SECRET
+      }
+    }
+  },
   /*
    ** Build configuration
    */
@@ -67,3 +80,5 @@ module.exports = {
      */
   }
 }
+
+export default config
