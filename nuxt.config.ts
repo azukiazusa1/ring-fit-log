@@ -1,7 +1,8 @@
+import { Configuration } from '@nuxt/types'
 require('dotenv').config()
 const { GITHUB_CLIENT, GITHUB_CLIENT_SECRET } = process.env
 
-exports.default = {
+const config: Configuration = {
   serverMiddleware: ['~/api'],
 
   mode: 'universal',
@@ -68,7 +69,8 @@ exports.default = {
         client_id: GITHUB_CLIENT,
         client_secret: GITHUB_CLIENT_SECRET
       }
-    }
+    },
+    vuex: false
   },
   /*
    ** Build configuration
@@ -79,3 +81,5 @@ exports.default = {
      */
   }
 }
+
+export default config

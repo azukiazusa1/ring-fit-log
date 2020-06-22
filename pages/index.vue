@@ -4,17 +4,19 @@
     <span v-else>ログアウト中</span>
     <v-btn @click="login">Login</v-btn>
     <v-btn @click="logout">Logout</v-btn>
+    <v-btn @click="setSnackbar">Snackbar</v-btn>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { SnackbarModule } from '~/store'
 
-export type Data = {
+type Data = {
   loggedIn: Boolean
 }
 
-export type DataType = {
+type DataType = {
   data: Data
 }
 
@@ -45,6 +47,12 @@ export default Vue.extend({
     },
     logout(): void {
       this.$auth.logout()
+    },
+    setSnackbar() {
+      SnackbarModule.setSnackbar({
+        message: 'hello',
+        color: 'success'
+      })
     }
   }
 })

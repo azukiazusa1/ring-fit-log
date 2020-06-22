@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <app-snackbar></app-snackbar>
     <v-app-bar fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
@@ -30,19 +31,23 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import AppSnackbar from '~/components/appSnackbar.vue'
 
-export type Item = {
+type Item = {
   icon: String
   title: String
   to: String
 }
 
-export type DataType = {
+type DataType = {
   items: Array<Item>
   title: String
 }
 
 export default Vue.extend({
+  components: {
+    AppSnackbar
+  },
   data(): DataType {
     return {
       items: [
