@@ -1,3 +1,3 @@
-export type TestJson = {
+export interface Greeting {
   greeting: String
 }
