@@ -2,6 +2,7 @@
   <v-snackbar
     v-model="appear"
     :color="color"
+    centered
     :top="top"
     :right="right"
     :left="left"
