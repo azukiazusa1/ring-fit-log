@@ -1,6 +1,14 @@
 require('dotenv').config()
 const { GITHUB_CLIENT, GITHUB_CLIENT_SECRET } = process.env
 
+const brands = {
+  github: '#211F1F',
+  facebook: '#3B5998',
+  twitter: '#1DA1F2',
+  qiita: '#4cb10d',
+  google: '#db4a39'
+}
+
 const config = {
   serverMiddleware: ['~/api'],
 
@@ -60,7 +68,16 @@ const config = {
    */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
-    defaultAssets: { icons: 'fa' }
+    defaultAssets: { icons: 'fa' },
+    theme: {
+      themes: {
+        light: brands,
+        dark: {
+          ...brands,
+          github: '#fff'
+        }
+      }
+    }
   },
   auth: {
     strategies: {

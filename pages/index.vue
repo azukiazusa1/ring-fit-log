@@ -1,15 +1,27 @@
 <template>
-  <div>
-    <span v-if="loggedIn">ログイン中</span>
-    <span v-else>ログアウト中</span>
-    <v-btn @click="login">Login</v-btn>
-    <v-btn @click="logout">Logout</v-btn>
-    <v-btn @click="setSnackbar">Snackbar</v-btn>
-  </div>
+  <v-card>
+    <v-container>
+      <v-row align="center">
+        <v-col cols="12" class="text-center">
+          <brand-icon-button
+            brand="google"
+            @click="loginWithGoogle"
+          ></brand-icon-button>
+        </v-col>
+        <v-col colse="12" class="text-center">
+          <brand-icon-button
+            brand="github"
+            @click="loginWithGithub"
+          ></brand-icon-button>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-card>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import BrandIconButton from '~/components/BrandLoginButton.vue'
 import { SnackbarModule } from '~/store'
 
 type Data = {
@@ -21,31 +33,14 @@ type DataType = {
 }
 
 export default Vue.extend({
-  async asyncData({ $axios }) {
-    try {
-      const { data } = await $axios.get('/api')
-      return { data }
-    } catch (e) {
-      console.error(e)
-    }
-  },
-  data(): DataType {
-    return {
-      data: {
-        loggedIn: false
-      }
-    }
-  },
-  computed: {
-    loggedIn(): Boolean {
-      return this.data.loggedIn
-    }
+  components: {
+    BrandIconButton
   },
   methods: {
-    login(): void {
+    loginWithGithub(): void {
       this.$auth.loginWith('github')
     },
-    logout(): void {
+    loginWithGoogle(): void {
       this.$auth.logout()
     },
     setSnackbar() {
