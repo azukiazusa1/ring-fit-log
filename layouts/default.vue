@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import AppSnackbar from '~/components/appSnackbar.vue'
+import AppSnackbar from '~/components/AppSnackbar.vue'
 
 type Item = {
   icon: String
