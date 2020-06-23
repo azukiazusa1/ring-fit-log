@@ -38,6 +38,11 @@ export default Vue.extend({
   components: {
     BrandIconButton
   },
+  middleware({ $auth, redirect }) {
+    if ($auth.loggedIn) {
+      redirect('/record')
+    }
+  },
   methods: {
     loginWithGithub(): void {
       try {
