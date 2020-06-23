@@ -14,7 +14,7 @@
         <v-icon small>{{ item.icon }}</v-icon>
         <span>{{ item.title }}</span>
       </v-btn>
-      <avator-menu :user="$auth.user" @logout="logout"></avator-menu>
+      <avator-menu :user="user" @logout="logout"></avator-menu>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -34,6 +34,8 @@
 import Vue from 'vue'
 import AvatorMenu from '~/components/AvatorMenu.vue'
 import AppSnackbar from '~/components/AppSnackbar.vue'
+import getUserObject from '~/utils/getUserObject'
+import { User } from '~/types/user'
 import { SnackbarModule } from '~/store'
 
 type Item = {
@@ -67,6 +69,11 @@ export default Vue.extend({
         }
       ],
       title: 'Vuetify.js'
+    }
+  },
+  computed: {
+    user(): User {
+      return getUserObject(this.$auth)
     }
   },
   methods: {

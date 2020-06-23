@@ -2,16 +2,16 @@
   <v-menu :offset-y="true">
     <template v-slot:activator="{ on }">
       <v-list-item-avatar v-on="on">
-        <v-img :src="user.avatar_url" :alt="user.login"></v-img>
+        <v-img :src="user.photoURL" :alt="user.username"></v-img>
       </v-list-item-avatar>
     </template>
     <v-list>
       <v-list-item>
         <v-list-item-avatar>
-          <v-img :src="user.avatar_url" :alt="user.login"></v-img>
+          <v-img :src="user.photoURL" :alt="user.username"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>{{ user.login }}</v-list-item-title>
+          <v-list-item-title>{{ user.username }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -23,16 +23,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
+import { User } from '~/types/user'
+
 export default Vue.extend({
   props: {
     user: {
-      type: Object,
+      type: Object as PropType<User>,
       required: true
     }
   },
   methods: {
-    logout() {
+    logout(): void {
       this.$emit('logout')
     }
   }
