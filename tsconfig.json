@@ -19,7 +19,8 @@
       "@types/node",
       "@nuxt/types",
       "@nuxtjs/axios",
-      "@types/nuxtjs__auth"
+      "@types/nuxtjs__auth",
+      "cookie-universal-nuxt"
     ],
     "resolveJsonModule": true
   },

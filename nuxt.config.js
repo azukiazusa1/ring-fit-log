@@ -55,7 +55,8 @@ const config = {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    'cookie-universal-nuxt'
   ],
   /*
    ** Axios module configuration
@@ -98,7 +99,7 @@ const config = {
     vuex: false
   },
   router: {
-    middleware: ['auth']
+    middleware: ['auth', 'uid']
   },
   /*
    ** Build configuration
