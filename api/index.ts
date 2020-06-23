@@ -1,17 +1,8 @@
-import express from 'express'
-import httpStatusCodes from 'http-status-codes'
-import getAuthToken from './getAuthToken'
+import Express from 'express'
+import router from './routes'
 
-const app = express()
+const app = Express()
 
-app.get('/api', (req, res) => {
-  const token = getAuthToken(req)
-  if (token) {
-    res.json({ loggedIn: true })
-  } else {
-    res.status(httpStatusCodes.UNAUTHORIZED)
-    res.json({ loggedIn: false })
-  }
-})
+app.use('/api', router)
 
 export default app
