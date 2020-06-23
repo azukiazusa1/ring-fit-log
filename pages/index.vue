@@ -33,6 +33,8 @@ type DataType = {
 }
 
 export default Vue.extend({
+  auth: false,
+  layout: 'unauthorized',
   components: {
     BrandIconButton
   },
@@ -51,7 +53,7 @@ export default Vue.extend({
         this.loginError()
       }
     },
-    loginError() {
+    loginError(): void {
       SnackbarModule.setSnackbar({
         message: 'ログインに失敗しました。',
         color: 'error'

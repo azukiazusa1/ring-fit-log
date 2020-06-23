@@ -81,7 +81,7 @@ const config = {
   },
   auth: {
     redirect: {
-      login: '/login',
+      login: '/',
       logout: '/',
       callback: '/login',
       home: '/record'
@@ -96,6 +96,9 @@ const config = {
       }
     },
     vuex: false
+  },
+  router: {
+    middleware: ['auth']
   },
   /*
    ** Build configuration
