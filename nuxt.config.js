@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { GITHUB_CLIENT, GITHUB_CLIENT_SECRET } = process.env
+const { GITHUB_CLIENT, GITHUB_CLIENT_SECRET, GOOGLE_CLIENT } = process.env
 
 const brands = {
   github: '#211F1F',
@@ -84,6 +84,9 @@ const config = {
       github: {
         client_id: GITHUB_CLIENT,
         client_secret: GITHUB_CLIENT_SECRET
+      },
+      google: {
+        client_id: GOOGLE_CLIENT
       }
     },
     vuex: false

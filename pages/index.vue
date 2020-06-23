@@ -38,15 +38,23 @@ export default Vue.extend({
   },
   methods: {
     loginWithGithub(): void {
-      this.$auth.loginWith('github')
+      try {
+        this.$auth.loginWith('github')
+      } catch (e) {
+        this.loginError()
+      }
     },
     loginWithGoogle(): void {
-      this.$auth.logout()
+      try {
+        this.$auth.loginWith('google')
+      } catch (e) {
+        this.loginError()
+      }
     },
-    setSnackbar() {
+    loginError() {
       SnackbarModule.setSnackbar({
-        message: 'hello',
-        color: 'success'
+        message: 'ログインに失敗しました。',
+        color: 'error'
       })
     }
   }
