@@ -80,6 +80,12 @@ const config = {
     }
   },
   auth: {
+    redirect: {
+      login: '/login',
+      logout: '/',
+      callback: '/login',
+      home: '/record'
+    },
     strategies: {
       github: {
         client_id: GITHUB_CLIENT,
