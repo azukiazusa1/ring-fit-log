@@ -1,8 +1,10 @@
 import { Auth } from '@nuxtjs/auth'
 import { User } from '~/types/user'
 
-export default function getUserObject({ user, $state }: Auth): User {
-  const { strategy } = $state
+export default function getUserObject({
+  user,
+  $state: { strategy }
+}: Auth): User {
   let userObject: User
   if (strategy === 'google') {
     userObject = {
