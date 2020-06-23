@@ -14,7 +14,9 @@
 
 <script>
 export default {
-  layout: 'empty',
+  layout({ $auth }) {
+    return $auth.loggedIn ? 'default' : 'unauthorized'
+  },
   props: {
     error: {
       type: Object,
