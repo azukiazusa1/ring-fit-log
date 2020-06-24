@@ -1,5 +1,12 @@
 <template>
-  <v-btn :color="brand" dark tile class="text-capitalize" @click="onClick">
+  <v-btn
+    :color="brand"
+    dark
+    tile
+    min-width="300"
+    class="text-capitalize"
+    @click="onClick"
+  >
     <v-icon left>fab fa-{{ brand }}</v-icon
     >{{ brand }}でログイン
   </v-btn>
