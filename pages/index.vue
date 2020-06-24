@@ -1,17 +1,23 @@
 <template>
   <v-card>
     <v-container>
-      <v-row align="center">
+      <v-row>
         <v-col cols="12" class="text-center">
           <brand-icon-button
             brand="google"
             @click="loginWithGoogle"
           ></brand-icon-button>
         </v-col>
-        <v-col colse="12" class="text-center">
+        <v-col cols="12" class="text-center">
           <brand-icon-button
             brand="github"
             @click="loginWithGithub"
+          ></brand-icon-button>
+        </v-col>
+        <v-col cols="12" class="text-center">
+          <brand-icon-button
+            brand="facebook"
+            @click="loginWithFacebook"
           ></brand-icon-button>
         </v-col>
       </v-row>
@@ -54,6 +60,13 @@ export default Vue.extend({
     loginWithGoogle(): void {
       try {
         this.$auth.loginWith('google')
+      } catch (e) {
+        this.loginError()
+      }
+    },
+    loginWithFacebook(): void {
+      try {
+        this.$auth.loginWith('facebook')
       } catch (e) {
         this.loginError()
       }

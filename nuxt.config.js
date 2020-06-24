@@ -94,6 +94,12 @@ const config = {
       },
       google: {
         client_id: GOOGLE_CLIENT
+      },
+      facebook: {
+        client_id: '3060965500636780',
+        userinfo_endpoint:
+          'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        scope: ['public_profile', 'email', 'user_birthday']
       }
     },
     vuex: false
