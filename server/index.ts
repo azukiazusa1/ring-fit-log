@@ -1,3 +1,5 @@
+import fs from 'fs'
+import https from 'https'
 import consola from 'consola'
 import express from 'express'
 
@@ -25,9 +27,20 @@ async function start() {
   app.use(nuxt.render)
 
   // Listen the server
-  app.listen(port, host)
+  let schema
+  if (process.env.HTTPS) {
+    const httpsOptions = {
+      key: fs.readFileSync(`${__dirname}/localhost-key.pem`),
+      cert: fs.readFileSync(`${__dirname}/localhost.pem`)
+    }
+    https.createServer(httpsOptions, app).listen(port, host)
+    schema = 'https'
+  } else {
+    app.listen(port, host)
+    schema = 'http'
+  }
   consola.ready({
-    message: `Server listening on http://${host}:${port}`,
+    message: `Server listening on ${schema}://${host}:${port}`,
     badge: true
   })
 }

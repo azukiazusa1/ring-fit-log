@@ -1,5 +1,10 @@
 require('dotenv').config()
-const { GITHUB_CLIENT, GITHUB_CLIENT_SECRET, GOOGLE_CLIENT } = process.env
+const {
+  GITHUB_CLIENT,
+  GITHUB_CLIENT_SECRET,
+  GOOGLE_CLIENT,
+  FACEBOOK_CLIENT
+} = process.env
 
 const brands = {
   github: '#211F1F',
@@ -62,7 +67,9 @@ const config = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    https: !!process.env.HTTPS
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -96,7 +103,7 @@ const config = {
         client_id: GOOGLE_CLIENT
       },
       facebook: {
-        client_id: '3060965500636780',
+        client_id: FACEBOOK_CLIENT,
         userinfo_endpoint:
           'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
         scope: ['public_profile', 'email', 'user_birthday']

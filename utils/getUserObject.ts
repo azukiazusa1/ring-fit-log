@@ -20,6 +20,13 @@ export default function getUserObject({
       email: user.email,
       photoURL: user.avatar_url
     }
+  } else if (strategy === 'facebook') {
+    userObject = {
+      username: user.name,
+      identifier: user.id,
+      email: user.email,
+      photoURL: user.picture.data.url
+    }
   } else {
     throw new Error('undefine strategy')
   }
