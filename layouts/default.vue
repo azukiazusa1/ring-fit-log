@@ -34,19 +34,18 @@
 import Vue from 'vue'
 import AvatorMenu from '~/components/AvatorMenu.vue'
 import AppSnackbar from '~/components/AppSnackbar.vue'
-import getUserObject from '~/utils/getUserObject'
-import { User } from '~/types/user'
+import getLoginUser from '~/utils/getLoginUser'
 import { SnackbarModule } from '~/store'
 
 type Item = {
-  icon: String
-  title: String
-  to: String
+  icon: string
+  title: string
+  to: string
 }
 
 type DataType = {
   items: Array<Item>
-  title: String
+  title: string
 }
 
 export default Vue.extend({
@@ -72,8 +71,8 @@ export default Vue.extend({
     }
   },
   computed: {
-    user(): User {
-      return getUserObject(this.$auth)
+    user() {
+      return getLoginUser(this.$auth)
     }
   },
   methods: {

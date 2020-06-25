@@ -1,11 +1,11 @@
 import { Middleware } from '@nuxt/types'
-import getUserObject from '~/utils/getUserObject'
+import getLoginUser from '~/utils/getLoginUser'
 
 const uid: Middleware = async ({ error, $axios, $auth, app }) => {
   const { $cookies } = app
   const uid: string = $cookies.get('uid')
   if ($auth.loggedIn && !uid) {
-    const user = getUserObject($auth)
+    const user = getLoginUser($auth)
     try {
       const { data } = await $axios.post('/api/users', { user })
       $cookies.set('uid', data.uid, {

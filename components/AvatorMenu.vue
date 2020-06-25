@@ -24,12 +24,12 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { User } from '~/types/user'
+import { LoginUser } from '~/types/auth'
 
 export default Vue.extend({
   props: {
     user: {
-      type: Object as PropType<User>,
+      type: Object as PropType<LoginUser>,
       required: true
     }
   },
