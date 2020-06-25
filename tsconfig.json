@@ -20,7 +20,8 @@
       "@nuxt/types",
       "@nuxtjs/axios",
       "@types/nuxtjs__auth",
-      "cookie-universal-nuxt"
+      "cookie-universal-nuxt",
+      "@types/jest"
     ],
     "resolveJsonModule": true
   },
