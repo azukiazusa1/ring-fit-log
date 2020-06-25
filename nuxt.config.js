@@ -46,7 +46,7 @@ const config = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['@/plugins/axios-accessor'],
   /*
    ** Nuxt.js dev-modules
    */
