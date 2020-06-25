@@ -7,15 +7,15 @@ import { SnackbarPayload } from 'types/index'
   namespaced: true
 })
 export default class Snackbar extends VuexModule {
-  public message: String = ''
-  public color: String = 'success'
-  public timeout: Number = 3000
-  public appear: Boolean = false
-  public escape: Boolean = false
-  public top: Boolean = false
-  public right: Boolean = false
-  public left: Boolean = false
-  public bottom: Boolean = false
+  public message: string = ''
+  public color: string = 'success'
+  public timeout: number = 3000
+  public appear: boolean = false
+  public escape: boolean = false
+  public top: boolean = false
+  public right: boolean = false
+  public left: boolean = false
+  public bottom: boolean = false
 
   @Mutation
   private showSnackbar() {
@@ -28,42 +28,42 @@ export default class Snackbar extends VuexModule {
   }
 
   @Mutation
-  private setMessage(message: String) {
+  private setMessage(message: string) {
     this.message = message
   }
 
   @Mutation
-  private setColor(color: String) {
+  private setColor(color: string) {
     this.color = color
   }
 
   @Mutation
-  private setEscape(escape: Boolean) {
+  private setEscape(escape: boolean) {
     this.escape = escape
   }
 
   @Mutation
-  private setTop(top: Boolean) {
+  private setTop(top: boolean) {
     this.top = top
   }
 
   @Mutation
-  private setRight(right: Boolean) {
+  private setRight(right: boolean) {
     this.right = right
   }
 
   @Mutation
-  private setLeft(left: Boolean) {
+  private setLeft(left: boolean) {
     this.left = left
   }
 
   @Mutation
-  private setBottom(bottom: Boolean) {
+  private setBottom(bottom: boolean) {
     this.bottom = bottom
   }
 
   @Mutation
-  private setTimeout(timeout: Number) {
+  private setTimeout(timeout: number) {
     this.timeout = timeout
   }
 

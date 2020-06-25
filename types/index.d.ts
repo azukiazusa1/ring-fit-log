@@ -1,14 +1,14 @@
 export interface Greeting {
-  greeting: String
+  greeting: string
 }
 
 export interface SnackbarPayload {
-  message: String
-  color?: String
-  escape?: Boolean
-  top?: Boolean
-  right?: Boolean
-  left?: Boolean
-  bottom?: Boolean
-  timeout?: Number
+  message: string
+  color?: string
+  escape?: boolean
+  top?: boolean
+  right?: boolean
+  left?: boolean
+  bottom?: boolean
+  timeout?: number
 }
