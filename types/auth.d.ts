@@ -8,28 +8,28 @@ export interface LoginUser {
 }
 
 export interface GitHubUser {
-  name?: string
-  login: string
-  id: string
-  email?: string
+  readonly name?: string
+  readonly login: string
+  readonly id: string
+  readonly email?: string
   // eslint-disable-next-line camelcase
-  avatar_url: string
+  readonly avatar_url: string
 }
 
 export interface GoogleUser {
-  name: string
-  sub: string
-  email: string
-  picture: string
+  readonly name: string
+  readonly sub: string
+  readonly email: string
+  readonly picture: string
 }
 
 export interface FacebookUser {
-  name: string
-  id: string
-  email: string
-  picture: {
-    data: {
-      url: string
+  readonly name: string
+  readonly id: string
+  readonly email: string
+  readonly picture: {
+    readonly data: {
+      readonly url: string
     }
   }
 }
@@ -57,16 +57,4 @@ export interface Facebook extends Auth {
     strategy: FacebookStrategy
   }
   user: Partial<FacebookUser>
-}
-
-export function isGoogle(test: Google | GitHub | Facebook): test is Google {
-  return test.$state.strategy === 'google'
-}
-
-export function isGitHub(test: Google | GitHub | Facebook): test is GitHub {
-  return test.$state.strategy === 'github'
-}
-
-export function isFacebook(test: Google | GitHub | Facebook): test is Facebook {
-  return test.$state.strategy === 'facebook'
 }

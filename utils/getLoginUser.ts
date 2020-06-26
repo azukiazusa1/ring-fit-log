@@ -1,12 +1,16 @@
-import {
-  LoginUser,
-  Google,
-  GitHub,
-  Facebook,
-  isGoogle,
-  isGitHub,
-  isFacebook
-} from '~/types/auth'
+import { LoginUser, Google, GitHub, Facebook } from '~/types/auth'
+
+export function isGoogle(test: Google | GitHub | Facebook): test is Google {
+  return test.$state.strategy === 'google'
+}
+
+export function isGitHub(test: Google | GitHub | Facebook): test is GitHub {
+  return test.$state.strategy === 'github'
+}
+
+export function isFacebook(test: Google | GitHub | Facebook): test is Facebook {
+  return test.$state.strategy === 'facebook'
+}
 
 export default function getloginUser(
   auth: Google | GitHub | Facebook
