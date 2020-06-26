@@ -29,6 +29,10 @@ export default class Snackbar extends VuexModule {
     return this.timeout
   }
 
+  public get isAppear() {
+    return this.appear
+  }
+
   public get isEscape() {
     return this.escape
   }

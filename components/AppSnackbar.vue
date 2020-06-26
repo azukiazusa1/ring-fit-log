@@ -28,36 +28,36 @@ export default Vue.extend({
   name: 'AppSnackbar',
   computed: {
     message() {
-      return SnackbarModule.message
+      return SnackbarModule.getMessage
     },
     appear: {
       get() {
-        return SnackbarModule.appear
+        return SnackbarModule.isAppear
       },
       set() {
-        SnackbarModule.close()
+        this.close()
       }
     },
     color() {
-      return SnackbarModule.color
+      return SnackbarModule.getType
     },
     top() {
-      return SnackbarModule.top
+      return SnackbarModule.isTop
     },
     right() {
-      return SnackbarModule.right
+      return SnackbarModule.isRight
     },
     left() {
-      return SnackbarModule.left
+      return SnackbarModule.isLeft
     },
     bottom() {
-      return SnackbarModule.bottom
+      return SnackbarModule.isBottom
     },
     timeout() {
-      return SnackbarModule.timeout
+      return SnackbarModule.getTimeout
     },
     escape() {
-      return SnackbarModule.escape
+      return SnackbarModule.isEscape
     }
   },
   methods: {
