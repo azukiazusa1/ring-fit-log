@@ -1,5 +1,5 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
-import { SnackbarPayload } from 'types/index'
+import { SnackbarPayload, SnackbarTypePayload, Types } from 'types/index'
 
 @Module({
   name: 'snackbar',
@@ -7,15 +7,47 @@ import { SnackbarPayload } from 'types/index'
   namespaced: true
 })
 export default class Snackbar extends VuexModule {
-  public message: string = ''
-  public color: string = 'success'
-  public timeout: number = 3000
-  public appear: boolean = false
-  public escape: boolean = false
-  public top: boolean = false
-  public right: boolean = false
-  public left: boolean = false
-  public bottom: boolean = false
+  private message: string = ''
+  private type: Types = 'info'
+  private timeout: number = 3000
+  private appear: boolean = false
+  private escape: boolean = false
+  private top: boolean = false
+  private right: boolean = false
+  private left: boolean = false
+  private bottom: boolean = false
+
+  public get getMessage() {
+    return this.message
+  }
+
+  public get getType() {
+    return this.type
+  }
+
+  public get getTimeout() {
+    return this.timeout
+  }
+
+  public get isEscape() {
+    return this.escape
+  }
+
+  public get isTop() {
+    return this.top
+  }
+
+  public get isRight() {
+    return this.right
+  }
+
+  public get isLeft() {
+    return this.left
+  }
+
+  public get isBottom() {
+    return this.bottom
+  }
 
   @Mutation
   private showSnackbar() {
@@ -33,8 +65,8 @@ export default class Snackbar extends VuexModule {
   }
 
   @Mutation
-  private setColor(color: string) {
-    this.color = color
+  private setType(type: Types) {
+    this.type = type
   }
 
   @Mutation
@@ -70,17 +102,17 @@ export default class Snackbar extends VuexModule {
   @Action({ rawError: true })
   public setSnackbar({
     message = '',
-    color = 'success',
+    type = 'info',
     escape = false,
     top = false,
     right = false,
     left = false,
     bottom = false,
     timeout = 3000
-  }: SnackbarPayload) {
+  }: SnackbarTypePayload) {
     if (this.appear) return
     this.setMessage(message)
-    this.setColor(color)
+    this.setType(type)
     this.setEscape(escape)
     this.setTop(top)
     this.setRight(right)
@@ -90,7 +122,39 @@ export default class Snackbar extends VuexModule {
     this.showSnackbar()
   }
 
-  @Action
+  @Action({ rawError: true })
+  public info(payload: SnackbarPayload) {
+    this.setSnackbar({
+      ...payload,
+      type: 'info'
+    })
+  }
+
+  @Action({ rawError: true })
+  public error(payload: SnackbarPayload) {
+    this.setSnackbar({
+      ...payload,
+      type: 'error'
+    })
+  }
+
+  @Action({ rawError: true })
+  public warning(payload: SnackbarPayload) {
+    this.setSnackbar({
+      ...payload,
+      type: 'warning'
+    })
+  }
+
+  @Action({ rawError: true })
+  public success(payload: SnackbarPayload) {
+    this.setSnackbar({
+      ...payload,
+      type: 'success'
+    })
+  }
+
+  @Action({ rawError: true })
   public close() {
     this.hideSnackbar()
   }
