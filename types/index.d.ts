@@ -2,7 +2,7 @@ export interface Greeting {
   greeting: string
 }
 
-export type Types = 'info' | 'error' | 'worning' | 'success'
+export type Types = 'info' | 'error' | 'warning' | 'success'
 
 export interface SnackbarPayload {
   message: string
@@ -14,6 +14,6 @@ export interface SnackbarPayload {
   timeout?: number
 }
 
-export interface SnacbarTypePayload extends SnackbarPayload {
+export interface SnackbarTypePayload extends SnackbarPayload {
   type: Types
 }
