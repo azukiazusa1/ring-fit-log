@@ -21,6 +21,9 @@
           ></brand-icon-button>
         </v-col>
       </v-row>
+      <v-row>
+        <snackbar-button></snackbar-button>
+      </v-row>
     </v-container>
   </v-card>
 </template>
@@ -28,21 +31,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import BrandIconButton from '~/components/BrandLoginButton.vue'
+import SnackbarButton from '~/components/SnackbarButton.vue'
 import { SnackbarModule } from '~/store'
-
-type Data = {
-  loggedIn: Boolean
-}
-
-type DataType = {
-  data: Data
-}
 
 export default Vue.extend({
   auth: false,
   layout: 'unauthorized',
   components: {
-    BrandIconButton
+    BrandIconButton,
+    SnackbarButton
   },
   middleware({ $auth, redirect }) {
     if ($auth.loggedIn) {
@@ -72,9 +69,8 @@ export default Vue.extend({
       }
     },
     loginError(): void {
-      SnackbarModule.setSnackbar({
-        message: 'ログインに失敗しました。',
-        color: 'error'
+      SnackbarModule.error({
+        message: 'ログインに失敗しました。'
       })
     }
   }

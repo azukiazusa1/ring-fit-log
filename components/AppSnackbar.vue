@@ -1,7 +1,7 @@
 <template>
   <v-snackbar
     v-model="appear"
-    :color="color"
+    :color="type"
     centered
     :top="top"
     :right="right"
@@ -15,6 +15,7 @@
         <v-icon>fas fa-times-circle</v-icon>
       </v-btn>
     </template>
+    <snackbar-icon :type="type"></snackbar-icon>
     <span v-if="!escape" v-html="message"></span>
     <span v-else>{{ message }}</span>
   </v-snackbar>
@@ -22,10 +23,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SnackbarIcon from '~/components/SnackbarIcon.vue'
 import { SnackbarModule } from '~/store'
 
 export default Vue.extend({
   name: 'AppSnackbar',
+  components: {
+    SnackbarIcon
+  },
   computed: {
     message() {
       return SnackbarModule.getMessage
@@ -38,7 +43,7 @@ export default Vue.extend({
         this.close()
       }
     },
-    color() {
+    type() {
       return SnackbarModule.getType
     },
     top() {
