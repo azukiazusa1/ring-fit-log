@@ -7,8 +7,8 @@ describe('SnackbarModule', () => {
   })
 
   describe('Actions', () => {
-    test('SetSnacbar: messageとtypeだけ指定', async () => {
-      await SnackbarModule.setSnackbar({
+    test('SetSnacbar: messageとtypeだけ指定', () => {
+      SnackbarModule.setSnackbar({
         message: 'テスト',
         type: 'info'
       })
@@ -21,8 +21,8 @@ describe('SnackbarModule', () => {
       expect(SnackbarModule.isBottom).toEqual(false)
       expect(SnackbarModule.getTimeout).toEqual(3000)
     })
-    test('SetSnacbar: オプションも指定', async () => {
-      await SnackbarModule.setSnackbar({
+    test('SetSnacbar: オプションも指定', () => {
+      SnackbarModule.setSnackbar({
         message: 'テスト',
         type: 'info',
         escape: true,
@@ -32,6 +32,7 @@ describe('SnackbarModule', () => {
         bottom: true,
         timeout: 1000
       })
+      expect(SnackbarModule.isAppear).toEqual(true)
       expect(SnackbarModule.getMessage).toEqual('テスト')
       expect(SnackbarModule.getType).toEqual('info')
       expect(SnackbarModule.isEscape).toEqual(true)
@@ -41,37 +42,50 @@ describe('SnackbarModule', () => {
       expect(SnackbarModule.isBottom).toEqual(true)
       expect(SnackbarModule.getTimeout).toEqual(1000)
     })
-  })
 
-  test('infoアクション', async () => {
-    await SnackbarModule.info({
-      message: 'infoアクション'
+    test('infoアクション', () => {
+      SnackbarModule.info({
+        message: 'infoアクション'
+      })
+      expect(SnackbarModule.isAppear).toEqual(true)
+      expect(SnackbarModule.getMessage).toEqual('infoアクション')
+      expect(SnackbarModule.getType).toEqual('info')
     })
-    expect(SnackbarModule.getMessage).toEqual('infoアクション')
-    expect(SnackbarModule.getType).toEqual('info')
-  })
 
-  test('errorアクション', async () => {
-    await SnackbarModule.error({
-      message: 'errorアクション'
+    test('errorアクション', () => {
+      SnackbarModule.error({
+        message: 'errorアクション'
+      })
+      expect(SnackbarModule.isAppear).toEqual(true)
+      expect(SnackbarModule.getMessage).toEqual('errorアクション')
+      expect(SnackbarModule.getType).toEqual('error')
     })
-    expect(SnackbarModule.getMessage).toEqual('errorアクション')
-    expect(SnackbarModule.getType).toEqual('error')
-  })
 
-  test('warningアクション', async () => {
-    await SnackbarModule.warning({
-      message: 'warningアクション'
+    test('warningアクション', () => {
+      SnackbarModule.warning({
+        message: 'warningアクション'
+      })
+      expect(SnackbarModule.isAppear).toEqual(true)
+      expect(SnackbarModule.getMessage).toEqual('warningアクション')
+      expect(SnackbarModule.getType).toEqual('warning')
     })
-    expect(SnackbarModule.getMessage).toEqual('warningアクション')
-    expect(SnackbarModule.getType).toEqual('warning')
-  })
 
-  test('successアクション', async () => {
-    await SnackbarModule.success({
-      message: 'successアクション'
+    test('successアクション', () => {
+      SnackbarModule.success({
+        message: 'successアクション'
+      })
+      expect(SnackbarModule.isAppear).toEqual(true)
+      expect(SnackbarModule.getMessage).toEqual('successアクション')
+      expect(SnackbarModule.getType).toEqual('success')
     })
-    expect(SnackbarModule.getMessage).toEqual('successアクション')
-    expect(SnackbarModule.getType).toEqual('success')
+
+    test('closeアクション', () => {
+      SnackbarModule.info({
+        message: 'infoアクション'
+      })
+      expect(SnackbarModule.isAppear).toEqual(true)
+      SnackbarModule.close()
+      expect(SnackbarModule.isAppear).toEqual(false)
+    })
   })
 })
