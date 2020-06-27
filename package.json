@@ -44,7 +44,7 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^24.1.0",
+    "jest": "^25.0.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.19.1",
     "ts-jest": "^25.0.0",

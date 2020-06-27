@@ -1,5 +1,3 @@
-import { Auth } from '@nuxtjs/auth'
-
 export interface LoginUser {
   username: string
   identifier: string
@@ -38,21 +36,21 @@ export type GoogleStrategy = 'google'
 export type GitHubStrategy = 'github'
 export type FacebookStrategy = 'facebook'
 
-export interface Google extends Auth {
+export interface Google {
   $state: {
     strategy: GoogleStrategy
   }
   user: Partial<GoogleUser>
 }
 
-export interface GitHub extends Auth {
+export interface GitHub {
   $state: {
     strategy: GitHubStrategy
   }
   user: Partial<GitHubUser>
 }
 
-export interface Facebook extends Auth {
+export interface Facebook {
   $state: {
     strategy: FacebookStrategy
   }
