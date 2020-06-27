@@ -79,15 +79,14 @@ export default Vue.extend({
     async logout() {
       try {
         await this.$auth.logout()
-        SnackbarModule.setSnackbar({
+        SnackbarModule.info({
           message: 'ログアウトしました。'
         })
         this.$router.push('/')
         this.$cookies.remove('uid')
       } catch {
-        SnackbarModule.setSnackbar({
-          message: 'ログアウトに失敗しました。',
-          color: 'error'
+        SnackbarModule.error({
+          message: 'ログアウトに失敗しました。'
         })
       }
     }
