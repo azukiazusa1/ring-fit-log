@@ -1,9 +1,9 @@
 import Express from 'express'
-import { User } from '~/types/user'
+import { LoginUser } from '~/types/auth'
 
 export default {
   create: (req: Express.Request, res: Express.Response) => {
-    const user: User = req.body.user
+    const user: LoginUser = req.body.user
     console.log(user)
     // TODO とりあえずmock
     res.json({ uid: 'jfalfjafhaffj' })
