@@ -21,12 +21,12 @@ const records: Record[] = [
 
 export default {
   show: (req: Express.Request, res: Express.Response) => {
-    const date = new Date(req.params.date)
-    if (isInvalidDate(date)) {
+    if (isInvalidDate(req.params.date)) {
       res.status(httpStatusCode.BAD_REQUEST)
       res.json({ message: 'Invalid Date' })
       return
     }
+    const date = new Date(req.params.date)
 
     const record = records.find((record) =>
       moment(record.date).isSame(date, 'day')
