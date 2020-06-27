@@ -1,10 +1,11 @@
 import Express from 'express'
-import Cookies from 'universal-cookie'
 import userRoutes from './userRoutes'
+import recordRoutes from './recordRoutes'
 
 const router = Express.Router()
 
 router.use('/users', userRoutes)
+router.use('/record', recordRoutes)
 router.use('/todos', (_req, res) => {
   res.json([
     {

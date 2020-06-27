@@ -1,10 +1,11 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import moment from 'moment'
+import { isEmpty } from 'lodash'
 import { $axios } from '~/utils/api'
 import { Record } from '~/types/record'
 
 @Module({
-  name: 'record',
+  name: 'records',
   stateFactory: true,
   namespaced: true
 })
@@ -16,11 +17,18 @@ export default class RecordsModule extends VuexModule {
   }
 
   public get getRecordByDate() {
-    return (date: Date) => this.records.find((record) => record.date === date)
+    return (date: Date) =>
+      this.records.find((record) => moment(record.date).isSame(date, 'day'))
   }
 
   public get isRecoded() {
-    return (date: Date) => this.records.some((record) => record.date === date)
+    console.log(this.records)
+    return (date: Date) =>
+      this.records.some((record) => {
+        console.log(record.date)
+        console.log(date)
+        return moment(record.date).isSame(date, 'day')
+      })
   }
 
   public get getRecordByMonth() {
@@ -35,13 +43,15 @@ export default class RecordsModule extends VuexModule {
 
   @Mutation
   private removeRecord(date: Date) {
-    this.records = this.records.filter((record) => record.date !== date)
+    this.records = this.records.filter(
+      (record) => !moment(record.date).isSame(date, 'day')
+    )
   }
 
   @Mutation
   private replaceRecord(payload: Record) {
-    const index = this.records.findIndex(
-      (record) => record.date === payload.date
+    const index = this.records.findIndex((record) =>
+      moment(record.date).isSame(payload.date)
     )
     if (index === -1) {
       this.addRecord(payload)
@@ -54,7 +64,7 @@ export default class RecordsModule extends VuexModule {
   public async fetchRecords() {
     const { data } = await $axios.get<Record[]>('/api/records')
     data.forEach((v) => {
-      if (!this.isRecoded(v.date)) {
+      if (!this.isRecoded(new Date(v.date))) {
         this.addRecord(v)
       }
     })
@@ -63,9 +73,12 @@ export default class RecordsModule extends VuexModule {
   @Action({ rawError: true })
   public async fetchRecord(date: Date) {
     const { data } = await $axios.get<Record>(
-      `/api/records/${moment(date).format('YYYY-MM-DD')}`
+      `/api/record/${moment(date).format('YYYY-MM-DD')}`
     )
-    if (!this.isRecoded(data.date)) {
+    if (isEmpty(data)) {
+      return
+    }
+    if (!this.isRecoded(new Date(data.date))) {
       this.addRecord(data)
     }
   }

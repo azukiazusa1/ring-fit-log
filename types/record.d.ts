@@ -1,12 +1,12 @@
 type TotalTimeExercising = {
   hour: string
+  minute: string
   second: string
-  milliseconds: string
 }
 
 export interface Record {
   totalTimeExercising: TotalTimeExercising
   totalCaloriesBurned: number
   totalDistanceRun: number
-  date: Date
+  date: Date | string
 }
