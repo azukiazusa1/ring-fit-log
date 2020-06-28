@@ -10,6 +10,7 @@
 import Vue from 'vue'
 import { RecordsStore } from '~/store'
 import { Record } from '~/types/record'
+import isInvalidDate from '~/utils/isInvalidDate'
 
 type AsyncData = {
   date: Date
@@ -20,10 +21,8 @@ type Data = {
 }
 export default Vue.extend({
   async asyncData({ query, error }): Promise<AsyncData> {
-    let date = new Date(query.date as string)
-    if (date.toString() === 'Invalid Date') {
-      date = new Date()
-    }
+    const queryDate = query.date as string
+    const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
     if (RecordsStore.isRecoded(date)) {
       return { date }
     }
