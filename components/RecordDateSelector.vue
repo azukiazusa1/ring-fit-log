@@ -5,20 +5,20 @@
         <v-icon>fas fa-angle-double-left</v-icon>
       </v-btn>
     </v-col>
-    <v-col cols="3" md="2">
+    <v-col cols="2" md="2">
       <v-btn :to="`/record?date=${prevDay}`" icon>
         <v-icon>fas fa-angle-left</v-icon>
       </v-btn>
     </v-col>
-    <v-col cols="6" md="4">
+    <v-col cols="8" md="4">
       <h2 class="headline text-center">{{ formatedDate }}</h2>
     </v-col>
-    <v-col cols="1" md="1" offset="1">
+    <v-col cols="2" md="1" offset-md="1">
       <v-btn :to="`/record?date=${nextDay}`" icon>
         <v-icon>fas fa-angle-right</v-icon>
       </v-btn>
     </v-col>
-    <v-col md="1" offset="1" class="d-none d-md-flex">
+    <v-col md="1" offset-md="1" class="d-none d-md-flex">
       <v-btn :to="`/record?date=${nextWeek}`" icon>
         <v-icon>fas fa-angle-double-right</v-icon>
       </v-btn>
