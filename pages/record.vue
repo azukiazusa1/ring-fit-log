@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>{{ formatedDate }}</span>
+    <record-date-selector :date="date"></record-date-selector>
     <span>{{ isCreateMode }}</span>
     <span>{{ record }}</span>
   </div>
@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import RecordDateSelector from '~/components/RecordDateSelector.vue'
 import { RecordsStore } from '~/store'
 import { Record } from '~/types/record'
 import isInvalidDate from '~/utils/isInvalidDate'
@@ -20,6 +21,9 @@ type Data = {
   date: Date
 }
 export default Vue.extend({
+  components: {
+    RecordDateSelector
+  },
   async asyncData({ query, error }): Promise<AsyncData> {
     const queryDate = query.date as string
     const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
@@ -39,6 +43,7 @@ export default Vue.extend({
 
     return { date }
   },
+  watchQuery: ['date'],
   data(): Data {
     return {
       date: new Date()
