@@ -22,13 +22,8 @@ export default class RecordsModule extends VuexModule {
   }
 
   public get isRecoded() {
-    console.log(this.records)
     return (date: Date) =>
-      this.records.some((record) => {
-        console.log(record.date)
-        console.log(date)
-        return moment(record.date).isSame(date, 'day')
-      })
+      this.records.some((record) => moment(record.date).isSame(date, 'day'))
   }
 
   public get getRecordByMonth() {
