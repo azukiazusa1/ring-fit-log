@@ -15,7 +15,13 @@ const records: Record[] = [
     },
     totalCaloriesBurned: 24.24,
     totalDistanceRun: 1.5,
-    date: new Date('2020-7-1')
+    date: new Date('2020-7-1'),
+    stamps: {
+      arms: true,
+      stomach: false,
+      legs: true,
+      yoga: false
+    }
   }
 ]
 
