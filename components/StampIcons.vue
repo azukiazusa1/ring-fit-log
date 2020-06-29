@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn icon class="mx-2" color="red darken-1"
+    <v-btn @click="armsClick" icon class="mx-2" :color="armsColor"
       ><v-icon>{{ mdiArmFlex }}</v-icon></v-btn
     >
     <v-btn icon class="mx-2" color="yellow accent-4"
@@ -16,15 +16,32 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import { mdiArmFlex, mdiSeatLegroomReduced } from '@mdi/js'
+import { Stamps } from '~/types/record'
 
 export default Vue.extend({
   name: 'StampIcons',
+  props: {
+    stamps: {
+      type: Object as PropType<Stamps>,
+      required: true
+    }
+  },
   data() {
     return {
       mdiArmFlex,
       mdiSeatLegroomReduced
+    }
+  },
+  computed: {
+    armsColor(): string {
+      return this.stamps.arms ? 'red darken-1' : ''
+    }
+  },
+  methods: {
+    armsClick() {
+      this.$emit('armsClick', !this.stamps.arms)
     }
   }
 })
