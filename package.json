@@ -28,9 +28,11 @@
     "http-status-codes": "^1.4.0",
     "lodash": "^4.17.15",
     "nuxt": "^2.0.0",
-    "universal-cookie": "^4.0.3"
+    "universal-cookie": "^4.0.3",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
+    "@mdi/js": "^5.3.45",
     "@nuxt/typescript-build": "^0.6.0",
     "@nuxtjs/eslint-config-typescript": "^1.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",

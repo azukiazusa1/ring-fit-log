@@ -4,13 +4,7 @@
     <v-app-bar fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn
-        v-for="(item, key) in items"
-        :key="key"
-        :to="item.to"
-        class="d-none d-md-flex"
-        text
-      >
+      <v-btn v-for="(item, key) in items" :key="key" :to="item.to" class="d-none d-md-flex" text>
         <v-icon small>{{ item.icon }}</v-icon>
         <span>{{ item.title }}</span>
       </v-btn>
@@ -59,12 +53,17 @@ export default Vue.extend({
         {
           icon: 'fas fa-pen',
           title: '記録する',
-          to: '/chart'
+          to: '/record'
         },
         {
           icon: 'fa fa-chart-line',
           title: 'グラフ',
           to: '/chart'
+        },
+        {
+          icon: 'fa fa-cog',
+          title: '設定',
+          to: '/setting'
         }
       ],
       title: 'Vuetify.js'
