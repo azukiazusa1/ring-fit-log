@@ -21,6 +21,7 @@
       "@nuxtjs/axios",
       "@types/nuxtjs__auth",
       "@nuxtjs/moment",
+      "@nuxtjs/vuetify",
       "cookie-universal-nuxt",
       "@types/jest"
     ],

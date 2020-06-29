@@ -46,7 +46,10 @@ const config = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/axios-accessor'],
+  plugins: [
+    '@/plugins/axios-accessor',
+    { src: '@/plugins/darkTheme', mode: 'client' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -65,6 +68,7 @@ const config = {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     '@nuxtjs/auth',
+    '@nuxtjs/vuetify',
     'cookie-universal-nuxt'
   ],
   /*
