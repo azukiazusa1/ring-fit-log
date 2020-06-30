@@ -1,17 +1,17 @@
 <template>
   <span>
-    <v-btn @click="armsClick" icon class="mx-2" :color="armsColor"
-      ><v-icon>{{ mdiArmFlex }}</v-icon></v-btn
-    >
-    <v-btn icon class="mx-2" color="yellow accent-4"
-      ><v-icon>fas fa-grip-vertical</v-icon></v-btn
-    >
-    <v-btn icon class="mx-2" color="indigo accent-4"
-      ><v-icon>{{ mdiSeatLegroomReduced }}</v-icon></v-btn
-    >
-    <v-btn icon class="mx-2" color="teal accent-4"
-      ><v-icon>fas fa-spa</v-icon></v-btn
-    >
+    <v-btn :color="armsColor" icon class="mx-2" @click="armsClick">
+      <v-icon>{{ mdiArmFlex }}</v-icon>
+    </v-btn>
+    <v-btn :color="stmackColor" icon class="mx-2" @click="stomachClick"
+      ><v-icon>fas fa-grip-vertical </v-icon>
+    </v-btn>
+    <v-btn :color="legsColor" icon class="mx-2" @click="legsClick">
+      <v-icon>{{ mdiSeatLegroomReduced }}</v-icon>
+    </v-btn>
+    <v-btn :color="yogaColor" icon class="mx-2" @click="yogaClick">
+      <v-icon>fas fa-spa</v-icon>
+    </v-btn>
   </span>
 </template>
 
@@ -37,11 +37,29 @@ export default Vue.extend({
   computed: {
     armsColor(): string {
       return this.stamps.arms ? 'red darken-1' : ''
+    },
+    stomachColor(): string {
+      return this.stamps.stomach ? 'yellow accent-4' : ''
+    },
+    legsColor(): string {
+      return this.stamps.legs ? 'indigo accent-4' : ''
+    },
+    yogaColor(): string {
+      return this.stamps.yoga ? 'teal accent-4' : ''
     }
   },
   methods: {
     armsClick() {
-      this.$emit('armsClick', !this.stamps.arms)
+      this.$emit('armsClick')
+    },
+    stomachClick() {
+      this.$emit('stomachClick')
+    },
+    legsClick() {
+      this.$emit('legsClick')
+    },
+    yogaClick() {
+      this.$emit('yogaClick')
     }
   }
 })
