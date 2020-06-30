@@ -48,6 +48,7 @@ const config = {
    */
   plugins: [
     '@/plugins/axios-accessor',
+    '@/plugins/vuelidate',
     { src: '@/plugins/darkTheme', mode: 'client' }
   ],
   /*
