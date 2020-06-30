@@ -60,13 +60,12 @@ export default Vue.extend({
         errors.push(decimalError('合計走行距離'))
       !this.$v._totalDistanceRun!.between &&
         errors.push(rangeError('合計走行距離', 0, 100))
-      !this.$v._totalDistanceRun!.required && errors.push('1')
       return errors
     }
   },
   watch: {
     '$v.$error'() {
-      this.$emit('hasError', this.$v.$error)
+      this.$emit('update:hasError', this.$v.$error)
     },
     validate(value) {
       if (value) this.$v.$touch()
