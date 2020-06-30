@@ -3,7 +3,7 @@
     <v-btn :color="armsColor" icon class="mx-2" @click="armsClick">
       <v-icon>{{ mdiArmFlex }}</v-icon>
     </v-btn>
-    <v-btn :color="stmackColor" icon class="mx-2" @click="stomachClick"
+    <v-btn :color="stomachColor" icon class="mx-2" @click="stomachClick"
       ><v-icon>fas fa-grip-vertical </v-icon>
     </v-btn>
     <v-btn :color="legsColor" icon class="mx-2" @click="legsClick">
