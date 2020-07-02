@@ -61,7 +61,7 @@
     </v-row>
     <v-row>
       <v-col class="text-center">
-        <SubmitButton :disabled="hasError" @click="submit">
+        <SubmitButton :disabled="disabled" @click="submit">
           {{ submitButtonText }}
         </SubmitButton>
       </v-col>
@@ -71,7 +71,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { cloneDeep, values } from 'lodash'
+import { cloneDeep, isObject } from 'lodash'
 import TotalDistanceRunInputField from '~/components/TotalDistanceRunInputField.vue'
 import SubmitButton from '~/components/SubmitButton.vue'
 import StampIcons from '~/components/StampIcons.vue'
@@ -132,6 +132,18 @@ export default Vue.extend({
     },
     hasError(): boolean {
       return Object.values(this.errors).includes(true)
+    },
+    emptyField(): boolean {
+      return Object.values(this.record).every((v) => {
+        if (isObject(v)) {
+          return !Object.values(v).includes(true)
+        }
+        return v == null || v === ''
+      })
+    },
+    disabled(): boolean {
+      console.log(this.emptyField)
+      return this.hasError || this.emptyField
     }
   },
   watch: {
@@ -139,7 +151,6 @@ export default Vue.extend({
       immediate: true,
       handler() {
         this.record = cloneDeep(this.propsRecord)
-        console.log(values(this.record))
       }
     }
   },
@@ -158,6 +169,7 @@ export default Vue.extend({
     },
     submit() {
       this.validate = true
+      if (this.disabled) return
       console.log(this.record)
     }
   }
