@@ -18,6 +18,7 @@
 import Vue from 'vue'
 import { validationMixin } from 'vuelidate'
 import { helpers } from 'vuelidate/lib/validators'
+import { timeError } from '~/config/validationErrorMessages'
 const time = helpers.regex('time', /^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/)
 
 export default Vue.extend({
@@ -50,8 +51,7 @@ export default Vue.extend({
     totalTimeExercisingErrors(): Array<string> {
       const errors: string[] = []
       if (!this.$v._totalTimeExercising!.$dirty) return errors
-      !this.$v._totalTimeExercising!.time &&
-        errors.push('活動時間はHH:mm:ssの形式で入力してください。')
+      !this.$v._totalTimeExercising!.time && errors.push(timeError('活動時間'))
       return errors
     }
   },
