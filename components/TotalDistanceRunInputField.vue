@@ -18,7 +18,9 @@
 import Vue from 'vue'
 import { validationMixin } from 'vuelidate'
 import { decimal, between } from 'vuelidate/lib/validators'
+import { floor } from 'lodash'
 import { decimalError, rangeError } from '~/config/validationErrorMessages'
+import { PRECISION } from '~/config/constant'
 
 export default Vue.extend({
   name: 'TotalDistanceRunInputField',
@@ -45,12 +47,15 @@ export default Vue.extend({
       get(): string | number | null {
         return this.totalDistanceRun
       },
-      set(totalDistanceRun: string | number | null) {
+      set(totalDistanceRun: string | number) {
         if (typeof totalDistanceRun === 'string') {
           this.$emit('update:totalDistanceRun', null)
           return
         }
-        this.$emit('update:totalDistanceRun', totalDistanceRun)
+        this.$emit(
+          'update:totalDistanceRun',
+          floor(totalDistanceRun, PRECISION)
+        )
       }
     },
     totalDistanceRunErrors(): Array<string> {
