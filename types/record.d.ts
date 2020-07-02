@@ -1,10 +1,4 @@
-export interface TotalTimeExercising {
-  hour: string
-  minute: string
-  second: string
-}
-
-export interface stamps {
+export interface Stamps {
   arms: boolean
   stomach: boolean
   legs: boolean
@@ -12,9 +6,9 @@ export interface stamps {
 }
 
 export interface Record {
-  totalTimeExercising: TotalTimeExercising
-  totalCaloriesBurned: number
-  totalDistanceRun: number
+  totalTimeExercising: string
+  totalCaloriesBurned: number | null
+  totalDistanceRun: number | null
   date: Date | string
-  stamps: stamps
+  stamps: Stamps
 }

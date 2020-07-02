@@ -8,11 +8,7 @@ import { Record } from '~/types/record'
 // TODO mock
 const records: Record[] = [
   {
-    totalTimeExercising: {
-      hour: '00',
-      minute: '24',
-      second: '24'
-    },
+    totalTimeExercising: '00:20:02',
     totalCaloriesBurned: 24.24,
     totalDistanceRun: 1.5,
     date: new Date('2020-7-1'),

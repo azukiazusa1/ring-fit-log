@@ -1,33 +1,12 @@
 <template>
   <v-form @submit.prevent="submit">
     <v-row>
-      <v-col cols="4">
-        <v-text-field
-          v-model.number="record.totalTimeExercising.hour"
-          prepend-icon="fas fa-stopwatch"
-          outlined
-          dense
-          color="orange darken-1"
-          label="時間"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="4">
-        <v-text-field
-          v-model.number="record.totalTimeExercising.minute"
-          outlined
-          dense
-          color="orange darken-1"
-          label="分"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="4">
-        <v-text-field
-          v-model.number="record.totalTimeExercising.second"
-          outlined
-          dense
-          color="orange darken-1"
-          label="秒"
-        ></v-text-field>
+      <v-col cols="12">
+        <TotalTimeExercisingInputField
+          :total-time-exercising.sync="record.totalTimeExercising"
+          :has-error.sync="errors.totalTimeExercisingError"
+          :validate="validate"
+        ></TotalTimeExercisingInputField>
       </v-col>
       <v-col cols="12">
         <TotalDistanceRunInputField
@@ -47,7 +26,7 @@
           label="合計消費カロリー"
         ></v-text-field>
       </v-col>
-      <v-col>
+      <v-col cols="12">
         <v-card class="pa-2 text-center center" rounded outlined>
           <StampIcons
             :stamps="record.stamps"
@@ -72,6 +51,7 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { cloneDeep, isObject } from 'lodash'
+import TotalTimeExercisingInputField from '~/components/TotalTimeExercisingInputField.vue'
 import TotalDistanceRunInputField from '~/components/TotalDistanceRunInputField.vue'
 import SubmitButton from '~/components/SubmitButton.vue'
 import StampIcons from '~/components/StampIcons.vue'
@@ -81,6 +61,7 @@ type Data = {
   record: Record
   errors: {
     totalDistanceRunError: boolean
+    totalTimeExercisingError: boolean
   }
   validate: boolean
 }
@@ -88,11 +69,7 @@ type Data = {
 const initialData: Record = {
   totalDistanceRun: null,
   totalCaloriesBurned: null,
-  totalTimeExercising: {
-    hour: '',
-    minute: '',
-    second: ''
-  },
+  totalTimeExercising: '',
   date: '',
   stamps: {
     arms: false,
@@ -105,6 +82,7 @@ const initialData: Record = {
 export default Vue.extend({
   name: 'RecordFormArea',
   components: {
+    TotalTimeExercisingInputField,
     TotalDistanceRunInputField,
     SubmitButton,
     StampIcons
@@ -122,7 +100,10 @@ export default Vue.extend({
   data(): Data {
     return {
       record: initialData,
-      errors: { totalDistanceRunError: false },
+      errors: {
+        totalDistanceRunError: false,
+        totalTimeExercisingError: false
+      },
       validate: false
     }
   },
@@ -142,7 +123,6 @@ export default Vue.extend({
       })
     },
     disabled(): boolean {
-      console.log(this.emptyField)
       return this.hasError || this.emptyField
     }
   },
