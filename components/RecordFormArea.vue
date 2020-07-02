@@ -30,15 +30,11 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12">
-        <v-text-field
-          v-model.number="record.totalDistanceRun"
-          prepend-icon="fas fa-running"
-          outlined
-          dense
-          color="orange darken-1"
-          suffix="km"
-          label="合計走行距離"
-        ></v-text-field>
+        <TotalDistanceRunInputField
+          :total-distance-run.sync="record.totalDistanceRun"
+          :has-error.sync="errors.totalDistanceRunError"
+          :validate="validate"
+        ></TotalDistanceRunInputField>
       </v-col>
       <v-col cols="12">
         <v-text-field
@@ -54,15 +50,20 @@
       <v-col>
         <v-card class="pa-2 text-center center" rounded outlined>
           <StampIcons
-            :stamps.sync="record.stamps"
+            :stamps="record.stamps"
             @armsClick="armsClick"
+            @stomachClick="stomachClick"
+            @legsClick="legsClick"
+            @yogaClick="yogaClick"
           ></StampIcons>
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col class="text-center">
-        <SubmitButton @click="submit">{{ submitButtonText }}</SubmitButton>
+        <SubmitButton :disabled="hasError" @click="submit">
+          {{ submitButtonText }}
+        </SubmitButton>
       </v-col>
     </v-row>
   </v-form>
@@ -70,18 +71,23 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, values } from 'lodash'
+import TotalDistanceRunInputField from '~/components/TotalDistanceRunInputField.vue'
 import SubmitButton from '~/components/SubmitButton.vue'
 import StampIcons from '~/components/StampIcons.vue'
 import { Record } from '~/types/record'
 
 type Data = {
-  record: Partial<Record>
+  record: Record
+  errors: {
+    totalDistanceRunError: boolean
+  }
+  validate: boolean
 }
 
-const initialData: Partial<Record> = {
-  totalDistanceRun: undefined,
-  totalCaloriesBurned: undefined,
+const initialData: Record = {
+  totalDistanceRun: null,
+  totalCaloriesBurned: null,
   totalTimeExercising: {
     hour: '',
     minute: '',
@@ -99,14 +105,14 @@ const initialData: Partial<Record> = {
 export default Vue.extend({
   name: 'RecordFormArea',
   components: {
+    TotalDistanceRunInputField,
     SubmitButton,
     StampIcons
   },
   props: {
     propsRecord: {
-      type: Object as PropType<Record | undefined>,
-      required: false,
-      default: undefined
+      type: Object as PropType<Record>,
+      required: true
     },
     isCreateMode: {
       type: Boolean,
@@ -115,31 +121,43 @@ export default Vue.extend({
   },
   data(): Data {
     return {
-      record: initialData
+      record: initialData,
+      errors: { totalDistanceRunError: false },
+      validate: false
     }
   },
   computed: {
     submitButtonText(): string {
       return this.isCreateMode ? '登録する' : '更新する'
+    },
+    hasError(): boolean {
+      return Object.values(this.errors).includes(true)
     }
   },
   watch: {
     propsRecord: {
       immediate: true,
       handler() {
-        if (!this.propsRecord) {
-          this.record = initialData
-        } else {
-          this.record = cloneDeep(this.propsRecord)
-        }
+        this.record = cloneDeep(this.propsRecord)
+        console.log(values(this.record))
       }
     }
   },
   methods: {
     armsClick() {
-      this.record.stamps!.arms = !this.record.stamps!.arms
+      this.record.stamps.arms = !this.record.stamps.arms
+    },
+    stomachClick() {
+      this.record.stamps.stomach = !this.record.stamps.stomach
+    },
+    legsClick() {
+      this.record.stamps.legs = !this.record.stamps.legs
+    },
+    yogaClick() {
+      this.record.stamps.yoga = !this.record.stamps.yoga
     },
     submit() {
+      this.validate = true
       console.log(this.record)
     }
   }
