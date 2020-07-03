@@ -47,7 +47,7 @@ export default class RecordsModule extends VuexModule {
   @Mutation
   private replaceRecord(payload: Record) {
     const index = this.records.findIndex((record) =>
-      moment(record.date).isSame(payload.date)
+      moment(record.date).isSame(payload.date, 'day')
     )
     if (index === -1) {
       this.addRecord(payload)
@@ -87,10 +87,10 @@ export default class RecordsModule extends VuexModule {
 
   @Action({ rawError: true })
   public async updateRecord(record: Record, date: Date) {
-    const { data } = await $axios.post<Record>(
-      `/api/record${moment(date).format('YYYY-MM-DD')}`,
+    const { data } = await $axios.put<Record>(
+      `/api/record/${moment(date).format('YYYY-MM-DD')}`,
       toJSON(record)
     )
-    this.replaceRecord(record)
+    this.replaceRecord(data)
   }
 }

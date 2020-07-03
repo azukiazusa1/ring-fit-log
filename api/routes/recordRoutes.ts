@@ -5,5 +5,6 @@ const router = Express.Router()
 
 router.get('/:date', recordsController.show)
 router.post('/', recordsController.create)
+router.put('/:date', recordsController.update)
 
 export default router

@@ -98,6 +98,7 @@ export default Vue.extend({
           })
         }
       } catch (e) {
+        console.error(e)
         SnackbarModule.error({
           message: '記録の登録に失敗しました。'
         })
