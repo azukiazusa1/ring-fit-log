@@ -4,6 +4,7 @@
     <recrod-form-area
       :props-record="record"
       :is-create-mode="isCreateMode"
+      :loading="loading"
       @onSubmit="onSubmit"
     ></recrod-form-area>
     <span>{{ isCreateMode }}</span>
@@ -82,6 +83,7 @@ export default Vue.extend({
   },
   methods: {
     async onSubmit(record: Record) {
+      this.loading = true
       record.date = this.date
       try {
         if (this.isCreateMode) {
@@ -97,6 +99,8 @@ export default Vue.extend({
         SnackbarModule.error({
           message: '記録の登録に失敗しました。'
         })
+      } finally {
+        this.loading = false
       }
     }
   }

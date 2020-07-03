@@ -36,7 +36,7 @@
     </v-row>
     <v-row>
       <v-col class="text-center">
-        <SubmitButton :disabled="disabled" @click="submit">
+        <SubmitButton :disabled="disabled" :loading="loading" @click="submit">
           {{ submitButtonText }}
         </SubmitButton>
       </v-col>
@@ -94,6 +94,11 @@ export default Vue.extend({
     isCreateMode: {
       type: Boolean,
       required: true
+    },
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data(): Data {

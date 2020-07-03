@@ -4,6 +4,7 @@
     color="primary"
     min-width="300"
     :disabled="disabled"
+    :loading="loading"
     @click="click"
   >
     <slot />
@@ -16,6 +17,11 @@ export default Vue.extend({
   name: 'SubmitButton',
   props: {
     disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    loading: {
       type: Boolean,
       required: false,
       default: false
