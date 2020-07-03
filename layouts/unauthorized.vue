@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import AppSnackbar from '~/components/AppSnackbar.vue'
+import AppSnackbar from '~/components/organism/AppSnackbar.vue'
 
 type DataType = {
   title: String

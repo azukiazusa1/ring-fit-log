@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import BrandIconButton from '~/components/BrandLoginButton.vue'
+import BrandIconButton from '~/components/atom/BrandLoginButton.vue'
 import SnackbarButton from '~/components/SnackbarButton.vue'
 import { SnackbarModule } from '~/store'
 

@@ -14,8 +14,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import RecordDateSelector from '~/components/RecordDateSelector.vue'
-import RecrodFormArea from '~/components/RecordFormArea.vue'
+import RecordDateSelector from '~/components/molecule/RecordDateSelector'
+import RecrodFormArea from '~/components/molecule/RecordFormArea.vue'
 import { RecordsStore, SnackbarModule } from '~/store'
 import { Record } from '~/types/record'
 import isInvalidDate from '~/utils/isInvalidDate'

@@ -47,11 +47,11 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { cloneDeep, isObject } from 'lodash'
-import TotalTimeExercisingInputField from '~/components/TotalTimeExercisingInputField.vue'
-import TotalDistanceRunInputField from '~/components/TotalDistanceRunInputField.vue'
-import TotalCaloriesBurnedInputField from '~/components/TotalCaloriesBurnedInputField.vue'
-import SubmitButton from '~/components/SubmitButton.vue'
-import StampIcons from '~/components/StampIcons.vue'
+import TotalTimeExercisingInputField from '~/components/atom/TotalTimeExercisingInputField.vue'
+import TotalDistanceRunInputField from '~/components/atom/TotalDistanceRunInputField.vue'
+import TotalCaloriesBurnedInputField from '~/components/atom/TotalCaloriesBurnedInputField.vue'
+import SubmitButton from '~/components/atom/SubmitButton.vue'
+import StampIcons from '~/components/molecule//StampIcons.vue'
 import { Record } from '~/types/record'
 
 type Data = {

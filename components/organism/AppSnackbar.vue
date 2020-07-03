@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import SnackbarIcon from '~/components/SnackbarIcon.vue'
+import SnackbarIcon from '~/components/atom/SnackbarIcon.vue'
 import { SnackbarModule } from '~/store'
 
 export default Vue.extend({

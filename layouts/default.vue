@@ -4,7 +4,13 @@
     <v-app-bar fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn v-for="(item, key) in items" :key="key" :to="item.to" class="d-none d-md-flex" text>
+      <v-btn
+        v-for="(item, key) in items"
+        :key="key"
+        :to="item.to"
+        class="d-none d-md-flex"
+        text
+      >
         <v-icon small>{{ item.icon }}</v-icon>
         <span>{{ item.title }}</span>
       </v-btn>
@@ -26,8 +32,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import AvatorMenu from '~/components/AvatorMenu.vue'
-import AppSnackbar from '~/components/AppSnackbar.vue'
+import AvatorMenu from '~/components/molecule/AvatorMenu.vue'
+import AppSnackbar from '~/components/organism/AppSnackbar.vue'
 import getLoginUser from '~/utils/getLoginUser'
 import { SnackbarModule } from '~/store'
 

@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ToggleDarkMode from '~/components/ToggleDarkMode.vue'
+import ToggleDarkMode from '~/components/atom/ToggleDarkMode.vue'
 
 export default Vue.extend({
   components: {
