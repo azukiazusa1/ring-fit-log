@@ -10,7 +10,7 @@
     suffix="km"
     label="合計走行距離"
     @input="$v._totalDistanceRun.$touch()"
-    @blur="$v._totalDistanceRun.$touch()"
+    @blur="onBlur"
   ></v-text-field>
 </template>
 
@@ -74,6 +74,19 @@ export default Vue.extend({
     },
     validate(value) {
       if (value) this.$v.$touch()
+    }
+  },
+  methods: {
+    onBlur(e: FocusEvent) {
+      if (
+        this.totalDistanceRun === null ||
+        typeof this.totalDistanceRun === 'string'
+      ) {
+        return
+      }
+      this.$v.$touch()
+      const target = e.target as HTMLInputElement
+      target.value = this.totalDistanceRun.toString()
     }
   }
 })
