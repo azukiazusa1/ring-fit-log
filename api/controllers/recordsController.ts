@@ -38,5 +38,11 @@ export default {
     } else {
       res.json({})
     }
+  },
+  create: (req: Express.Request, res: Express.Response) => {
+    const record = req.body
+    console.log(record)
+    // TODO とりあえずオウム返し
+    res.json(record)
   }
 }

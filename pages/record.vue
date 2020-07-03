@@ -80,6 +80,7 @@ export default Vue.extend({
   },
   methods: {
     async onSubmit(record: Record) {
+      record.date = this.date
       try {
         if (this.isCreateMode) {
           await RecordsStore.createRecord(record)
