@@ -2,7 +2,7 @@ import Express from 'express'
 import httpStatusCode from 'http-status-codes'
 import moment from 'moment'
 import isInvalidDate from '../../utils/isInvalidDate'
-import formatResponse from '../../utils/formatResponse'
+import toJSON from '../../utils/toJSON'
 import { Record } from '~/types/record'
 
 // TODO mock
@@ -34,7 +34,7 @@ export default {
       moment(record.date).isSame(date, 'day')
     )
     if (record) {
-      res.json(formatResponse(record))
+      res.json(toJSON(record))
     } else {
       res.json({})
     }

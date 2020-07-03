@@ -2,6 +2,7 @@ import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import moment from 'moment'
 import { isEmpty } from 'lodash'
 import { $axios } from '~/utils/api'
+import toJSON from '~/utils/toJSON'
 import { Record } from '~/types/record'
 
 @Module({
@@ -80,7 +81,7 @@ export default class RecordsModule extends VuexModule {
 
   @Action({ rawError: true })
   public async createRecord(record: Record) {
-    const { data } = await $axios.post<Record>('/api/record', record)
+    const { data } = await $axios.post<Record>('/api/record', toJSON(record))
     this.addRecord(data)
   }
 }

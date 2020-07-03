@@ -25,6 +25,7 @@ type AsyncData = {
 
 type Data = {
   date: Date
+  loading: boolean
 }
 
 const initialData: Record = {
@@ -67,7 +68,8 @@ export default Vue.extend({
   watchQuery: ['date'],
   data(): Data {
     return {
-      date: new Date()
+      date: new Date(),
+      loading: false
     }
   },
   computed: {
