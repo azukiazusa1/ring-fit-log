@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import RecordDateSelector from '~/components/molecule/RecordDateSelector'
+import RecordDateSelector from '~/components/molecule/RecordDateSelector.vue'
 import RecrodFormArea from '~/components/molecule/RecordFormArea.vue'
 import { RecordsStore, SnackbarModule } from '~/store'
 import { Record } from '~/types/record'

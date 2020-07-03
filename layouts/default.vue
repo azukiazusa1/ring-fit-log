@@ -4,16 +4,16 @@
     <v-app-bar fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-btn
-        v-for="(item, key) in items"
-        :key="key"
-        :to="item.to"
-        class="d-none d-md-flex"
-        text
-      >
-        <v-icon small>{{ item.icon }}</v-icon>
-        <span>{{ item.title }}</span>
-      </v-btn>
+      <template v-for="(item, key) in items" class="d-none d-md-flex">
+        <NavItem
+          :key="key"
+          :title="item.title"
+          :icon="item.icon"
+          :to="item.to"
+          prepend-icon
+          text
+        ></NavItem>
+      </template>
       <avator-menu :user="user" @logout="logout"></avator-menu>
     </v-app-bar>
     <v-main>
@@ -22,10 +22,14 @@
       </v-container>
     </v-main>
     <v-bottom-navigation class="d-md-none">
-      <v-btn v-for="(item, key) in items" :key="key" :to="item.to">
-        <span>{{ item.title }}</span>
-        <v-icon small>{{ item.icon }}</v-icon>
-      </v-btn>
+      <template v-for="(item, key) in items">
+        <NavItem
+          :key="key"
+          :title="item.title"
+          :icon="item.icon"
+          :to="item.to"
+        ></NavItem>
+      </template>
     </v-bottom-navigation>
   </v-app>
 </template>
@@ -34,6 +38,7 @@
 import Vue from 'vue'
 import AvatorMenu from '~/components/molecule/AvatorMenu.vue'
 import AppSnackbar from '~/components/organism/AppSnackbar.vue'
+import NavItem from '~/components/atom/NavItem.vue'
 import getLoginUser from '~/utils/getLoginUser'
 import { SnackbarModule } from '~/store'
 
@@ -51,7 +56,8 @@ type DataType = {
 export default Vue.extend({
   components: {
     AvatorMenu,
-    AppSnackbar
+    AppSnackbar,
+    NavItem
   },
   data(): DataType {
     return {
