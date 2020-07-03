@@ -1,6 +1,11 @@
 <template>
   <div>
     <record-date-selector :date="date"></record-date-selector>
+    <recrod-form-area
+      :props-record="record"
+      :is-create-mode="isCreateMode"
+      @onSubmit="onSubmit"
+    ></recrod-form-area>
     <span>{{ isCreateMode }}</span>
     <span>{{ record }}</span>
   </div>
@@ -9,7 +14,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import RecordDateSelector from '~/components/RecordDateSelector.vue'
-import { RecordsStore } from '~/store'
+import RecrodFormArea from '~/components/RecordFormArea.vue'
+import { RecordsStore, SnackbarModule } from '~/store'
 import { Record } from '~/types/record'
 import isInvalidDate from '~/utils/isInvalidDate'
 
@@ -20,9 +26,24 @@ type AsyncData = {
 type Data = {
   date: Date
 }
+
+const initialData: Record = {
+  totalDistanceRun: null,
+  totalCaloriesBurned: null,
+  totalTimeExercising: '',
+  date: '',
+  stamps: {
+    arms: false,
+    stomach: false,
+    legs: false,
+    yoga: false
+  }
+}
+
 export default Vue.extend({
   components: {
-    RecordDateSelector
+    RecordDateSelector,
+    RecrodFormArea
   },
   async asyncData({ query, error }): Promise<AsyncData> {
     const queryDate = query.date as string
@@ -50,15 +71,30 @@ export default Vue.extend({
     }
   },
   computed: {
-    formatedDate(): string {
-      return this.$moment(this.date).format('YYYY-MM-DD')
-    },
     isCreateMode(): boolean {
       return !RecordsStore.isRecoded(this.date)
     },
-    record(): Record | undefined {
-      console.log(RecordsStore.getRecords)
-      return RecordsStore.getRecordByDate(this.date)
+    record(): Record {
+      return RecordsStore.getRecordByDate(this.date) ?? initialData
+    }
+  },
+  methods: {
+    async onSubmit(record: Record) {
+      try {
+        if (this.isCreateMode) {
+          await RecordsStore.createRecord(record)
+          SnackbarModule.info({
+            message: '新しい記録を登録しました。'
+          })
+        } else {
+          // TODO 更新処理
+          return
+        }
+      } catch (e) {
+        SnackbarModule.error({
+          message: '記録の登録に失敗しました。'
+        })
+      }
     }
   }
 })

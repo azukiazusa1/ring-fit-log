@@ -77,4 +77,10 @@ export default class RecordsModule extends VuexModule {
       this.addRecord(data)
     }
   }
+
+  @Action({ rawError: true })
+  public async createRecord(record: Record) {
+    const { data } = await $axios.post<Record>('/api/record', record)
+    this.addRecord(data)
+  }
 }
