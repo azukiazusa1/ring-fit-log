@@ -16,15 +16,11 @@
         ></TotalDistanceRunInputField>
       </v-col>
       <v-col cols="12">
-        <v-text-field
-          v-model.number="record.totalCaloriesBurned"
-          prepend-icon="fas fa-fire"
-          outlined
-          dense
-          color="orange darken-1"
-          suffix="kcal"
-          label="合計消費カロリー"
-        ></v-text-field>
+        <TotalCaloriesBurnedInputField
+          :total-calories-burned.sync="record.totalCaloriesBurned"
+          :has-error.sync="errors.totalCaloriesBurnedError"
+          :validate="validate"
+        ></TotalCaloriesBurnedInputField>
       </v-col>
       <v-col cols="12">
         <v-card class="pa-2 text-center center" rounded outlined>
@@ -53,6 +49,7 @@ import Vue, { PropType } from 'vue'
 import { cloneDeep, isObject } from 'lodash'
 import TotalTimeExercisingInputField from '~/components/TotalTimeExercisingInputField.vue'
 import TotalDistanceRunInputField from '~/components/TotalDistanceRunInputField.vue'
+import TotalCaloriesBurnedInputField from '~/components/TotalCaloriesBurnedInputField.vue'
 import SubmitButton from '~/components/SubmitButton.vue'
 import StampIcons from '~/components/StampIcons.vue'
 import { Record } from '~/types/record'
@@ -62,6 +59,7 @@ type Data = {
   errors: {
     totalDistanceRunError: boolean
     totalTimeExercisingError: boolean
+    totalCaloriesBurnedError: boolean
   }
   validate: boolean
 }
@@ -84,6 +82,7 @@ export default Vue.extend({
   components: {
     TotalTimeExercisingInputField,
     TotalDistanceRunInputField,
+    TotalCaloriesBurnedInputField,
     SubmitButton,
     StampIcons
   },
@@ -102,7 +101,8 @@ export default Vue.extend({
       record: initialData,
       errors: {
         totalDistanceRunError: false,
-        totalTimeExercisingError: false
+        totalTimeExercisingError: false,
+        totalCaloriesBurnedError: false
       },
       validate: false
     }
@@ -150,7 +150,7 @@ export default Vue.extend({
     submit() {
       this.validate = true
       if (this.disabled) return
-      console.log(this.record)
+      this.$emit('onSubmit', this.record)
     }
   }
 })
