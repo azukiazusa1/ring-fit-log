@@ -92,8 +92,10 @@ export default Vue.extend({
             message: '新しい記録を登録しました。'
           })
         } else {
-          // TODO 更新処理
-          return
+          await RecordsStore.updateRecord(record, this.date)
+          SnackbarModule.info({
+            message: '記録を更新しました。'
+          })
         }
       } catch (e) {
         SnackbarModule.error({

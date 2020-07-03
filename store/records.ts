@@ -84,4 +84,13 @@ export default class RecordsModule extends VuexModule {
     const { data } = await $axios.post<Record>('/api/record', toJSON(record))
     this.addRecord(data)
   }
+
+  @Action({ rawError: true })
+  public async updateRecord(record: Record, date: Date) {
+    const { data } = await $axios.post<Record>(
+      `/api/record${moment(date).format('YYYY-MM-DD')}`,
+      toJSON(record)
+    )
+    this.replaceRecord(record)
+  }
 }
