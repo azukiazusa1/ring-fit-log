@@ -6,7 +6,7 @@
     </template>
     <template v-else>
       <span>{{ title }}</span>
-      <v-icon v-if="icon" small>{{ icon }}</v-icon>
+      <v-icon v-if="icon" small class="mb-2">{{ icon }}</v-icon>
     </template>
   </v-btn>
 </template>
