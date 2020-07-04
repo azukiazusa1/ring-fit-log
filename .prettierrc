@@ -2,5 +2,15 @@
   "semi": false,
   "arrowParens": "always",
   "singleQuote": true,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "vue/max-attributes-per-line": [
+    2,
+    {
+      "singleline": 1,
+      "multiline": {
+        "max": 1,
+        "allowFirstLine": false
+      }
+    }
+  ]
 }
