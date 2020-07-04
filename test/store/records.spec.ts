@@ -1,7 +1,6 @@
 import { createStore } from '~/.nuxt/store'
 import { initialiseStores, RecordsStore } from '~/utils/store-accessor'
 import { Record } from '~/types/record'
-import e from 'express'
 
 let mockEmpty = false
 
