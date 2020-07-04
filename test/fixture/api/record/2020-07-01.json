@@ -1,0 +1,12 @@
+{
+  "totalTimeExercising": "00:20:02",
+  "totalCaloriesBurned": 24.24,
+  "totalDistanceRun": 1.5,
+  "date": "2020-07-01T00:00:00+09:00",
+  "stamps": {
+    "arms": true,
+    "stomach": false,
+    "legs": true,
+    "yoga": false
+  }
+}

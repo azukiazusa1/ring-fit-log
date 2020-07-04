@@ -7,8 +7,6 @@
       :loading="loading"
       @onSubmit="onSubmit"
     ></recrod-form-area>
-    <span>{{ isCreateMode }}</span>
-    <span>{{ record }}</span>
   </div>
 </template>
 

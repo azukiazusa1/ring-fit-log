@@ -59,6 +59,9 @@ export default class RecordsModule extends VuexModule {
   @Action({ rawError: true })
   public async fetchRecords() {
     const { data } = await $axios.get<Record[]>('/api/records')
+    if (isEmpty(data)) {
+      return
+    }
     data.forEach((v) => {
       if (!this.isRecoded(new Date(v.date))) {
         this.addRecord(v)
