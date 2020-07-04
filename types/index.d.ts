@@ -1,5 +1,7 @@
-export interface Greeting {
-  greeting: string
+export type Item = {
+  icon: string
+  title: string
+  to: string
 }
 
 export type Types = 'info' | 'error' | 'warning' | 'success'

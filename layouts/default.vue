@@ -1,51 +1,22 @@
 <template>
   <v-app>
-    <app-snackbar></app-snackbar>
-    <v-app-bar fixed app color="main" dark>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <span v-for="(item, key) in items" :key="key" class="d-none d-md-flex">
-        <NavItem
-          :title="item.title"
-          :icon="item.icon"
-          :to="item.to"
-          prepend-icon
-          text
-        ></NavItem>
-      </span>
-      <avator-menu :user="user" @logout="logout"></avator-menu>
-    </v-app-bar>
+    <AppSnackbar />
+    <AppHeader :items="items" :title="title" />
     <v-main>
       <v-container>
         <nuxt />
       </v-container>
     </v-main>
-    <v-bottom-navigation class="d-md-none">
-      <template v-for="(item, key) in items">
-        <NavItem
-          :key="key"
-          :title="item.title"
-          :icon="item.icon"
-          :to="item.to"
-        ></NavItem>
-      </template>
-    </v-bottom-navigation>
+    <AppFooter :items="items" />
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import AvatorMenu from '~/components/molecule/AvatorMenu.vue'
 import AppSnackbar from '~/components/organism/AppSnackbar.vue'
-import NavItem from '~/components/atom/NavItem.vue'
-import getLoginUser from '~/utils/getLoginUser'
-import { SnackbarModule } from '~/store'
-
-type Item = {
-  icon: string
-  title: string
-  to: string
-}
+import AppHeader from '~/components/organism/AppHeader.vue'
+import AppFooter from '~/components/organism/AppFooter.vue'
+import { Item } from '~/types/index'
 
 type DataType = {
   items: Array<Item>
@@ -54,9 +25,9 @@ type DataType = {
 
 export default Vue.extend({
   components: {
-    AvatorMenu,
     AppSnackbar,
-    NavItem
+    AppHeader,
+    AppFooter
   },
   data(): DataType {
     return {
@@ -83,27 +54,6 @@ export default Vue.extend({
         }
       ],
       title: 'Vuetify.js'
-    }
-  },
-  computed: {
-    user() {
-      return getLoginUser(this.$auth)
-    }
-  },
-  methods: {
-    async logout() {
-      try {
-        await this.$auth.logout()
-        SnackbarModule.info({
-          message: 'ログアウトしました。'
-        })
-        this.$router.push('/')
-        this.$cookies.remove('uid')
-      } catch {
-        SnackbarModule.error({
-          message: 'ログアウトに失敗しました。'
-        })
-      }
     }
   }
 })
