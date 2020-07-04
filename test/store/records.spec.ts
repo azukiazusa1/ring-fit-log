@@ -1,6 +1,7 @@
 import { createStore } from '~/.nuxt/store'
 import { initialiseStores, RecordsStore } from '~/utils/store-accessor'
 import { Record } from '~/types/record'
+import e from 'express'
 
 let mockEmpty = false
 
@@ -98,6 +99,35 @@ describe('store/record', () => {
         expect(RecordsStore.getRecords[0]).not.toEqual(oldData)
         expect(RecordsStore.getRecords[0]).toEqual(newData)
         expect(RecordsStore.getRecords.length).toEqual(oldLength)
+      })
+    })
+  })
+
+  describe('Getters', () => {
+    beforeEach(async () => {
+      await RecordsStore.fetchRecords()
+    })
+
+    describe('getRecordByDate', () => {
+      test('同じ日付のレコードを返す', () => {
+        const record = RecordsStore.getRecordByDate(new Date('2020-7-1'))
+        expect(record).toBeTruthy()
+        expect(record?.date).toEqual('2020-07-01T00:00:00+09:00')
+      })
+
+      test('存在しない日付のときはundefinedを返す', () => {
+        const record = RecordsStore.getRecordByDate(new Date('2020-9-1'))
+        expect(record).toBeUndefined()
+      })
+    })
+
+    describe('isRecorded', () => {
+      test('渡した日付のレコードが存在する場合trueを返す', () => {
+        expect(RecordsStore.isRecoded(new Date('2020-7-1'))).toEqual(true)
+      })
+
+      test('渡した日付のレコードが存在しない場合falseを返す', () => {
+        expect(RecordsStore.isRecoded(new Date('2020-9-1'))).toEqual(false)
       })
     })
   })
