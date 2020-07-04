@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <app-snackbar></app-snackbar>
-    <v-app-bar fixed app>
+    <v-app-bar fixed app color="main" dark>
       <v-toolbar-title v-text="title" />
     </v-app-bar>
     <v-main>

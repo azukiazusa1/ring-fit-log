@@ -1,19 +1,18 @@
 <template>
   <v-app>
     <app-snackbar></app-snackbar>
-    <v-app-bar fixed app>
+    <v-app-bar fixed app color="main" dark>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <template v-for="(item, key) in items" class="d-none d-md-flex">
+      <span v-for="(item, key) in items" :key="key" class="d-none d-md-flex">
         <NavItem
-          :key="key"
           :title="item.title"
           :icon="item.icon"
           :to="item.to"
           prepend-icon
           text
         ></NavItem>
-      </template>
+      </span>
       <avator-menu :user="user" @logout="logout"></avator-menu>
     </v-app-bar>
     <v-main>
@@ -66,6 +65,11 @@ export default Vue.extend({
           icon: 'fas fa-pen',
           title: '記録する',
           to: '/record'
+        },
+        {
+          icon: 'fas fa-calendar',
+          title: 'カレンダー',
+          to: '/calendar'
         },
         {
           icon: 'fa fa-chart-line',

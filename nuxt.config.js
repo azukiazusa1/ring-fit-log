@@ -6,6 +6,8 @@ const {
   FACEBOOK_CLIENT
 } = process.env
 
+const colors = require('vuetify/es5/util/colors').default
+
 const brands = {
   github: '#211F1F',
   facebook: '#3B5998',
@@ -88,10 +90,14 @@ const config = {
     defaultAssets: { icons: 'fa' },
     theme: {
       themes: {
-        light: brands,
+        light: {
+          ...brands,
+          main: colors.orange.darken1
+        },
         dark: {
           ...brands,
-          github: '#fff'
+          github: '#fff',
+          main: colors.orange.darken1
         }
       }
     }

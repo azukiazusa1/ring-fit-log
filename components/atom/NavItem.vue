@@ -1,8 +1,8 @@
 <template>
   <v-btn :to="to" :text="text">
     <template v-if="prependIcon">
-      <v-icon v-if="icon" small>{{ icon }}</v-icon>
-      <span>{{ title }}</span>
+      <v-icon v-if="icon" class="mr-5" small>{{ icon }}</v-icon>
+      <span class="font-weight-bold">{{ title }}</span>
     </template>
     <template v-else>
       <span>{{ title }}</span>
