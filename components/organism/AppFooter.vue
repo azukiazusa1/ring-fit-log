@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-navigation class="d-md-none" color="main">
+  <v-bottom-navigation class="d-md-none" color="main" app>
     <template v-for="(item, key) in items">
       <NavItem :key="key" :title="item.title" :icon="item.icon" :to="item.to" />
     </template>

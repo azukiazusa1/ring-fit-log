@@ -83,6 +83,21 @@ export default class RecordsModule extends VuexModule {
   }
 
   @Action({ rawError: true })
+  public async fetchRecordByMonth(date: Date) {
+    const { data } = await $axios.get<Record[]>(
+      `/api/record/month/${moment(date).format('YYYY-MM-DD')}`
+    )
+    if (isEmpty(data)) {
+      return
+    }
+    data.forEach((v) => {
+      if (!this.isRecoded(new Date(v.date))) {
+        this.addRecord(v)
+      }
+    })
+  }
+
+  @Action({ rawError: true })
   public async createRecord(record: Record) {
     const { data } = await $axios.post<Record>('/api/record', toJSON(record))
     this.addRecord(data)
