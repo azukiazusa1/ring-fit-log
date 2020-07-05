@@ -1,6 +1,7 @@
 import Express from 'express'
 import httpStatusCode from 'http-status-codes'
 import moment from 'moment'
+import { isEmpty } from 'lodash'
 import isInvalidDate from '../../utils/isInvalidDate'
 import toJSON from '../../utils/toJSON'
 import { Record } from '~/types/record'
@@ -11,12 +12,48 @@ const records: Record[] = [
     totalTimeExercising: '00:20:02',
     totalCaloriesBurned: 24.24,
     totalDistanceRun: 1.5,
-    date: new Date('2020-7-1'),
+    date: '2020-07-01T00:00:00+09:00',
     stamps: {
       arms: true,
       stomach: false,
       legs: true,
       yoga: false
+    }
+  },
+  {
+    totalTimeExercising: '00:30:32',
+    totalCaloriesBurned: 32.32,
+    totalDistanceRun: 4.53,
+    date: '2020-07-02T00:00:00+09:00',
+    stamps: {
+      arms: true,
+      stomach: true,
+      legs: false,
+      yoga: false
+    }
+  },
+  {
+    totalTimeExercising: '00:10:24',
+    totalCaloriesBurned: 8.23,
+    totalDistanceRun: null,
+    date: '2020-07-03T00:00:00+09:00',
+    stamps: {
+      arms: false,
+      stomach: false,
+      legs: false,
+      yoga: true
+    }
+  },
+  {
+    totalTimeExercising: '00:21:14',
+    totalCaloriesBurned: 100.55,
+    totalDistanceRun: 3.5,
+    date: '2020-08-01T00:00:00+09:00',
+    stamps: {
+      arms: true,
+      stomach: false,
+      legs: false,
+      yoga: true
     }
   }
 ]
@@ -35,6 +72,24 @@ export default {
     )
     if (record) {
       res.json(toJSON(record))
+    } else {
+      res.json({})
+    }
+  },
+  month: (req: Express.Request, res: Express.Response) => {
+    if (isInvalidDate(req.params.date)) {
+      res.status(httpStatusCode.BAD_REQUEST)
+      res.json({ message: 'Invalid Date' })
+      return
+    }
+
+    const date = new Date(req.params.date)
+    const monthRecord = records.filter((record) =>
+      moment(record.date).isSame(date, 'months')
+    )
+
+    if (!isEmpty(monthRecord)) {
+      res.json(monthRecord.map((r) => toJSON(r)))
     } else {
       res.json({})
     }
