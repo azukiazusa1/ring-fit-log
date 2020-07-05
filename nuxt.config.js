@@ -92,12 +92,14 @@ const config = {
       themes: {
         light: {
           ...brands,
-          main: colors.orange.darken1
+          main: '#ff8200',
+          secondary: '#fb0'
         },
         dark: {
           ...brands,
           github: '#fff',
-          main: colors.orange.darken1
+          main: '#ff8200',
+          secondary: '#fb0'
         }
       }
     }
