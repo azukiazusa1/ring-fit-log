@@ -8,6 +8,7 @@
         :events="functionEvents"
         locale="ja"
         :day-format="(date) => new Date(date).getDate()"
+        :picker-date.sync="pickerDate"
       ></v-date-picker>
       <v-skeleton-loader slot="placeholder" type="date-picker-days" />
     </client-only>
@@ -32,7 +33,8 @@ export default Vue.extend({
   },
   data() {
     return {
-      date: ''
+      date: '',
+      pickerDate: null
     }
   },
   computed: {
@@ -46,6 +48,11 @@ export default Vue.extend({
     },
     buttonClick() {
       this.$router.push(`/record?date=${this.date}`)
+    }
+  },
+  watch: {
+    pickerDate(val) {
+      console.log(val)
     }
   }
 })
