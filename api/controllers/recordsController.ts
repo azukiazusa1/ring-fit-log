@@ -36,7 +36,7 @@ const records: Record[] = [
     totalTimeExercising: '00:10:24',
     totalCaloriesBurned: 8.23,
     totalDistanceRun: null,
-    date: '2020-07-03T00:00:00+09:00',
+    date: '2020-07-06T00:00:00+09:00',
     stamps: {
       arms: false,
       stomach: false,

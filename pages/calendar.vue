@@ -19,7 +19,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ShowRecord from '~/components/molecule/ShowRecord.vue'
-import { RecordsStore } from '~/store'
+import { RecordsStore, SnackbarModule } from '~/store'
 import { Record } from '~/types/record'
 
 export default Vue.extend({
@@ -28,8 +28,18 @@ export default Vue.extend({
   },
   async asyncData({ $moment }) {
     const now = new Date()
-    await RecordsStore.fetchRecordByMonth(now)
-    return { date: $moment(now).format('YYYY-MM-DD') }
+    const date = $moment(now).format('YYYY-MM-DD')
+    const month = $moment(now).format('YYYY-MM')
+    if (RecordsStore.isChached(month)) return { date }
+
+    try {
+      await RecordsStore.fetchRecordByMonth(month)
+      return { date }
+    } catch (e) {
+      SnackbarModule.error({
+        message: 'データの取得時にエラーが発生しました。'
+      })
+    }
   },
   data() {
     return {
@@ -42,17 +52,24 @@ export default Vue.extend({
       return RecordsStore.getRecordByDate(new Date(this.date))
     }
   },
+  watch: {
+    async pickerDate(val) {
+      if (RecordsStore.isChached(val)) return
+      try {
+        await RecordsStore.fetchRecordByMonth(val)
+      } catch (e) {
+        SnackbarModule.error({
+          message: 'データの取得時にエラーが発生しました。'
+        })
+      }
+    }
+  },
   methods: {
     functionEvents(date: string) {
       return RecordsStore.isRecoded(new Date(date))
     },
     buttonClick() {
       this.$router.push(`/record?date=${this.date}`)
-    }
-  },
-  watch: {
-    pickerDate(val) {
-      console.log(val)
     }
   }
 })

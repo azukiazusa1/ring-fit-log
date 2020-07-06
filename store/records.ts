@@ -64,6 +64,7 @@ export default class RecordsModule extends VuexModule {
   @Mutation
   private cache(month: string) {
     this.cachedMonth.push(month)
+    console.log(this.cachedMonth)
   }
 
   @Action({ rawError: true })
@@ -93,9 +94,8 @@ export default class RecordsModule extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public async fetchRecordByMonth(date: Date) {
-    const month = moment(date).format('YYYY-MM')
-    const { data } = await $axios.get<Record[]>(`/api/record/month/${month}}`)
+  public async fetchRecordByMonth(month: string) {
+    const { data } = await $axios.get<Record[]>(`/api/record/month/${month}`)
     this.cache(month)
     if (isEmpty(data)) {
       return
