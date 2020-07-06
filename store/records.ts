@@ -12,6 +12,7 @@ import { Record } from '~/types/record'
 })
 export default class RecordsModule extends VuexModule {
   private records: Record[] = []
+  private cachedMonth: string[] = []
 
   public get getRecords() {
     return this.records
@@ -30,6 +31,10 @@ export default class RecordsModule extends VuexModule {
   public get getRecordByMonth() {
     // TODO
     return this.records
+  }
+
+  public get isChached() {
+    return (month: string) => this.cachedMonth.includes(month)
   }
 
   @Mutation
@@ -54,6 +59,11 @@ export default class RecordsModule extends VuexModule {
       return
     }
     this.records.splice(index, 1, payload)
+  }
+
+  @Mutation
+  private cache(month: string) {
+    this.cachedMonth.push(month)
   }
 
   @Action({ rawError: true })
@@ -84,9 +94,9 @@ export default class RecordsModule extends VuexModule {
 
   @Action({ rawError: true })
   public async fetchRecordByMonth(date: Date) {
-    const { data } = await $axios.get<Record[]>(
-      `/api/record/month/${moment(date).format('YYYY-MM-DD')}`
-    )
+    const month = moment(date).format('YYYY-MM')
+    const { data } = await $axios.get<Record[]>(`/api/record/month/${month}}`)
+    this.cache(month)
     if (isEmpty(data)) {
       return
     }
