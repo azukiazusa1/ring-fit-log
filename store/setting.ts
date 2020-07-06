@@ -1,5 +1,6 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import { Week } from '~/types/setting'
+import { SUNDAY } from '~/config/constant'
 
 @Module({
   name: 'setting',
@@ -7,7 +8,7 @@ import { Week } from '~/types/setting'
   namespaced: true
 })
 export default class SettingModule extends VuexModule {
-  private firstDayOfWeek: Week = 0
+  private firstDayOfWeek: Week = SUNDAY
 
   public get getFirstDayOfWeek() {
     return this.firstDayOfWeek
