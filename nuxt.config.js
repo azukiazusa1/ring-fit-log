@@ -51,7 +51,8 @@ const config = {
   plugins: [
     '@/plugins/axios-accessor',
     '@/plugins/vuelidate',
-    { src: '@/plugins/darkTheme', mode: 'client' }
+    { src: '@/plugins/darkTheme', mode: 'client' },
+    { src: '@/plugins/localStorage', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules

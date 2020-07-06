@@ -7,6 +7,7 @@
         full-width
         :events="functionEvents"
         locale="ja"
+        :first-day-of-week="firstDayOfWeek"
         :day-format="(date) => new Date(date).getDate()"
         :picker-date.sync="pickerDate"
       ></v-date-picker>
@@ -19,7 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import ShowRecord from '~/components/molecule/ShowRecord.vue'
-import { RecordsStore, SnackbarModule } from '~/store'
+import { RecordsStore, SnackbarModule, SettingStore } from '~/store'
 import { Record } from '~/types/record'
 
 export default Vue.extend({
@@ -50,6 +51,9 @@ export default Vue.extend({
   computed: {
     record(): Record | undefined {
       return RecordsStore.getRecordByDate(new Date(this.date))
+    },
+    firstDayOfWeek() {
+      return SettingStore.getFirstDayOfWeek
     }
   },
   watch: {

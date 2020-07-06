@@ -30,7 +30,8 @@
     "lodash": "^4.17.15",
     "nuxt": "^2.0.0",
     "universal-cookie": "^4.0.3",
-    "vuelidate": "^0.7.5"
+    "vuelidate": "^0.7.5",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@mdi/js": "^5.3.45",
