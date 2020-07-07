@@ -3,11 +3,11 @@
     <client-only>
       <v-date-picker
         v-model="date"
-        color="secondary"
         full-width
         :events="functionEvents"
         locale="ja"
         :first-day-of-week="firstDayOfWeek"
+        :color="color"
         :day-format="(date) => new Date(date).getDate()"
         :picker-date.sync="pickerDate"
       ></v-date-picker>
@@ -54,6 +54,9 @@ export default Vue.extend({
     },
     firstDayOfWeek() {
       return SettingStore.getFirstDayOfWeek
+    },
+    color() {
+      return SettingStore.getcalendarColor
     }
   },
   watch: {
@@ -70,7 +73,7 @@ export default Vue.extend({
   },
   methods: {
     functionEvents(date: string) {
-      return RecordsStore.isRecoded(new Date(date))
+      return RecordsStore.isRecoded(new Date(date)) ? this.color : false
     },
     buttonClick() {
       this.$router.push(`/record?date=${this.date}`)

@@ -9,9 +9,14 @@ import { SUNDAY } from '~/config/constant'
 })
 export default class SettingModule extends VuexModule {
   private firstDayOfWeek: Week = SUNDAY
+  private calendarColor: string = '#ffbb00'
 
   public get getFirstDayOfWeek() {
     return this.firstDayOfWeek
+  }
+
+  public get getcalendarColor() {
+    return this.calendarColor
   }
 
   @Mutation
@@ -19,8 +24,18 @@ export default class SettingModule extends VuexModule {
     this.firstDayOfWeek = week
   }
 
+  @Mutation
+  private setCalendarColor(color: string) {
+    this.calendarColor = color
+  }
+
   @Action({ rawError: true })
   public changeFirstDayOfWeek(week: Week) {
     this.setFirstDayOfWeek(week)
+  }
+
+  @Action({ rawError: true })
+  public changeCalandarColor(color: string) {
+    this.setCalendarColor(color)
   }
 }
