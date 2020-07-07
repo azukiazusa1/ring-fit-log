@@ -3,25 +3,39 @@
     <h1 class="h3 py-5">設定</h1>
     <h2 class="headline my-5">基本設定</h2>
     <v-card>
-      <v-container>
-        <v-row>
-          <v-col>
+      <v-list two-line outlined>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>ダークモード</v-list-item-title>
+            <v-list-item-subtitle>
+              ダークモードを適用します。
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
             <ToggleDarkMode />
-          </v-col>
-        </v-row>
+          </v-list-item-action>
+        </v-list-item>
         <v-divider />
-        <v-row>
-          <v-col>
-            <SelectFirstDayOfWeek :day="day" @change="changeFirstDayOfWeek" />
-          </v-col>
-        </v-row>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>
+              <SelectFirstDayOfWeek :day="day" @change="changeFirstDayOfWeek" />
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-divider />
-        <v-row>
-          <v-col>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>カレンダーテーマ</v-list-item-title>
+            <v-list-item-subtitle>
+              カレンダーのカラーを変更します。
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
             <ChangeCalandarColor :color.sync="color" />
-          </v-col>
-        </v-row>
-      </v-container>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
     </v-card>
   </div>
 </template>

@@ -1,13 +1,5 @@
 <template>
   <v-row>
-    <v-btn
-      text
-      :ripple="false"
-      class="text--secondary caption"
-      @click.stop="openDialog"
-    >
-      カレンダーのカラーを変更。
-    </v-btn>
     <v-btn icon right :color="color" @click.stop="openDialog">
       <v-icon>fas fa-palette</v-icon>
     </v-btn>

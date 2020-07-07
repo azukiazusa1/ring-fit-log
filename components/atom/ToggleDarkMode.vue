@@ -1,10 +1,5 @@
 <template>
-  <v-switch
-    v-model="isDarkTheme"
-    label="ダークモード"
-    hint="アプリケーション全体にダークモードを適用します。"
-    persistent-hint
-  ></v-switch>
+  <v-switch v-model="isDarkTheme"></v-switch>
 </template>
 
 <script lang="ts">
