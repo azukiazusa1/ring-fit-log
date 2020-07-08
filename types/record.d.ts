@@ -6,7 +6,7 @@ export interface Stamps {
 }
 
 export interface Record {
-  totalTimeExercising: string
+  totalTimeExercising: string | null
   totalCaloriesBurned: number | null
   totalDistanceRun: number | null
   date: Date | string

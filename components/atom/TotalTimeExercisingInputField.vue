@@ -8,7 +8,8 @@
   >
     <template #input>
       <v-text-field
-        :value="_totalTimeExercising"
+        v-model="_totalTimeExercising"
+        :error-messages="totalTimeExercisingErrors"
         prepend-icon="fas fa-stopwatch"
         outlined
         clearable
@@ -20,7 +21,6 @@
         @blur="$v._totalTimeExercising.$touch()"
       />
     </template>
-    <template #icon-calendar> </template>
   </date-picker>
 </template>
 
@@ -76,12 +76,6 @@ export default Vue.extend({
     },
     validate(value) {
       if (value) this.$v.$touch()
-    }
-  },
-  methods: {
-    onBlur() {
-      console.log('onBlur')
-      this.$v._totalTimeExercising.$touch()
     }
   }
 })

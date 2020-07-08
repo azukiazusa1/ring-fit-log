@@ -36,6 +36,7 @@
     </v-row>
     <v-row>
       <v-col class="text-center">
+        {{ emptyField }}{{ record }}
         <SubmitButton :disabled="disabled" :loading="loading" @click="submit">
           {{ submitButtonText }}
         </SubmitButton>
@@ -46,7 +47,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { cloneDeep, isObject } from 'lodash'
+import { cloneDeep } from 'lodash'
 import TotalTimeExercisingInputField from '~/components/atom/TotalTimeExercisingInputField.vue'
 import TotalDistanceRunInputField from '~/components/atom/TotalDistanceRunInputField.vue'
 import TotalCaloriesBurnedInputField from '~/components/atom/TotalCaloriesBurnedInputField.vue'
@@ -67,7 +68,7 @@ type Data = {
 const initialData: Record = {
   totalDistanceRun: null,
   totalCaloriesBurned: null,
-  totalTimeExercising: '',
+  totalTimeExercising: null,
   date: '',
   stamps: {
     arms: false,
@@ -120,12 +121,18 @@ export default Vue.extend({
       return Object.values(this.errors).includes(true)
     },
     emptyField(): boolean {
-      return Object.values(this.record).every((v) => {
-        if (isObject(v)) {
-          return !Object.values(v).includes(true)
-        }
-        return v == null || v === ''
-      })
+      const {
+        totalDistanceRun,
+        totalCaloriesBurned,
+        totalTimeExercising,
+        stamps
+      } = this.record
+      return (
+        totalDistanceRun === null &&
+        totalCaloriesBurned === null &&
+        totalTimeExercising === null &&
+        !Object.values(stamps).includes(true)
+      )
     },
     disabled(): boolean {
       return this.hasError || this.emptyField
