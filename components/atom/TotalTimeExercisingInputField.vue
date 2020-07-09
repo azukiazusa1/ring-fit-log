@@ -3,15 +3,16 @@
     v-model="_totalTimeExercising"
     :clearable="false"
     type="time"
+    :open.sync="open"
     format="HH:mm:ss"
     value-type="HH:mm:ss"
+    @change="handleChange"
   >
     <template #input>
       <v-text-field
         v-model="_totalTimeExercising"
         :error-messages="totalTimeExercisingErrors"
         prepend-icon="fas fa-stopwatch"
-        outlined
         clearable
         dense
         readonly
@@ -47,11 +48,17 @@ export default Vue.extend({
   props: {
     totalTimeExercising: {
       type: String,
-      required: true
+      required: false,
+      default: null
     },
     validate: {
       type: Boolean,
       required: true
+    }
+  },
+  data() {
+    return {
+      open: false
     }
   },
   computed: {
@@ -77,6 +84,13 @@ export default Vue.extend({
     validate(value) {
       if (value) this.$v.$touch()
     }
+  },
+  methods: {
+    handleChange(_v: string, type: string) {
+      if (type === 'second') {
+        this.open = false
+      }
+    }
   }
 })
 </script>
@@ -90,7 +104,7 @@ export default Vue.extend({
   display: none;
 }
 
-.mx-datepicker-body {
+.popup-class {
   position: relative;
   bottom: 25px;
 }
