@@ -30,7 +30,7 @@ type Data = {
 const initialData: Record = {
   totalDistanceRun: null,
   totalCaloriesBurned: null,
-  totalTimeExercising: '',
+  totalTimeExercising: null,
   date: '',
   stamps: {
     arms: false,

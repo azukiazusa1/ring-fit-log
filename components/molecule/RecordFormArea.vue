@@ -36,10 +36,13 @@
     </v-row>
     <v-row>
       <v-col class="text-center">
-        {{ emptyField }}{{ record }}
-        <SubmitButton :disabled="disabled" :loading="loading" @click="submit">
-          {{ submitButtonText }}
-        </SubmitButton>
+        <DeleteButton v-if="deleteMode" :disabled="disabled" :loading="loading"></DeleteButton>
+        <SubmitButton
+          v-else
+          :disabled="disabled"
+          :loading="loading"
+          @click="submit"
+        >{{ submitButtonText }}</SubmitButton>
       </v-col>
     </v-row>
   </v-form>
@@ -52,7 +55,8 @@ import TotalTimeExercisingInputField from '~/components/atom/TotalTimeExercising
 import TotalDistanceRunInputField from '~/components/atom/TotalDistanceRunInputField.vue'
 import TotalCaloriesBurnedInputField from '~/components/atom/TotalCaloriesBurnedInputField.vue'
 import SubmitButton from '~/components/atom/SubmitButton.vue'
-import StampIcons from '~/components/molecule//StampIcons.vue'
+import DeleteButton from '~/components/atom/DeleteButton.vue'
+import StampIcons from '~/components/molecule/StampIcons.vue'
 import { Record } from '~/types/record'
 
 type Data = {
@@ -85,6 +89,7 @@ export default Vue.extend({
     TotalDistanceRunInputField,
     TotalCaloriesBurnedInputField,
     SubmitButton,
+    DeleteButton,
     StampIcons
   },
   props: {
@@ -135,7 +140,10 @@ export default Vue.extend({
       )
     },
     disabled(): boolean {
-      return this.hasError || this.emptyField
+      return this.hasError || (this.isCreateMode && this.emptyField)
+    },
+    deleteMode(): boolean {
+      return !this.isCreateMode && this.emptyField
     }
   },
   watch: {
