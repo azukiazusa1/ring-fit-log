@@ -108,7 +108,6 @@ export default Vue.extend({
       }
     },
     async onDelete() {
-      console.log('delete record', this.record._id)
       this.loading = true
       const { _id } = this.record
       try {
@@ -116,12 +115,16 @@ export default Vue.extend({
           throw new Error('不正な操作です。')
         }
         await RecordsStore.deleteRecord(_id)
+        SnackbarModule.info({
+          message: '記録を削除しました。'
+        })
       } catch (e) {
         console.error(e)
         SnackbarModule.error({
           message: '記録の削除に失敗しました。'
         })
       } finally {
+        console.log(RecordsStore.getRecords)
         this.loading = false
       }
     }

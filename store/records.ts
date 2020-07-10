@@ -43,10 +43,8 @@ export default class RecordsModule extends VuexModule {
   }
 
   @Mutation
-  private removeRecord(date: Date) {
-    this.records = this.records.filter(
-      (record) => !moment(record.date).isSame(date, 'day')
-    )
+  private removeRecord(_id: string) {
+    this.records = this.records.filter((record) => record._id !== _id)
   }
 
   @Mutation
@@ -123,7 +121,8 @@ export default class RecordsModule extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public deleteRecord(_id: string) {
-    console.log('delete action')
+  public async deleteRecord(_id: string) {
+    await $axios.delete(`/api/record/${_id}`)
+    this.removeRecord(_id)
   }
 }

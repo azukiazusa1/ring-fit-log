@@ -113,5 +113,10 @@ export default {
     console.log(record)
     // TODO とりあえずオウム返し
     res.json(record)
+  },
+  delete: (req: Express.Request, res: Express.Response) => {
+    const { id } = req.params
+    console.log(id)
+    res.json({})
   }
 }
