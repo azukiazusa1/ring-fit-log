@@ -57,6 +57,7 @@ describe('store/record', () => {
     describe('createRecord', () => {
       test('新しいレコードを追加する', async () => {
         const record: Record = {
+          _id: '',
           totalTimeExercising: '01:40:32',
           totalCaloriesBurned: 40.4,
           totalDistanceRun: 1.77,
@@ -66,7 +67,8 @@ describe('store/record', () => {
             stomach: true,
             legs: true,
             yoga: false
-          }
+          },
+          userId: ''
         }
         await RecordsStore.createRecord(record)
         expect(RecordsStore.getRecords.length).toEqual(1)
@@ -83,6 +85,7 @@ describe('store/record', () => {
         const oldData = RecordsStore.getRecords[0]
         const oldLength = RecordsStore.getRecords.length
         const newData: Record = {
+          _id: '1',
           totalTimeExercising: '01:40:32',
           totalCaloriesBurned: 40.4,
           totalDistanceRun: 1.77,
@@ -92,7 +95,8 @@ describe('store/record', () => {
             stomach: true,
             legs: true,
             yoga: false
-          }
+          },
+          userId: 'jfalfjafhaffj'
         }
         await RecordsStore.updateRecord(newData, new Date('2020-7-1'))
         expect(RecordsStore.getRecords[0]).not.toEqual(oldData)

@@ -37,7 +37,7 @@ const records: Record[] = [
     userId: 'jfalfjafhaffj'
   },
   {
-    _id: '3'
+    _id: '3',
     totalTimeExercising: '00:10:24',
     totalCaloriesBurned: 8.23,
     totalDistanceRun: null,

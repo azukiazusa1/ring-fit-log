@@ -43,7 +43,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    totalTimeExercising(): string {
+    totalTimeExercising(): string | null {
       return this.record?.totalTimeExercising
     },
     totalCaloriesBurned(): number | null {
