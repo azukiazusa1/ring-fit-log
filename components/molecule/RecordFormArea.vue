@@ -70,6 +70,7 @@ type Data = {
 }
 
 const initialData: Record = {
+  _id: '',
   totalDistanceRun: null,
   totalCaloriesBurned: null,
   totalTimeExercising: null,
@@ -79,7 +80,8 @@ const initialData: Record = {
     stomach: false,
     legs: false,
     yoga: false
-  }
+  },
+  userId: ''
 }
 
 export default Vue.extend({

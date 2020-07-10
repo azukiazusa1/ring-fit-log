@@ -1,4 +1,5 @@
 {
+  "_id": "1",
   "totalTimeExercising": "00:20:02",
   "totalCaloriesBurned": 24.24,
   "totalDistanceRun": 1.5,
@@ -8,5 +9,6 @@
     "stomach": false,
     "legs": true,
     "yoga": false
-  }
+  },
+  "userId": "jfalfjafhaffj"
 }

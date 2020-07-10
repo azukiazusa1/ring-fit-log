@@ -9,6 +9,7 @@ import { Record } from '~/types/record'
 // TODO mock
 const records: Record[] = [
   {
+    _id: '1',
     totalTimeExercising: '00:20:02',
     totalCaloriesBurned: 24.24,
     totalDistanceRun: 1.5,
@@ -18,9 +19,11 @@ const records: Record[] = [
       stomach: false,
       legs: true,
       yoga: false
-    }
+    },
+    userId: 'jfalfjafhaffj'
   },
   {
+    _id: '2',
     totalTimeExercising: '00:30:32',
     totalCaloriesBurned: 32.32,
     totalDistanceRun: 4.53,
@@ -30,9 +33,11 @@ const records: Record[] = [
       stomach: true,
       legs: false,
       yoga: false
-    }
+    },
+    userId: 'jfalfjafhaffj'
   },
   {
+    _id: '3'
     totalTimeExercising: '00:10:24',
     totalCaloriesBurned: 8.23,
     totalDistanceRun: null,
@@ -42,9 +47,11 @@ const records: Record[] = [
       stomach: false,
       legs: false,
       yoga: true
-    }
+    },
+    userId: 'jfalfjafhaffj'
   },
   {
+    _id: '4',
     totalTimeExercising: '00:21:14',
     totalCaloriesBurned: 100.55,
     totalDistanceRun: 3.5,
@@ -54,7 +61,8 @@ const records: Record[] = [
       stomach: false,
       legs: false,
       yoga: true
-    }
+    },
+    userId: 'jfalfjafhaffj'
   }
 ]
 
