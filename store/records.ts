@@ -121,4 +121,9 @@ export default class RecordsModule extends VuexModule {
     )
     this.replaceRecord(data)
   }
+
+  @Action({ rawError: true })
+  public deleteRecord(_id: string) {
+    console.log('delete action')
+  }
 }

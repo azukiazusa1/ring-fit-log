@@ -36,7 +36,7 @@
     </v-row>
     <v-row>
       <v-col class="text-center">
-        <DeleteButton v-if="deleteMode" :disabled="disabled" :loading="loading"></DeleteButton>
+        <DeleteButton v-if="deleteMode" :disabled="disabled" :loading="loading" @clickOK="clickOK"></DeleteButton>
         <SubmitButton
           v-else
           :disabled="disabled"
@@ -173,6 +173,11 @@ export default Vue.extend({
       this.validate = true
       if (this.disabled) return
       this.$emit('onSubmit', this.record)
+    },
+    clickOK() {
+      this.validate = true
+      if (this.disabled) return
+      this.$emit('onDelete')
     }
   }
 })

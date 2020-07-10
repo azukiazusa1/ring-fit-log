@@ -6,6 +6,7 @@
       :is-create-mode="isCreateMode"
       :loading="loading"
       @onSubmit="onSubmit"
+      @onDelete="onDelete"
     ></recrod-form-area>
   </div>
 </template>
@@ -28,6 +29,7 @@ type Data = {
 }
 
 const initialData: Record = {
+  _id: '',
   totalDistanceRun: null,
   totalCaloriesBurned: null,
   totalTimeExercising: null,
@@ -37,7 +39,8 @@ const initialData: Record = {
     stomach: false,
     legs: false,
     yoga: false
-  }
+  },
+  userId: ''
 }
 
 export default Vue.extend({
@@ -99,6 +102,24 @@ export default Vue.extend({
         console.error(e)
         SnackbarModule.error({
           message: '記録の登録に失敗しました。'
+        })
+      } finally {
+        this.loading = false
+      }
+    },
+    async onDelete() {
+      console.log('delete record', this.record._id)
+      this.loading = true
+      const { _id } = this.record
+      try {
+        if (this.isCreateMode) {
+          throw new Error('不正な操作です。')
+        }
+        await RecordsStore.deleteRecord(_id)
+      } catch (e) {
+        console.error(e)
+        SnackbarModule.error({
+          message: '記録の削除に失敗しました。'
         })
       } finally {
         this.loading = false
