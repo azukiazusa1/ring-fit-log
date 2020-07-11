@@ -125,7 +125,7 @@ export default Vue.extend({
                 ).format('x')
               },
               {
-                x: '1995-12-21T12:00:00',
+                x: '1995-12-21T00:00:00',
                 y: this.$moment(
                   '1970-01-01 00:9:14.000 +0000',
                   'YYYY-MM-DD HH:mm:ss.SSS Z'
@@ -152,7 +152,13 @@ export default Vue.extend({
             {
               type: 'time',
               time: {
-                unit: 'day'
+                unit: 'day',
+                displayFormats: {
+                  day: 'MM/DD',
+                  week: 'YYYY/MM',
+                  month: 'YYYY/MM'
+                },
+                tooltipFormat: 'YYYY/MM/DD（ddd）'
               }
             }
           ],
