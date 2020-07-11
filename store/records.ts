@@ -28,11 +28,6 @@ export default class RecordsModule extends VuexModule {
       this.records.some((record) => moment(record.date).isSame(date, 'day'))
   }
 
-  public get getRecordByMonth() {
-    // TODO
-    return this.records
-  }
-
   public get isChached() {
     return (month: string) => this.cachedMonth.includes(month)
   }
@@ -62,7 +57,6 @@ export default class RecordsModule extends VuexModule {
   @Mutation
   private cache(month: string) {
     this.cachedMonth.push(month)
-    console.log(this.cachedMonth)
   }
 
   @Action({ rawError: true })

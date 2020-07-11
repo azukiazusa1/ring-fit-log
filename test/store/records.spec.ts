@@ -55,6 +55,26 @@ describe('store/record', () => {
       })
     })
 
+    describe('fetchRecordByMonth', () => {
+      const month = '2020-07'
+      test('月を指定してレコードを複数取得', async () => {
+        await RecordsStore.fetchRecordByMonth(month)
+        expect(RecordsStore.getRecords.length).toEqual(3)
+      })
+
+      test('レコードを取得したときキャッシュした月を追加する', async () => {
+        await RecordsStore.fetchRecordByMonth(month)
+        expect(RecordsStore.isChached(month)).toEqual(true)
+        expect(RecordsStore.isChached('2020-08')).toEqual(false)
+      })
+
+      test('レスポンスが空のときはデータは追加されないがキャッシュはする', async () => {
+        await RecordsStore.fetchRecordByMonth('2020-09')
+        expect(RecordsStore.getRecords.length).toEqual(0)
+        expect(RecordsStore.isChached('2020-09')).toEqual(true)
+      })
+    })
+
     describe('createRecord', () => {
       test('新しいレコードを追加する', async () => {
         const record: Record = {
