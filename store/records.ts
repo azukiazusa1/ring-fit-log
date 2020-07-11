@@ -112,7 +112,7 @@ export default class RecordsModule extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public async updateRecord(record: Record, _id: Date) {
+  public async updateRecord(record: Record, _id: string) {
     const { data } = await $axios.put<Record>(
       `/api/record/${_id}`,
       toJSON(record)

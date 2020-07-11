@@ -14,7 +14,8 @@ jest.mock('~/utils/api', () => ({
       return Promise.resolve({ data })
     }),
     post: jest.fn((_url: string, data: Record) => Promise.resolve({ data })),
-    put: jest.fn((_url: string, data: Record) => Promise.resolve({ data }))
+    put: jest.fn((_url: string, data: Record) => Promise.resolve({ data })),
+    delete: jest.fn((_id: string) => Promise.resolve({}))
   }
 }))
 
@@ -98,10 +99,24 @@ describe('store/record', () => {
           },
           userId: 'jfalfjafhaffj'
         }
-        await RecordsStore.updateRecord(newData, new Date('2020-7-1'))
+        await RecordsStore.updateRecord(newData, newData._id)
         expect(RecordsStore.getRecords[0]).not.toEqual(oldData)
         expect(RecordsStore.getRecords[0]).toEqual(newData)
         expect(RecordsStore.getRecords.length).toEqual(oldLength)
+      })
+    })
+
+    describe('deleteRecord', () => {
+      beforeEach(async () => {
+        await RecordsStore.fetchRecords()
+      })
+
+      test('レコードを削除する', async () => {
+        await RecordsStore.deleteRecord('1')
+        expect(RecordsStore.getRecords.length).toEqual(3)
+        expect(
+          RecordsStore.getRecordByDate(new Date('2002-7-1'))
+        ).toBeUndefined()
       })
     })
   })
