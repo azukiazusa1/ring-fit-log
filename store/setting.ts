@@ -15,7 +15,7 @@ export default class SettingModule extends VuexModule {
     return this.firstDayOfWeek
   }
 
-  public get getcalendarColor() {
+  public get getCalandarColor() {
     return this.calendarColor
   }
 

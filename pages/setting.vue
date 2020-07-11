@@ -7,9 +7,7 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>ダークモード</v-list-item-title>
-            <v-list-item-subtitle>
-              ダークモードを適用します。
-            </v-list-item-subtitle>
+            <v-list-item-subtitle>ダークモードを適用します。</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
             <ToggleDarkMode />
@@ -27,9 +25,7 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>カレンダーテーマ</v-list-item-title>
-            <v-list-item-subtitle>
-              カレンダーのカラーを変更します。
-            </v-list-item-subtitle>
+            <v-list-item-subtitle>カレンダーのカラーを変更します。</v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
             <ChangeCalandarColor :color.sync="color" />
@@ -60,7 +56,7 @@ export default Vue.extend({
     },
     color: {
       get() {
-        return SettingStore.getcalendarColor
+        return SettingStore.getCalandarColor
       },
       set(color: string) {
         SettingStore.changeCalandarColor(color)

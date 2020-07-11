@@ -56,7 +56,7 @@ export default Vue.extend({
       return SettingStore.getFirstDayOfWeek
     },
     color() {
-      return SettingStore.getcalendarColor
+      return SettingStore.getCalandarColor
     }
   },
   watch: {
