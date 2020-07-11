@@ -7,8 +7,11 @@
       <v-divider></v-divider>
     </div>
     <span class="float-right">
-      <span>{{ value }}</span>
-      <span><slot name="unit"/></span>
+      <span v-if="value">{{ value }}</span>
+      <span v-else>ーー</span>
+      <span>
+        <slot name="unit" />
+      </span>
     </span>
   </div>
 </template>
