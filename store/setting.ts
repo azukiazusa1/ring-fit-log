@@ -10,6 +10,9 @@ import { SUNDAY } from '~/config/constant'
 export default class SettingModule extends VuexModule {
   private firstDayOfWeek: Week = SUNDAY
   private calendarColor: string = '#ffbb00'
+  private hiddenTotalTimeExercising = false
+  private hidddenTotalCaloriesBurned = false
+  private hiddenTotalDistanceRun = false
 
   public get getFirstDayOfWeek() {
     return this.firstDayOfWeek
@@ -19,9 +22,51 @@ export default class SettingModule extends VuexModule {
     return this.calendarColor
   }
 
+  public get isHiddenTotalTimeExercising() {
+    return this.hiddenTotalTimeExercising
+  }
+
+  public get isHiddenTotalCaloriesBurned() {
+    return this.hidddenTotalCaloriesBurned
+  }
+
+  public get isHiddenTotalDistanceRun() {
+    return this.hiddenTotalDistanceRun
+  }
+
   @Mutation
   private setFirstDayOfWeek(week: Week) {
     this.firstDayOfWeek = week
+  }
+
+  @Mutation
+  private showTotalTimeExercising() {
+    this.hiddenTotalTimeExercising = false
+  }
+
+  @Mutation
+  private hideTotalTimeExercising() {
+    this.hiddenTotalTimeExercising = true
+  }
+
+  @Mutation
+  private showTotalCaloriesBurned() {
+    this.hidddenTotalCaloriesBurned = false
+  }
+
+  @Mutation
+  private hideTotalCaloriesBurned() {
+    this.hidddenTotalCaloriesBurned = true
+  }
+
+  @Mutation
+  private showTotalDistanceRun() {
+    this.hiddenTotalDistanceRun = false
+  }
+
+  @Mutation
+  private hideTotalDistanceRun() {
+    this.hiddenTotalDistanceRun = true
   }
 
   @Mutation
@@ -37,5 +82,32 @@ export default class SettingModule extends VuexModule {
   @Action({ rawError: true })
   public changeCalandarColor(color: string) {
     this.setCalendarColor(color)
+  }
+
+  @Action({ rawError: true })
+  public toggleHiddenTotalTimeExercising() {
+    if (this.isHiddenTotalTimeExercising) {
+      this.showTotalTimeExercising()
+    } else {
+      this.hideTotalTimeExercising()
+    }
+  }
+
+  @Action({ rawError: true })
+  public toggleHiddenTotalCaloriesBurned() {
+    if (this.isHiddenTotalCaloriesBurned) {
+      this.showTotalCaloriesBurned()
+    } else {
+      this.hideTotalCaloriesBurned()
+    }
+  }
+
+  @Action({ rawError: true })
+  public toggleHiddenTotalDistanceRun() {
+    if (this.isHiddenTotalDistanceRun) {
+      this.showTotalDistanceRun()
+    } else {
+      this.hideTotalDistanceRun()
+    }
   }
 }

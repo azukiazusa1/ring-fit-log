@@ -22,6 +22,7 @@ import Vue from 'vue'
 import { ChartData, ChartOptions } from 'chart.js'
 import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
+import { SettingStore } from '~/store'
 import { DateRange } from '~/types/chart'
 
 export default Vue.extend({
@@ -47,6 +48,7 @@ export default Vue.extend({
             backgroundColor: '#f87979',
             borderColor: '#f87979',
             fill: false,
+            hidden: SettingStore.isHiddenTotalCaloriesBurned,
             yAxisID: 'y-axis-1',
             data: [
               {
@@ -77,6 +79,7 @@ export default Vue.extend({
             borderColor: '#69F0AE',
             backgroundColor: '#69F0AE',
             fill: false,
+            hidden: SettingStore.isHiddenTotalDistanceRun,
             yAxisID: 'y-axis-2',
             data: [
               {
@@ -106,6 +109,7 @@ export default Vue.extend({
             label: '活動時間',
             backgroundColor: '#1976d2',
             yAxisID: 'y-axis-3',
+            hidden: SettingStore.isHiddenTotalTimeExercising,
             data: [
               {
                 x: '1995-12-17T00:00:00',
@@ -151,6 +155,29 @@ export default Vue.extend({
       return {
         responsive: true,
         maintainAspectRatio: false,
+        elements: {
+          line: {
+            tension: 0.4
+          }
+        },
+        legend: {
+          onClick(_e, legendItem) {
+            switch (legendItem.datasetIndex) {
+              case 0:
+                SettingStore.toggleHiddenTotalCaloriesBurned()
+                break
+              case 1:
+                SettingStore.toggleHiddenTotalDistanceRun()
+                break
+              case 2:
+                SettingStore.toggleHiddenTotalTimeExercising()
+                break
+              default:
+                throw new Error('Invalid datasetIndex')
+            }
+          }
+        },
+
         scales: {
           xAxes: [
             {
