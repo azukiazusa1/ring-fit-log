@@ -43,39 +43,11 @@ export default Vue.extend({
         datasets: [
           {
             type: 'line',
-            label: ['Data One'],
+            label: '消費カロリー',
             backgroundColor: '#f87979',
+            borderColor: '#f87979',
             fill: false,
             yAxisID: 'y-axis-1',
-            data: [
-              {
-                x: '1995-12-17T00:00:00',
-                y: 1.19
-              },
-              {
-                x: '1995-12-18T00:00:00',
-                y: 0.87
-              },
-              {
-                x: '1995-12-20T00:00:00',
-                y: 2.01
-              },
-              {
-                x: '1995-12-21T00:00:00',
-                y: 0.77
-              },
-              {
-                x: '1995-12-22T00:00:00',
-                y: 1.32
-              }
-            ]
-          },
-          {
-            type: 'line',
-            label: ['Data One'],
-            backgroundColor: '#f87979',
-            fill: false,
-            yAxisID: 'y-axis-2',
             data: [
               {
                 x: '1995-12-17T00:00:00',
@@ -100,8 +72,40 @@ export default Vue.extend({
             ]
           },
           {
+            type: 'line',
+            label: '走行距離',
+            borderColor: '#69F0AE',
+            backgroundColor: '#69F0AE',
+            fill: false,
+            yAxisID: 'y-axis-2',
+            data: [
+              {
+                x: '1995-12-17T00:00:00',
+                y: 1.19
+              },
+              {
+                x: '1995-12-18T00:00:00',
+                y: 0.87
+              },
+              {
+                x: '1995-12-20T00:00:00',
+                y: 2.01
+              },
+              {
+                x: '1995-12-21T00:00:00',
+                y: 0.77
+              },
+              {
+                x: '1995-12-22T00:00:00',
+                y: 1.32
+              }
+            ]
+          },
+          {
             type: 'bar',
-            yAxisID: 'y-axis-3', // 追加
+            label: '活動時間',
+            backgroundColor: '#1976d2',
+            yAxisID: 'y-axis-3',
             data: [
               {
                 x: '1995-12-17T00:00:00',
@@ -164,12 +168,16 @@ export default Vue.extend({
           ],
           yAxes: [
             {
-              id: 'y-axis-1', // Y軸のID
-              type: 'linear', // linear固定
-              position: 'left', // どちら側に表示される軸か？
+              id: 'y-axis-1',
+              type: 'linear',
+              position: 'left',
               gridLines: {
-                // このオプションを追加
                 drawOnChartArea: false
+              },
+              ticks: {
+                callback(value) {
+                  return `${value} kcal`
+                }
               }
             },
             {
@@ -177,8 +185,12 @@ export default Vue.extend({
               type: 'linear',
               position: 'right',
               gridLines: {
-                // このオプションを追加
                 drawOnChartArea: false
+              },
+              ticks: {
+                callback(value) {
+                  return `${value} km`
+                }
               }
             },
             {
