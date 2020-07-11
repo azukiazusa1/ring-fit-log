@@ -5,7 +5,8 @@
       :props-record="record"
       :is-create-mode="isCreateMode"
       :loading="loading"
-      @onSubmit="onSubmit"
+      @onCreate="onCreate"
+      @onUpdate="onUpdate"
       @onDelete="onDelete"
     ></recrod-form-area>
   </div>
@@ -83,25 +84,34 @@ export default Vue.extend({
     }
   },
   methods: {
-    async onSubmit(record: Record) {
+    async onCreate(record: Record) {
       this.loading = true
       record.date = this.date
       try {
-        if (this.isCreateMode) {
-          await RecordsStore.createRecord(record)
-          SnackbarModule.info({
-            message: '新しい記録を登録しました。'
-          })
-        } else {
-          await RecordsStore.updateRecord(record, this.date)
-          SnackbarModule.info({
-            message: '記録を更新しました。'
-          })
-        }
+        await RecordsStore.createRecord(record)
+        SnackbarModule.info({
+          message: '新しい記録を登録しました。'
+        })
       } catch (e) {
         console.error(e)
         SnackbarModule.error({
           message: '記録の登録に失敗しました。'
+        })
+      } finally {
+        this.loading = false
+      }
+    },
+    async onUpdate(record: Record) {
+      this.loading = true
+      try {
+        await RecordsStore.updateRecord(record, record._id)
+        SnackbarModule.info({
+          message: '記録を更新しました。'
+        })
+      } catch (e) {
+        console.error(e)
+        SnackbarModule.error({
+          message: '記録の更新に失敗しました。'
         })
       } finally {
         this.loading = false

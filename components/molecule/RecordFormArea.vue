@@ -172,7 +172,11 @@ export default Vue.extend({
     submit() {
       this.validate = true
       if (this.disabled) return
-      this.$emit('onSubmit', this.record)
+      if (this.isCreateMode) {
+        this.$emit('onCreate', this.record)
+      } else {
+        this.$emit('onUpdate', this.record)
+      }
     },
     clickOK() {
       this.validate = true
