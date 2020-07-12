@@ -1,13 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>
-      <v-btn icon exact to="/setting" class="mr-5">
-        <v-icon small>fas fa-angle-left</v-icon>
-      </v-btn>
-      <h1 class="subtitle-1">
-        カレンダーの設定
-      </h1>
-    </v-card-title>
+    <SettingPageTitle>カレンダーの設定</SettingPageTitle>
     <v-card-text>
       <v-list>
         <v-list-item>
@@ -36,6 +29,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SettingPageTitle from '~/components/atom/SettingPageTitle.vue'
 import SelectFirstDayOfWeek from '~/components/atom/SelectFirstDayOfWeek.vue'
 import ChangeColorModal from '~/components/molecule/ChangeColorModal.vue'
 import { SettingStore } from '~/store'
@@ -43,6 +37,7 @@ import { Week } from '~/types/setting'
 
 export default Vue.extend({
   components: {
+    SettingPageTitle,
     SelectFirstDayOfWeek,
     ChangeColorModal
   },
