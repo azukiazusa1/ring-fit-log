@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <h1 class="h3 py-5">設定</h1>
-    <h2 class="headline my-5">基本設定</h2>
-    <v-card>
-      <v-list two-line outlined>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>ダークモード</v-list-item-title>
-            <v-list-item-subtitle>ダークモードを適用します。</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <ToggleDarkMode />
-          </v-list-item-action>
-        </v-list-item>
-        <v-divider />
+  <v-card>
+    <v-card-title>
+      <v-btn icon exact to="/setting" class="mr-5">
+        <v-icon small>fas fa-angle-left</v-icon>
+      </v-btn>
+      <h1 class="subtitle-1">
+        カレンダーの設定
+      </h1>
+    </v-card-title>
+    <v-card-text>
+      <v-list>
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>
@@ -25,20 +21,21 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>カレンダーテーマ</v-list-item-title>
-            <v-list-item-subtitle>カレンダーのカラーを変更します。</v-list-item-subtitle>
+            <v-list-item-subtitle
+              >カレンダーのカラーを変更します。
+            </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
             <ChangeCalandarColor :color.sync="color" />
           </v-list-item-action>
         </v-list-item>
       </v-list>
-    </v-card>
-  </div>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import ToggleDarkMode from '~/components/atom/ToggleDarkMode.vue'
 import SelectFirstDayOfWeek from '~/components/atom/SelectFirstDayOfWeek.vue'
 import ChangeCalandarColor from '~/components/molecule/ChangeCalendarColor.vue'
 import { SettingStore } from '~/store'
@@ -46,7 +43,6 @@ import { Week } from '~/types/setting'
 
 export default Vue.extend({
   components: {
-    ToggleDarkMode,
     SelectFirstDayOfWeek,
     ChangeCalandarColor
   },
