@@ -17,17 +17,10 @@
           </v-list-item-action>
         </v-list-item>
         <v-divider />
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>い</v-list-item-title>
-            <v-list-item-subtitle
-              >カレンダーのカラーを変更します。
-            </v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <ChangeColorModal :color.sync="color" />
-          </v-list-item-action>
-        </v-list-item>
+        <SettingChartItemGroup
+          item="消費カロリー"
+          :hidden.sync="hiddenTotalCaloriesBurned"
+        />
       </v-list>
     </v-card-text>
   </v-card>
@@ -36,13 +29,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import SettingPageTitle from '~/components/atom/SettingPageTitle.vue'
-import ChangeColorModal from '~/components/molecule/ChangeColorModal.vue'
+import SettingChartItemGroup from '~/components/molecule/SettingChartItemGroup.vue'
 import { SettingStore } from '~/store'
 
 export default Vue.extend({
   components: {
     SettingPageTitle,
-    ChangeColorModal
+    SettingChartItemGroup
   },
   computed: {
     smoothing: {
@@ -51,6 +44,14 @@ export default Vue.extend({
       },
       set(smoothing: boolean) {
         SettingStore.toggleSmoothing(smoothing)
+      }
+    },
+    hiddenTotalCaloriesBurned: {
+      get() {
+        return SettingStore.isHiddenTotalCaloriesBurned
+      },
+      set() {
+        SettingStore.toggleHiddenTotalCaloriesBurned()
       }
     }
   }

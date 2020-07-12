@@ -10,9 +10,9 @@ import { SUNDAY } from '~/config/constant'
 export default class SettingModule extends VuexModule {
   private firstDayOfWeek: Week = SUNDAY
   private calendarColor: string = '#ffbb00'
-  private smoothing = false
+  private smoothing = true
   private hiddenTotalTimeExercising = false
-  private hidddenTotalCaloriesBurned = false
+  private hiddenTotalCaloriesBurned = false
   private hiddenTotalDistanceRun = false
 
   public get getFirstDayOfWeek() {
@@ -32,7 +32,7 @@ export default class SettingModule extends VuexModule {
   }
 
   public get isHiddenTotalCaloriesBurned() {
-    return this.hidddenTotalCaloriesBurned
+    return this.hiddenTotalCaloriesBurned
   }
 
   public get isHiddenTotalDistanceRun() {
@@ -61,12 +61,12 @@ export default class SettingModule extends VuexModule {
 
   @Mutation
   private showTotalCaloriesBurned() {
-    this.hidddenTotalCaloriesBurned = false
+    this.hiddenTotalCaloriesBurned = false
   }
 
   @Mutation
   private hideTotalCaloriesBurned() {
-    this.hidddenTotalCaloriesBurned = true
+    this.hiddenTotalCaloriesBurned = true
   }
 
   @Mutation
