@@ -26,7 +26,7 @@
             </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
-            <ChangeCalandarColor :color.sync="color" />
+            <ChangeColorModal :color.sync="color" />
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -37,14 +37,14 @@
 <script lang="ts">
 import Vue from 'vue'
 import SelectFirstDayOfWeek from '~/components/atom/SelectFirstDayOfWeek.vue'
-import ChangeCalandarColor from '~/components/molecule/ChangeCalendarColor.vue'
+import ChangeColorModal from '~/components/molecule/ChangeColorModal.vue'
 import { SettingStore } from '~/store'
 import { Week } from '~/types/setting'
 
 export default Vue.extend({
   components: {
     SelectFirstDayOfWeek,
-    ChangeCalandarColor
+    ChangeColorModal
   },
   computed: {
     day() {

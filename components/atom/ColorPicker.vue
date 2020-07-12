@@ -6,7 +6,7 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'CalendarColorPicker',
+  name: 'ColorPicker',
   props: {
     color: {
       type: String,

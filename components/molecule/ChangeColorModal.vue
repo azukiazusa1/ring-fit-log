@@ -5,7 +5,7 @@
     </v-btn>
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
-        <CalendarColorPicker :color.sync="_color" />
+        <ColorPicker :color.sync="_color" />
       </v-card>
     </v-dialog>
   </v-row>
@@ -13,12 +13,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import CalendarColorPicker from '~/components/atom/CalendarColorPicker.vue'
+import ColorPicker from '~/components/atom/ColorPicker.vue'
 
 export default Vue.extend({
-  name: 'ChangeCalendarColor',
+  name: 'ChangeColorModal',
   components: {
-    CalendarColorPicker
+    ColorPicker
   },
   props: {
     color: {
