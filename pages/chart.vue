@@ -157,7 +157,7 @@ export default Vue.extend({
         maintainAspectRatio: false,
         elements: {
           line: {
-            tension: 0.4
+            tension: SettingStore.isSmoothed ? 0.4 : 0
           }
         },
         legend: {

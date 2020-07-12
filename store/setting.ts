@@ -10,6 +10,7 @@ import { SUNDAY } from '~/config/constant'
 export default class SettingModule extends VuexModule {
   private firstDayOfWeek: Week = SUNDAY
   private calendarColor: string = '#ffbb00'
+  private smoothing = false
   private hiddenTotalTimeExercising = false
   private hidddenTotalCaloriesBurned = false
   private hiddenTotalDistanceRun = false
@@ -20,6 +21,10 @@ export default class SettingModule extends VuexModule {
 
   public get getCalandarColor() {
     return this.calendarColor
+  }
+
+  public get isSmoothed() {
+    return this.smoothing
   }
 
   public get isHiddenTotalTimeExercising() {
@@ -37,6 +42,11 @@ export default class SettingModule extends VuexModule {
   @Mutation
   private setFirstDayOfWeek(week: Week) {
     this.firstDayOfWeek = week
+  }
+
+  @Mutation
+  private setsmoothing(smoothing: boolean) {
+    this.smoothing = smoothing
   }
 
   @Mutation
@@ -82,6 +92,11 @@ export default class SettingModule extends VuexModule {
   @Action({ rawError: true })
   public changeCalandarColor(color: string) {
     this.setCalendarColor(color)
+  }
+
+  @Action({ rawError: true })
+  public toggleSmoothing(smoothing: boolean) {
+    this.setsmoothing(smoothing)
   }
 
   @Action({ rawError: true })

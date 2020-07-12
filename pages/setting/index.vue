@@ -26,6 +26,17 @@
             </v-btn>
           </v-list-item-action>
         </v-list-item>
+        <v-divider />
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>グラフの設定</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-btn icon to="/setting/chart">
+              <v-icon>fas fa-angle-right</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
       </v-list>
     </v-card>
   </div>
