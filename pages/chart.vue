@@ -45,8 +45,8 @@ export default Vue.extend({
           {
             type: 'line',
             label: '消費カロリー',
-            backgroundColor: '#f87979',
-            borderColor: '#f87979',
+            backgroundColor: SettingStore.getTotalTimeExercisingColor,
+            borderColor: SettingStore.getTotalTimeExercisingColor,
             fill: false,
             hidden: SettingStore.isHiddenTotalCaloriesBurned,
             yAxisID: 'y-axis-1',

@@ -12,6 +12,7 @@ export default class SettingModule extends VuexModule {
   private calendarColor: string = '#ffbb00'
   private smoothing = true
   private hiddenTotalTimeExercising = false
+  private totalTimeExercisingColor = '#f87979'
   private hiddenTotalCaloriesBurned = false
   private hiddenTotalDistanceRun = false
 
@@ -31,6 +32,10 @@ export default class SettingModule extends VuexModule {
     return this.hiddenTotalTimeExercising
   }
 
+  public get getTotalTimeExercisingColor() {
+    return this.totalTimeExercisingColor
+  }
+
   public get isHiddenTotalCaloriesBurned() {
     return this.hiddenTotalCaloriesBurned
   }
@@ -45,13 +50,17 @@ export default class SettingModule extends VuexModule {
   }
 
   @Mutation
-  private setsmoothing(smoothing: boolean) {
+  private setSmoothing(smoothing: boolean) {
     this.smoothing = smoothing
   }
 
   @Mutation
   private showTotalTimeExercising() {
     this.hiddenTotalTimeExercising = false
+  }
+
+  @Mutation setTotalTimeExercisingColor(color: string) {
+    this.totalTimeExercisingColor = color
   }
 
   @Mutation
@@ -96,7 +105,7 @@ export default class SettingModule extends VuexModule {
 
   @Action({ rawError: true })
   public toggleSmoothing(smoothing: boolean) {
-    this.setsmoothing(smoothing)
+    this.setSmoothing(smoothing)
   }
 
   @Action({ rawError: true })
@@ -106,6 +115,11 @@ export default class SettingModule extends VuexModule {
     } else {
       this.hideTotalTimeExercising()
     }
+  }
+
+  @Action({ rawErrot: true })
+  public changeTotalTimeExercising(color: string) {
+    this.setTotalTimeExercisingColor(color)
   }
 
   @Action({ rawError: true })
