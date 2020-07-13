@@ -24,6 +24,7 @@ import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
 import { SettingStore } from '~/store'
 import { DateRange } from '~/types/chart'
+import { ms2StirngTime, stringTime2ms } from '~/utils/msConversion'
 
 export default Vue.extend({
   components: {
@@ -113,38 +114,23 @@ export default Vue.extend({
             data: [
               {
                 x: '1995-12-17T00:00:00',
-                y: this.$moment(
-                  '1970-01-01 00:20:14.000 +0000',
-                  'YYYY-MM-DD HH:mm:ss.SSS Z'
-                ).format('x')
+                y: stringTime2ms('00:24:14')
               },
               {
                 x: '1995-12-18T00:00:00',
-                y: this.$moment(
-                  '1970-01-01 00:13:14.000 +0000',
-                  'YYYY-MM-DD HH:mm:ss.SSS Z'
-                ).format('x')
+                y: stringTime2ms('00:13:14')
               },
               {
                 x: '1995-12-20T00:00:00',
-                y: this.$moment(
-                  '1970-01-01 00:33:33.000 +0000',
-                  'YYYY-MM-DD HH:mm:ss.SSS Z'
-                ).format('x')
+                y: stringTime2ms('00:33:33')
               },
               {
                 x: '1995-12-21T00:00:00',
-                y: this.$moment(
-                  '1970-01-01 00:9:14.000 +0000',
-                  'YYYY-MM-DD HH:mm:ss.SSS Z'
-                ).format('x')
+                y: stringTime2ms('00:09:14')
               },
               {
                 x: '1995-12-22T00:00:00',
-                y: this.$moment(
-                  '1970-01-01 00:35:14.000 +0000',
-                  'YYYY-MM-DD HH:mm:ss.SSS Z'
-                ).format('x')
+                y: stringTime2ms('00:35:14')
               }
             ]
           }
@@ -177,7 +163,22 @@ export default Vue.extend({
             }
           }
         },
-
+        tooltips: {
+          callbacks: {
+            label(tooltipItem, data) {
+              switch (tooltipItem.datasetIndex) {
+                case 0:
+                  return `${tooltipItem.value} kcal`
+                case 1:
+                  return `${tooltipItem.value} km`
+                case 2:
+                  return ms2StirngTime(tooltipItem.value ?? 0)
+                default:
+                  throw new Error('Invalid datasetIndex')
+              }
+            }
+          }
+        },
         scales: {
           xAxes: [
             {
