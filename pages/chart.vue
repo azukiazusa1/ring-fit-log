@@ -45,8 +45,8 @@ export default Vue.extend({
           {
             type: 'line',
             label: '消費カロリー',
-            backgroundColor: SettingStore.getTotalTimeExercisingColor,
-            borderColor: SettingStore.getTotalTimeExercisingColor,
+            backgroundColor: SettingStore.getTotalCaloriesBurnedColor,
+            borderColor: SettingStore.getTotalCaloriesBurnedColor,
             fill: false,
             hidden: SettingStore.isHiddenTotalCaloriesBurned,
             yAxisID: 'y-axis-1',
@@ -76,8 +76,8 @@ export default Vue.extend({
           {
             type: 'line',
             label: '走行距離',
-            borderColor: '#69F0AE',
-            backgroundColor: '#69F0AE',
+            borderColor: SettingStore.getTotalDistanceRunColor,
+            backgroundColor: SettingStore.getTotalDistanceRunColor,
             fill: false,
             hidden: SettingStore.isHiddenTotalDistanceRun,
             yAxisID: 'y-axis-2',
@@ -107,7 +107,7 @@ export default Vue.extend({
           {
             type: 'bar',
             label: '活動時間',
-            backgroundColor: '#1976d2',
+            backgroundColor: SettingStore.getTotalTimeExercisingColor,
             yAxisID: 'y-axis-3',
             hidden: SettingStore.isHiddenTotalTimeExercising,
             data: [
@@ -190,6 +190,9 @@ export default Vue.extend({
                   month: 'YYYY/MM'
                 },
                 tooltipFormat: 'YYYY/MM/DD（ddd）'
+              },
+              gridLines: {
+                display: false
               }
             }
           ],

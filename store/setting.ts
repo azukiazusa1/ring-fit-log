@@ -12,9 +12,11 @@ export default class SettingModule extends VuexModule {
   private calendarColor: string = '#ffbb00'
   private smoothing = true
   private hiddenTotalTimeExercising = false
-  private totalTimeExercisingColor = '#f87979'
+  private totalTimeExercisingColor = '#1976d2'
   private hiddenTotalCaloriesBurned = false
+  private totalCaloriesBurnedColor = '#f87979'
   private hiddenTotalDistanceRun = false
+  private totalDistanceRunColor = '#69F0AE'
 
   public get getFirstDayOfWeek() {
     return this.firstDayOfWeek
@@ -40,8 +42,16 @@ export default class SettingModule extends VuexModule {
     return this.hiddenTotalCaloriesBurned
   }
 
+  public get getTotalCaloriesBurnedColor() {
+    return this.totalCaloriesBurnedColor
+  }
+
   public get isHiddenTotalDistanceRun() {
     return this.hiddenTotalDistanceRun
+  }
+
+  public get getTotalDistanceRunColor() {
+    return this.totalDistanceRunColor
   }
 
   @Mutation
@@ -59,18 +69,23 @@ export default class SettingModule extends VuexModule {
     this.hiddenTotalTimeExercising = false
   }
 
-  @Mutation setTotalTimeExercisingColor(color: string) {
-    this.totalTimeExercisingColor = color
-  }
-
   @Mutation
   private hideTotalTimeExercising() {
     this.hiddenTotalTimeExercising = true
   }
 
   @Mutation
+  private setTotalTimeExercisingColor(color: string) {
+    this.totalTimeExercisingColor = color
+  }
+
+  @Mutation
   private showTotalCaloriesBurned() {
     this.hiddenTotalCaloriesBurned = false
+  }
+
+  @Mutation setTotalCaloriesBurnedColor(color: string) {
+    this.totalCaloriesBurnedColor = color
   }
 
   @Mutation
@@ -86,6 +101,11 @@ export default class SettingModule extends VuexModule {
   @Mutation
   private hideTotalDistanceRun() {
     this.hiddenTotalDistanceRun = true
+  }
+
+  @Mutation
+  private setToitalDistanceRunColor(color: string) {
+    this.totalDistanceRunColor = color
   }
 
   @Mutation
@@ -117,8 +137,8 @@ export default class SettingModule extends VuexModule {
     }
   }
 
-  @Action({ rawErrot: true })
-  public changeTotalTimeExercising(color: string) {
+  @Action({ rawError: true })
+  public changeTotalTimeExercisingColor(color: string) {
     this.setTotalTimeExercisingColor(color)
   }
 
@@ -132,11 +152,21 @@ export default class SettingModule extends VuexModule {
   }
 
   @Action({ rawError: true })
+  public changeTotalCaloriesBurnedColor(color: string) {
+    this.setTotalCaloriesBurnedColor(color)
+  }
+
+  @Action({ rawError: true })
   public toggleHiddenTotalDistanceRun() {
     if (this.isHiddenTotalDistanceRun) {
       this.showTotalDistanceRun()
     } else {
       this.hideTotalDistanceRun()
     }
+  }
+
+  @Action({ rawError: true })
+  public changeTotalDistanceRunColor(color: string) {
+    this.setToitalDistanceRunColor(color)
   }
 }
