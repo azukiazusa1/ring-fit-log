@@ -11,6 +11,8 @@ export default class SettingModule extends VuexModule {
   private firstDayOfWeek: Week = SUNDAY
   private calendarColor: string = '#ffbb00'
   private smoothing = true
+  private gridLineX = true
+  private gridLineY = false
   private hiddenTotalTimeExercising = false
   private totalTimeExercisingColor = '#1976d2'
   private hiddenTotalCaloriesBurned = false
@@ -28,6 +30,14 @@ export default class SettingModule extends VuexModule {
 
   public get isSmoothed() {
     return this.smoothing
+  }
+
+  public get getGridLineX() {
+    return this.gridLineX
+  }
+
+  public get getGridLineY() {
+    return this.gridLineY
   }
 
   public get isHiddenTotalTimeExercising() {
@@ -62,6 +72,16 @@ export default class SettingModule extends VuexModule {
   @Mutation
   private setSmoothing(smoothing: boolean) {
     this.smoothing = smoothing
+  }
+
+  @Mutation
+  private setGridLineX(gridLineX: boolean) {
+    this.gridLineX = gridLineX
+  }
+
+  @Mutation
+  private setGridLineY(gridLineY: boolean) {
+    this.gridLineY = gridLineY
   }
 
   @Mutation
@@ -126,6 +146,16 @@ export default class SettingModule extends VuexModule {
   @Action({ rawError: true })
   public toggleSmoothing(smoothing: boolean) {
     this.setSmoothing(smoothing)
+  }
+
+  @Action({ rawError: true })
+  public toggleGridLineX(grigLineX: boolean) {
+    this.setGridLineX(grigLineX)
+  }
+
+  @Action({ rawError: true })
+  public toggleGridLineY(gridLineY: boolean) {
+    this.setGridLineY(gridLineY)
   }
 
   @Action({ rawError: true })

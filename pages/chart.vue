@@ -53,12 +53,16 @@ export default Vue.extend({
             yAxisID: 'y-axis-1',
             data: [
               {
-                x: '1995-12-17T00:00:00',
+                x: '1995-12-01T00:00:00',
                 y: 85.08
               },
               {
                 x: '1995-12-18T00:00:00',
                 y: 77.01
+              },
+              {
+                x: '1995-12-19T00:00:00',
+                y: 0
               },
               {
                 x: '1995-12-20T00:00:00',
@@ -69,7 +73,7 @@ export default Vue.extend({
                 y: 33.44
               },
               {
-                x: '1995-12-22T00:00:00',
+                x: '1995-12-31T00:00:00',
                 y: 57.63
               }
             ]
@@ -84,12 +88,16 @@ export default Vue.extend({
             yAxisID: 'y-axis-2',
             data: [
               {
-                x: '1995-12-17T00:00:00',
+                x: '1995-12-01T00:00:00',
                 y: 1.19
               },
               {
                 x: '1995-12-18T00:00:00',
                 y: 0.87
+              },
+              {
+                x: '1995-12-19T00:00:00',
+                y: 0
               },
               {
                 x: '1995-12-20T00:00:00',
@@ -100,7 +108,7 @@ export default Vue.extend({
                 y: 0.77
               },
               {
-                x: '1995-12-22T00:00:00',
+                x: '1995-12-31T00:00:00',
                 y: 1.32
               }
             ]
@@ -113,12 +121,16 @@ export default Vue.extend({
             hidden: SettingStore.isHiddenTotalTimeExercising,
             data: [
               {
-                x: '1995-12-17T00:00:00',
+                x: '1995-12-01T00:00:00',
                 y: stringTime2ms('00:24:14')
               },
               {
                 x: '1995-12-18T00:00:00',
                 y: stringTime2ms('00:13:14')
+              },
+              {
+                x: '1995-12-19T00:00:00',
+                y: 0
               },
               {
                 x: '1995-12-20T00:00:00',
@@ -129,7 +141,7 @@ export default Vue.extend({
                 y: stringTime2ms('00:09:14')
               },
               {
-                x: '1995-12-22T00:00:00',
+                x: '1995-12-31T00:00:00',
                 y: stringTime2ms('00:35:14')
               }
             ]
@@ -184,16 +196,16 @@ export default Vue.extend({
             {
               type: 'time',
               time: {
-                unit: 'day',
+                unit: 'month',
                 displayFormats: {
                   day: 'MM/DD',
-                  week: 'YYYY/MM',
+                  week: 'YYYY/MM/DD',
                   month: 'YYYY/MM'
                 },
                 tooltipFormat: 'YYYY/MM/DD（ddd）'
               },
               gridLines: {
-                display: false
+                display: SettingStore.getGridLineX
               }
             }
           ],
@@ -228,6 +240,9 @@ export default Vue.extend({
               id: 'y-axis-3',
               ticks: {
                 display: false
+              },
+              gridLines: {
+                drawOnChartArea: SettingStore.getGridLineY
               }
             }
           ]

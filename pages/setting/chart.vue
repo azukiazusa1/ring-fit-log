@@ -16,6 +16,32 @@
             <v-switch v-model="smoothing"></v-switch>
           </v-list-item-action>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>
+              グリッドライン（縦）
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              グラフの縦線を表示します。
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-switch v-model="gridLineX"></v-switch>
+          </v-list-item-action>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>
+              グリッドライン（横）
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              グラフの横線を表示します。
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-switch v-model="gridLineY"></v-switch>
+          </v-list-item-action>
+        </v-list-item>
         <v-divider />
         <SettingChartItemGroup
           item="消費カロリー"
@@ -57,6 +83,22 @@ export default Vue.extend({
       },
       set(smoothing: boolean) {
         SettingStore.toggleSmoothing(smoothing)
+      }
+    },
+    gridLineX: {
+      get() {
+        return SettingStore.getGridLineX
+      },
+      set(gridLineX: boolean) {
+        SettingStore.toggleGridLineX(gridLineX)
+      }
+    },
+    gridLineY: {
+      get() {
+        return SettingStore.getGridLineY
+      },
+      set(gridLineY: boolean) {
+        SettingStore.toggleGridLineY(gridLineY)
       }
     },
     hiddenTotalCaloriesBurned: {
