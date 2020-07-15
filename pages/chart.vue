@@ -25,7 +25,7 @@ import BarChart from '~/components/organism/BarChart.vue'
 import { SettingStore } from '~/store'
 import { DateRange } from '~/types/chart'
 import { ms2StirngTime, stringTime2ms } from '~/utils/msConversion'
-import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
+import { WEEK1 } from '~/config/constant'
 
 export default Vue.extend({
   components: {

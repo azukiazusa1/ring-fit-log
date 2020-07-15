@@ -8,6 +8,7 @@ export type year1 = 4
 export type DateRange = week1 | month1 | month3 | year1
 
 export interface ChartData {
+  [key: string]: ChartPoint[]
   totalCaloriesBurned: ChartPoint[]
   totalDistanceRun: ChartPoint[]
   totalTimeExercising: ChartPoint[]
