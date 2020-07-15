@@ -25,6 +25,7 @@ import BarChart from '~/components/organism/BarChart.vue'
 import { SettingStore } from '~/store'
 import { DateRange } from '~/types/chart'
 import { ms2StirngTime, stringTime2ms } from '~/utils/msConversion'
+import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
 
 export default Vue.extend({
   components: {
@@ -34,7 +35,7 @@ export default Vue.extend({
   computed: {
     dateRange: {
       get(): DateRange {
-        return this.$cookies.get('dateRange') || '1-week'
+        return this.$cookies.get('dateRange') || WEEK1
       },
       set(dateRagne: DateRange) {
         this.$cookies.set('dateRange', dateRagne)
@@ -74,7 +75,7 @@ export default Vue.extend({
               },
               {
                 x: '1995-12-31T00:00:00',
-                y: 57.63
+                y: 0
               }
             ]
           },
@@ -109,7 +110,7 @@ export default Vue.extend({
               },
               {
                 x: '1995-12-31T00:00:00',
-                y: 1.32
+                y: 0
               }
             ]
           },
@@ -142,7 +143,7 @@ export default Vue.extend({
               },
               {
                 x: '1995-12-31T00:00:00',
-                y: stringTime2ms('00:35:14')
+                y: stringTime2ms('00:00:00')
               }
             ]
           }
