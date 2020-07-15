@@ -22,7 +22,7 @@ import Vue from 'vue'
 import { ChartData, ChartOptions } from 'chart.js'
 import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
-import { SettingStore } from '~/store'
+import { ChartsStore, SettingStore } from '~/store'
 import { DateRange } from '~/types/chart'
 import { ms2StirngTime, stringTime2ms } from '~/utils/msConversion'
 import { WEEK1 } from '~/config/constant'
@@ -32,15 +32,17 @@ export default Vue.extend({
     DateRangeSelector,
     BarChart
   },
+  asyncData({ app }) {
+    const dateRange = app.$cookies.get('dateRange') ?? WEEK1
+    return { dateRange }
+  },
+  data() {
+    return {
+      dateRange: WEEK1,
+      date: new Date()
+    }
+  },
   computed: {
-    dateRange: {
-      get(): DateRange {
-        return this.$cookies.get('dateRange') || WEEK1
-      },
-      set(dateRagne: DateRange) {
-        this.$cookies.set('dateRange', dateRagne)
-      }
-    },
     chartData(): ChartData {
       return {
         datasets: [
@@ -52,32 +54,7 @@ export default Vue.extend({
             fill: false,
             hidden: SettingStore.isHiddenTotalCaloriesBurned,
             yAxisID: 'y-axis-1',
-            data: [
-              {
-                x: '1995-12-01T00:00:00',
-                y: 85.08
-              },
-              {
-                x: '1995-12-18T00:00:00',
-                y: 77.01
-              },
-              {
-                x: '1995-12-19T00:00:00',
-                y: 0
-              },
-              {
-                x: '1995-12-20T00:00:00',
-                y: 118.73
-              },
-              {
-                x: '1995-12-21T00:00:00',
-                y: 33.44
-              },
-              {
-                x: '1995-12-31T00:00:00',
-                y: 0
-              }
-            ]
+            data: ChartsStore.getTotalCaloriesBurned(this.date, this.dateRange)
           },
           {
             type: 'line',
@@ -249,6 +226,17 @@ export default Vue.extend({
           ]
         }
       } as ChartOptions
+    }
+  },
+  watch: {
+    dateRange(newVal: DateRange, oldVal: DateRange) {
+      this.$cookies.set('dateRange', newVal)
+      if (newVal < oldVal) return
+      // try {
+      //   await ChartsStore.fetchChartData(this.date, newVal)
+      // } catch (e) {
+      //   console.error(e)
+      // }
     }
   }
 })

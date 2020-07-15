@@ -51,11 +51,11 @@ const dateRangeName = {
 }
 
 @Module({
-  name: 'records',
+  name: 'charts',
   stateFactory: true,
   namespaced: true
 })
-export default class RecordsModule extends VuexModule {
+export default class ChartsModule extends VuexModule {
   private chartData: ChartData = {
     totalCaloriesBurned: [],
     totalDistanceRun: [],

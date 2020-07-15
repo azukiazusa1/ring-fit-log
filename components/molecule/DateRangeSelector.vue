@@ -21,8 +21,8 @@ export default Vue.extend({
   },
   computed: {
     _dateRange: {
-      get(): DateRange {
-        return this.dateRange
+      get(): String {
+        return this.dateRange.toString()
       },
       set(dateRange: DateRange) {
         this.$emit('update:dateRange', dateRange)
