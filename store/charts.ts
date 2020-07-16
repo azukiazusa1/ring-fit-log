@@ -1,6 +1,6 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import moment from 'moment'
-import { unionWith, isEqual } from 'lodash'
+import { unionBy, property } from 'lodash'
 import { ChartPoint } from 'chart.js'
 import { $axios } from '~/utils/api'
 import { ChartData, DateRange } from '~/types/chart'
@@ -80,7 +80,7 @@ export default class ChartsModule extends VuexModule {
   @Mutation
   private unionChartData(chartData: ChartData) {
     Object.entries(this.chartData).forEach(
-      ([k, v]) => (this.chartData[k] = unionWith(v, chartData[k], isEqual))
+      ([k, v]) => (this.chartData[k] = unionBy(chartData[k], v, property('x')))
     )
   }
 
