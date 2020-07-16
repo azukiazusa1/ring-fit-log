@@ -22,7 +22,7 @@ import Vue from 'vue'
 import { ChartData, ChartOptions, TimeUnit } from 'chart.js'
 import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
-import { ChartsStore, SettingStore } from '~/store'
+import { ChartsStore, SettingStore, SnackbarModule } from '~/store'
 import { DateRange } from '~/types/chart'
 import { ms2StirngTime } from '~/utils/msConversion'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
@@ -37,8 +37,17 @@ export default Vue.extend({
     DateRangeSelector,
     BarChart
   },
-  asyncData({ app }) {
-    const dateRange = app.$cookies.get('dateRange') ?? WEEK1
+  async asyncData({ app }) {
+    const dateRange = app.$cookies.get<DateRange>('dateRange') ?? WEEK1
+    const date = new Date()
+    try {
+      await ChartsStore.fetchChartData(date, dateRange)
+    } catch (e) {
+      console.error(e)
+      SnackbarModule.error({
+        message: 'データの取得に失敗しました。'
+      })
+    }
     return { dateRange }
   },
   data(): DataType {
