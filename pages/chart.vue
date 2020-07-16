@@ -24,7 +24,7 @@ import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
 import { ChartsStore, SettingStore } from '~/store'
 import { DateRange } from '~/types/chart'
-import { ms2StirngTime, stringTime2ms } from '~/utils/msConversion'
+import { ms2StirngTime } from '~/utils/msConversion'
 import { WEEK1 } from '~/config/constant'
 
 export default Vue.extend({
@@ -64,32 +64,7 @@ export default Vue.extend({
             fill: false,
             hidden: SettingStore.isHiddenTotalDistanceRun,
             yAxisID: 'y-axis-2',
-            data: [
-              {
-                x: '1995-12-01T00:00:00',
-                y: 1.19
-              },
-              {
-                x: '1995-12-18T00:00:00',
-                y: 0.87
-              },
-              {
-                x: '1995-12-19T00:00:00',
-                y: 0
-              },
-              {
-                x: '1995-12-20T00:00:00',
-                y: 2.01
-              },
-              {
-                x: '1995-12-21T00:00:00',
-                y: 0.77
-              },
-              {
-                x: '1995-12-31T00:00:00',
-                y: 0
-              }
-            ]
+            data: ChartsStore.getTotalDistanceRun(this.date, this.dateRange)
           },
           {
             type: 'bar',
@@ -97,32 +72,7 @@ export default Vue.extend({
             backgroundColor: SettingStore.getTotalTimeExercisingColor,
             yAxisID: 'y-axis-3',
             hidden: SettingStore.isHiddenTotalTimeExercising,
-            data: [
-              {
-                x: '1995-12-01T00:00:00',
-                y: stringTime2ms('00:24:14')
-              },
-              {
-                x: '1995-12-18T00:00:00',
-                y: stringTime2ms('00:13:14')
-              },
-              {
-                x: '1995-12-19T00:00:00',
-                y: 0
-              },
-              {
-                x: '1995-12-20T00:00:00',
-                y: stringTime2ms('00:33:33')
-              },
-              {
-                x: '1995-12-21T00:00:00',
-                y: stringTime2ms('00:09:14')
-              },
-              {
-                x: '1995-12-31T00:00:00',
-                y: stringTime2ms('00:00:00')
-              }
-            ]
+            data: ChartsStore.getTotalTimeExercising(this.date, this.dateRange)
           }
         ]
       } as ChartData
