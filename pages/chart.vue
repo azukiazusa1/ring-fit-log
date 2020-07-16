@@ -19,13 +19,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { ChartData, ChartOptions } from 'chart.js'
+import { ChartData, ChartOptions, TimeUnit } from 'chart.js'
 import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
 import { ChartsStore, SettingStore } from '~/store'
 import { DateRange } from '~/types/chart'
 import { ms2StirngTime } from '~/utils/msConversion'
-import { WEEK1 } from '~/config/constant'
+import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
+
+type DataType = {
+  dateRange: DateRange
+  date: Date
+}
 
 export default Vue.extend({
   components: {
@@ -36,7 +41,7 @@ export default Vue.extend({
     const dateRange = app.$cookies.get('dateRange') ?? WEEK1
     return { dateRange }
   },
-  data() {
+  data(): DataType {
     return {
       dateRange: WEEK1,
       date: new Date()
@@ -124,7 +129,7 @@ export default Vue.extend({
             {
               type: 'time',
               time: {
-                unit: 'month',
+                unit: this.dateRangeUnit,
                 displayFormats: {
                   day: 'MM/DD',
                   week: 'YYYY/MM/DD',
@@ -176,6 +181,19 @@ export default Vue.extend({
           ]
         }
       } as ChartOptions
+    },
+    dateRangeUnit(): TimeUnit {
+      switch (this.dateRange) {
+        case WEEK1:
+        case MONTH1:
+          return 'day'
+        case MONTH3:
+          return 'week'
+        case YEAR1:
+          return 'month'
+        default:
+          return 'day'
+      }
     }
   },
   watch: {
