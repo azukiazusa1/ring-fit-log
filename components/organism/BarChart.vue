@@ -2,7 +2,6 @@
 import Vue, { PropType } from 'vue'
 import { ChartData, ChartOptions } from 'chart.js'
 import { Bar, Line, mixins } from 'vue-chartjs'
-import { BaseChart } from 'vue-chartjs/types/components'
 
 export default Vue.extend({
   mixins: [Bar, Line, mixins.reactiveProp],
