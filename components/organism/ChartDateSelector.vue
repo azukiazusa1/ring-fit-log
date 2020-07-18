@@ -2,6 +2,7 @@
   <DateSelector
     :date="date"
     :format="format"
+    :picker-type="pickerType"
     @clickAngleDoubleLeft="beforePrev"
     @clickAngleLeft="prev"
     @clickAngleRight="next"
@@ -16,19 +17,6 @@ import Vue, { PropType } from 'vue'
 import DateSelector from '~/components/molecule/DateSelector.vue'
 import { DateRange } from '~/types/chart'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
-
-const dateRangeUnit = (dateRange: DateRange) => {
-  switch (dateRange) {
-    case WEEK1:
-      return 'weeks'
-    case MONTH1:
-      return 'months'
-    case MONTH3:
-      return 'quarters'
-    case YEAR1:
-      return 'years'
-  }
-}
 
 export default Vue.extend({
   name: 'ChartDateSelector',
@@ -47,18 +35,34 @@ export default Vue.extend({
   },
   computed: {
     format(): string {
-      const d = this.$moment(this.date)
       switch (this.dateRange) {
         case WEEK1:
-          return d.format('YYYY/MM/DD（ddd）')
+          return 'YYYY/MM/DD（ddd）'
         case MONTH1:
         case MONTH3:
-          return d.format('YYYY/MM')
+          return 'YYYY/MM'
         case YEAR1:
-          return d.format('YYYY')
+          return 'YYYY'
         default:
           return ''
       }
+    },
+    dateRangeUnit(): 'weeks' | 'months' | 'quarters' | 'years' {
+      switch (this.dateRange) {
+        case WEEK1:
+          return 'weeks'
+        case MONTH1:
+          return 'months'
+        case MONTH3:
+          return 'quarters'
+        case YEAR1:
+          return 'years'
+        default:
+          return 'weeks'
+      }
+    },
+    pickerType(): string {
+      return this.dateRange === WEEK1 ? 'date' : 'month'
     }
   },
   methods: {
@@ -67,7 +71,7 @@ export default Vue.extend({
         name: 'chart',
         query: {
           date: this.$moment(this.date)
-            .add(amount, dateRangeUnit(this.dateRange))
+            .add(amount, this.dateRangeUnit)
             .format('YYYY-MM-DD')
         }
       })

@@ -35,6 +35,7 @@
             no-title
             locale="ja"
             :day-format="(date) => new Date(date).getDate()"
+            :type="pickerType"
             @input="menu = false"
           />
         </v-menu>
@@ -54,8 +55,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import AppTime from '~/components/atom/AppTime.vue'
+
+type PickerType = 'date' | 'month' | 'year'
 
 export default Vue.extend({
   name: 'DateSelector',
@@ -71,6 +74,11 @@ export default Vue.extend({
       type: String,
       required: false,
       default: 'YYYY/MM/DD（ddd）'
+    },
+    pickerType: {
+      type: String as PropType<PickerType>,
+      required: false,
+      default: 'date'
     }
   },
   data() {
