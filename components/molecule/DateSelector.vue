@@ -12,7 +12,7 @@
     </v-col>
     <v-col cols="8" md="4">
       <h2 class="headline text-center">
-        <slot>{{ formatedDate }}</slot>
+        <AppTime :date="date" :format="format"></AppTime>
       </h2>
     </v-col>
     <v-col cols="2" md="1" offset-md="1">
@@ -30,17 +30,22 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import AppTime from '~/components/atom/AppTime.vue'
+
 export default Vue.extend({
   name: 'DateSelector',
+  components: {
+    AppTime
+  },
   props: {
     date: {
       type: Date,
       required: true
-    }
-  },
-  computed: {
-    formatedDate(): string {
-      return this.$moment(this.date).format('YYYY/MM/DD（ddd）')
+    },
+    format: {
+      type: String,
+      required: false,
+      default: 'YYYY/MM/DD（ddd）'
     }
   },
   methods: {

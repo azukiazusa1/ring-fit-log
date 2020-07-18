@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>グラフ</h1>
+    <ChartDateSelector :date="date" :date-range="dateRange" />
     <date-range-selector :date-range.sync="dateRange" />
     <client-only>
       <BarChart :chart-data="chartData" :options="options" />
@@ -20,6 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ChartData, ChartOptions, TimeUnit } from 'chart.js'
+import ChartDateSelector from '~/components/organism/ChartDateSelector.vue'
 import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
 import { ChartsStore, SettingStore, SnackbarModule } from '~/store'
@@ -34,6 +35,7 @@ type DataType = {
 
 export default Vue.extend({
   components: {
+    ChartDateSelector,
     DateRangeSelector,
     BarChart
   },
