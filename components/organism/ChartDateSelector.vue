@@ -6,6 +6,7 @@
     @clickAngleLeft="prev"
     @clickAngleRight="next"
     @clickAngleDoubleRight="afterNext"
+    @changeDate="changeDate"
   >
   </DateSelector>
 </template>
@@ -82,6 +83,14 @@ export default Vue.extend({
     },
     afterNext() {
       this.push(2)
+    },
+    changeDate(date: string) {
+      this.$router.push({
+        name: 'chart',
+        query: {
+          date: this.$moment(date).format('YYYY-MM-DD')
+        }
+      })
     }
   }
 })

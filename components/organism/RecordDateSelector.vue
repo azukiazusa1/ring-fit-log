@@ -5,6 +5,7 @@
     @clickAngleLeft="prevDay"
     @clickAngleRight="nextDay"
     @clickAngleDoubleRight="nextWeek"
+    @changeDate="changeDate"
   />
 </template>
 
@@ -24,43 +25,33 @@ export default Vue.extend({
     }
   },
   methods: {
-    nextDay(): void {
+    push(amount: number): void {
       this.$router.push({
         name: 'record',
         query: {
           date: this.$moment(this.date)
-            .add(1, 'days')
+            .add(amount, 'days')
             .format('YYYY-MM-DD')
         }
       })
+    },
+    nextDay(): void {
+      this.push(1)
     },
     prevDay(): void {
-      this.$router.push({
-        name: 'record',
-        query: {
-          date: this.$moment(this.date)
-            .add(-1, 'days')
-            .format('YYYY-MM-DD')
-        }
-      })
+      this.push(-1)
     },
     nextWeek(): void {
-      this.$router.push({
-        name: 'record',
-        query: {
-          date: this.$moment(this.date)
-            .add(1, 'weeks')
-            .format('YYYY-MM-DD')
-        }
-      })
+      this.push(7)
     },
     prevWeek(): void {
+      this.push(-7)
+    },
+    changeDate(date: string): void {
       this.$router.push({
         name: 'record',
         query: {
-          date: this.$moment(this.date)
-            .add(-1, 'weeks')
-            .format('YYYY-MM-DD')
+          date: this.$moment(date).format('YYYY-MM-DD')
         }
       })
     }

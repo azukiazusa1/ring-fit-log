@@ -11,9 +11,34 @@
       </v-btn>
     </v-col>
     <v-col cols="8" md="4">
-      <h2 class="headline text-center">
-        <AppTime :date="date" :format="format"></AppTime>
-      </h2>
+      <client-only>
+        <template #placeholder>
+          <h2 class="headline text-center">
+            <AppTime :date="date" :format="format" />
+          </h2>
+        </template>
+        <v-menu
+          v-model="menu"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          max-width="290px"
+          min-width="290px"
+        >
+          <template #activator="{ on, attrs }">
+            <h2 class="headline text-center" v-bind="attrs" v-on="on">
+              <AppTime :date="date" :format="format" />
+            </h2>
+          </template>
+          <v-date-picker
+            v-model="_date"
+            no-title
+            locale="ja"
+            :day-format="(date) => new Date(date).getDate()"
+            @input="menu = false"
+          />
+        </v-menu>
+      </client-only>
     </v-col>
     <v-col cols="2" md="1" offset-md="1">
       <v-btn icon @click="clickAngleRight">
@@ -46,6 +71,21 @@ export default Vue.extend({
       type: String,
       required: false,
       default: 'YYYY/MM/DD（ddd）'
+    }
+  },
+  data() {
+    return {
+      menu: false
+    }
+  },
+  computed: {
+    _date: {
+      get(): string {
+        return this.$moment(this.date).format()
+      },
+      set(date: string) {
+        this.$emit('changeDate', date)
+      }
     }
   },
   methods: {
