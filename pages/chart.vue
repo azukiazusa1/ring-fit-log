@@ -26,9 +26,10 @@ import BarChart from '~/components/organism/BarChart.vue'
 import { ChartsStore, SettingStore, SnackbarModule } from '~/store'
 import { DateRange } from '~/types/chart'
 import { ms2StirngTime } from '~/utils/msConversion'
+import isInvalidDate from '~/utils/isInvalidDate'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
 
-type DataType = {
+type Data = {
   dateRange: DateRange
   date: Date
 }
@@ -39,9 +40,10 @@ export default Vue.extend({
     DateRangeSelector,
     BarChart
   },
-  async asyncData({ app }) {
+  async asyncData({ app, query }): Promise<Data> {
     const dateRange = app.$cookies.get<DateRange>('dateRange') ?? WEEK1
-    const date = new Date()
+    const queryDate = query.date as string
+    const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
     try {
       await ChartsStore.fetchChartData(date, dateRange)
     } catch (e) {
@@ -50,9 +52,10 @@ export default Vue.extend({
         message: 'データの取得に失敗しました。'
       })
     }
-    return { dateRange }
+    return { dateRange, date }
   },
-  data(): DataType {
+  watchQuery: ['date'],
+  data(): Data {
     return {
       dateRange: WEEK1,
       date: new Date()
