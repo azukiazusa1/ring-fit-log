@@ -1,51 +1,32 @@
 <template>
   <span>
-    <v-btn :color="armsColor" icon class="mx-2" @click="armsClick">
-      <v-icon>{{ mdiArmFlex }}</v-icon>
-    </v-btn>
-    <v-btn :color="stomachColor" icon class="mx-2" @click="stomachClick"
-      ><v-icon>fas fa-grip-vertical </v-icon>
-    </v-btn>
-    <v-btn :color="legsColor" icon class="mx-2" @click="legsClick">
-      <v-icon>{{ mdiSeatLegroomReduced }}</v-icon>
-    </v-btn>
-    <v-btn :color="yogaColor" icon class="mx-2" @click="yogaClick">
-      <v-icon>fas fa-spa</v-icon>
-    </v-btn>
+    <ArmsIcon :value="stamps.arms" class="mx-2" @click="armsClick" />
+    <StomachIcon :value="stamps.stomach" class="mx-2" @click="stomachClick" />
+    <LegsIcon :value="stamps.legs" class="mx-2" @click="legsClick" />
+    <YogaIcon :value="stamps.yoga" class="mx-2" @click="yogaClick" />
   </span>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
-import { mdiArmFlex, mdiSeatLegroomReduced } from '@mdi/js'
+import ArmsIcon from '~/components/atom/icon/ArmsIcon.vue'
+import StomachIcon from '~/components/atom/icon/StomackIcon.vue'
+import LegsIcon from '~/components/atom/icon/LegsIcon.vue'
+import YogaIcon from '~/components/atom/icon/YogaIcon.vue'
 import { Stamps } from '~/types/record'
 
 export default Vue.extend({
   name: 'StampIcons',
+  components: {
+    ArmsIcon,
+    StomachIcon,
+    LegsIcon,
+    YogaIcon
+  },
   props: {
     stamps: {
       type: Object as PropType<Stamps>,
       required: true
-    }
-  },
-  data() {
-    return {
-      mdiArmFlex,
-      mdiSeatLegroomReduced
-    }
-  },
-  computed: {
-    armsColor(): string {
-      return this.stamps.arms ? 'red darken-1' : ''
-    },
-    stomachColor(): string {
-      return this.stamps.stomach ? 'yellow accent-4' : ''
-    },
-    legsColor(): string {
-      return this.stamps.legs ? 'indigo accent-4' : ''
-    },
-    yogaColor(): string {
-      return this.stamps.yoga ? 'teal accent-4' : ''
     }
   },
   methods: {
