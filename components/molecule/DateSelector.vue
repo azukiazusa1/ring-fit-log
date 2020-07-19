@@ -1,14 +1,10 @@
 <template>
   <v-row>
     <v-col md="2" class="d-none d-md-flex">
-      <v-btn icon @click="clickAngleDoubleLeft">
-        <v-icon>fas fa-angle-double-left</v-icon>
-      </v-btn>
+      <AngleDoubleLeft @click="clickAngleDoubleLeft" />
     </v-col>
     <v-col cols="2" md="2">
-      <v-btn icon @click="clickAngleLeft">
-        <v-icon>fas fa-angle-left</v-icon>
-      </v-btn>
+      <AngleLeft @click="clickAngleLeft" />
     </v-col>
     <v-col cols="8" md="4">
       <client-only>
@@ -42,14 +38,10 @@
       </client-only>
     </v-col>
     <v-col cols="2" md="1" offset-md="1">
-      <v-btn icon @click="clickAngleRight">
-        <v-icon>fas fa-angle-right</v-icon>
-      </v-btn>
+      <AngleRight @click="clickAngleRight" />
     </v-col>
     <v-col md="1" offset-md="1" class="d-none d-md-flex">
-      <v-btn icon @click="clickAngleDoubleRight">
-        <v-icon>fas fa-angle-double-right</v-icon>
-      </v-btn>
+      <AngleDoubleRight @click="clickAngleDoubleRight" />
     </v-col>
   </v-row>
 </template>
@@ -57,13 +49,21 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import AppTime from '~/components/atom/AppTime.vue'
+import AngleDoubleLeft from '~/components/atom/icon/AngleDoubleLeft.vue'
+import AngleLeft from '~/components/atom/icon/AngleLeft.vue'
+import AngleRight from '~/components/atom/icon/AngleRight.vue'
+import AngleDoubleRight from '~/components/atom/icon/AngleDoubleRight.vue'
 
 type PickerType = 'date' | 'month' | 'year'
 
 export default Vue.extend({
   name: 'DateSelector',
   components: {
-    AppTime
+    AppTime,
+    AngleDoubleLeft,
+    AngleLeft,
+    AngleRight,
+    AngleDoubleRight
   },
   props: {
     date: {
