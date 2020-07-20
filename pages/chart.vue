@@ -45,7 +45,7 @@ export default Vue.extend({
     const queryDate = query.date as string
     const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
     try {
-      await ChartsStore.fetchChartData(date, dateRange)
+      await ChartsStore.fetchChartData({ date, dateRange })
     } catch (e) {
       console.error(e)
       SnackbarModule.error({

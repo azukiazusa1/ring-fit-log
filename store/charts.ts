@@ -85,7 +85,15 @@ export default class ChartsModule extends VuexModule {
   }
 
   @Action({ rawError: true })
-  public async fetchChartData(date: Date, dateRange: DateRange) {
+  public async fetchChartData({
+    date,
+    dateRange
+  }: {
+    date: Date
+    dateRange: DateRange
+  }) {
+    console.log('store')
+    console.log(dateRange)
     const { data } = await $axios.get<ChartData>(
       `/api/chart/${dateRangeName[dateRange]}/${moment(date).format(
         'YYYY-MM-DD'
