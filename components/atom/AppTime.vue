@@ -1,9 +1,13 @@
-<template>
-  <time :datetime="datetime">{{ formatedDate }}</time>
+<template functional>
+  <time :datetime="$options.methods.datetime(props.date)">
+    {{ $options.methods.formatedDate(props.date, props.format) }}
+  </time>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import moment from 'moment'
+
 export default Vue.extend({
   name: 'AppTime',
   props: {
@@ -17,12 +21,12 @@ export default Vue.extend({
       default: 'YYYY-MM-DDTHH:mm'
     }
   },
-  computed: {
-    formatedDate(): string {
-      return this.$moment(this.date).format(this.format)
+  methods: {
+    formatedDate(date: Date, format: string): string {
+      return moment(date).format(format)
     },
-    datetime(): string {
-      return this.$moment(this.date).format()
+    datetime(date: Date) {
+      return moment(date).format()
     }
   }
 })
