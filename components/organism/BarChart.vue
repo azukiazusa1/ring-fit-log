@@ -15,6 +15,14 @@ export default Vue.extend({
       required: true
     }
   },
+  watch: {
+    options: {
+      handler(newOption: ChartOptions, oldOption: ChartOptions) {
+        ;(this as any).renderChart(this.chartData, this.options)
+      },
+      deep: true
+    }
+  },
   mounted(): void {
     ;(this as any).renderChart(this.chartData, this.options)
   }
