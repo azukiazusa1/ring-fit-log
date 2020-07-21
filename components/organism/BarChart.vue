@@ -17,7 +17,7 @@ export default Vue.extend({
   },
   watch: {
     options: {
-      handler(newOption: ChartOptions, oldOption: ChartOptions) {
+      handler() {
         ;(this as any).renderChart(this.chartData, this.options)
       },
       deep: true
