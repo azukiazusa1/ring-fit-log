@@ -1,7 +1,7 @@
 [
   {
     "_id": "1",
-    "totalTimeExercising": "00:20:02",
+    "totalTimeExercising": 1595342758,
     "totalCaloriesBurned": 24.24,
     "totalDistanceRun": 1.5,
     "date": "2020-07-01T00:00:00+09:00",
@@ -15,7 +15,7 @@
   },
   {
     "_id": "2",
-    "totalTimeExercising": "00:30:32",
+    "totalTimeExercising": 1595342797,
     "totalCaloriesBurned": 32.32,
     "totalDistanceRun": 4.53,
     "date": "2020-07-02T00:00:00+09:00",
@@ -29,7 +29,7 @@
   },
   {
     "_id": "3",
-    "totalTimeExercising": "00:10:24",
+    "totalTimeExercising": 1595342817,
     "totalCaloriesBurned": 8.23,
     "totalDistanceRun": null,
     "date": "2020-07-03T00:00:00+09:00",
@@ -43,7 +43,7 @@
   },
   {
     "_id": "4",
-    "totalTimeExercising": "00:21:14",
+    "totalTimeExercising": 1595342848,
     "totalCaloriesBurned": 100.55,
     "totalDistanceRun": 3.5,
     "date": "2020-08-01T00:00:00+09:00",

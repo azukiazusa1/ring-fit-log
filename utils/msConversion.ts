@@ -1,6 +1,7 @@
 import moment from 'moment'
 
-export function ms2StirngTime(unixTime: number | string): string {
+export function ms2stringTime(unixTime: number | string | null): string {
+  if (!unixTime) return ''
   if (typeof unixTime === 'string') {
     unixTime = parseInt(unixTime)
   }

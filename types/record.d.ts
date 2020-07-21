@@ -7,7 +7,7 @@ export interface Stamps {
 
 export interface Record {
   _id: string
-  totalTimeExercising: string | null
+  totalTimeExercising: number | null
   totalCaloriesBurned: number | null
   totalDistanceRun: number | null
   date: Date | string

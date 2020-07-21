@@ -27,6 +27,7 @@
 import Vue, { PropType } from 'vue'
 import RecordItem from '~/components/atom/RecordItem.vue'
 import SubmitButton from '~/components/atom/SubmitButton.vue'
+import { ms2stringTime } from '~/utils/msConversion'
 import { Record } from '~/types/record'
 
 export default Vue.extend({
@@ -44,7 +45,7 @@ export default Vue.extend({
   },
   computed: {
     totalTimeExercising(): string | null {
-      return this.record?.totalTimeExercising
+      return ms2stringTime(this.record?.totalTimeExercising)
     },
     totalCaloriesBurned(): number | null {
       return this.record?.totalCaloriesBurned

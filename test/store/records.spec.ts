@@ -79,7 +79,7 @@ describe('store/record', () => {
       test('新しいレコードを追加する', async () => {
         const record: Record = {
           _id: '',
-          totalTimeExercising: '01:40:32',
+          totalTimeExercising: 1595342535,
           totalCaloriesBurned: 40.4,
           totalDistanceRun: 1.77,
           date: '2020-07-05T00:00:00+09:00',
@@ -107,7 +107,7 @@ describe('store/record', () => {
         const oldLength = RecordsStore.getRecords.length
         const newData: Record = {
           _id: '1',
-          totalTimeExercising: '01:40:32',
+          totalTimeExercising: 1595342535,
           totalCaloriesBurned: 40.4,
           totalDistanceRun: 1.77,
           date: '2020-07-01T00:00:00+09:00',

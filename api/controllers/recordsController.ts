@@ -3,6 +3,7 @@ import httpStatusCode from 'http-status-codes'
 import moment from 'moment'
 import { isEmpty } from 'lodash'
 import isInvalidDate from '../../utils/isInvalidDate'
+import { stringTime2ms as s } from '../../utils/msConversion'
 import toJSON from '../../utils/toJSON'
 import { Record } from '~/types/record'
 
@@ -10,7 +11,7 @@ import { Record } from '~/types/record'
 const records: Record[] = [
   {
     _id: '1',
-    totalTimeExercising: '00:20:02',
+    totalTimeExercising: s('00:20:02'),
     totalCaloriesBurned: 24.24,
     totalDistanceRun: 1.5,
     date: '2020-07-01T00:00:00+09:00',
@@ -24,7 +25,7 @@ const records: Record[] = [
   },
   {
     _id: '2',
-    totalTimeExercising: '00:30:32',
+    totalTimeExercising: s('00:30:32'),
     totalCaloriesBurned: 32.32,
     totalDistanceRun: 4.53,
     date: '2020-07-02T00:00:00+09:00',
@@ -38,7 +39,7 @@ const records: Record[] = [
   },
   {
     _id: '3',
-    totalTimeExercising: '00:10:24',
+    totalTimeExercising: s('00:10:24'),
     totalCaloriesBurned: 8.23,
     totalDistanceRun: null,
     date: '2020-07-06T00:00:00+09:00',
@@ -52,7 +53,7 @@ const records: Record[] = [
   },
   {
     _id: '4',
-    totalTimeExercising: '00:21:14',
+    totalTimeExercising: s('00:21:14'),
     totalCaloriesBurned: 100.55,
     totalDistanceRun: 3.5,
     date: '2020-08-01T00:00:00+09:00',

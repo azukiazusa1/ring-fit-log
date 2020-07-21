@@ -32,6 +32,7 @@ import 'vue2-datepicker/index.css'
 import { validationMixin } from 'vuelidate'
 import { helpers } from 'vuelidate/lib/validators'
 import { timeError } from '~/config/validationErrorMessages'
+import { ms2stringTime, stringTime2ms } from '~/utils/msConversion'
 const time = helpers.regex('time', /^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/)
 
 export default Vue.extend({
@@ -47,7 +48,7 @@ export default Vue.extend({
   },
   props: {
     totalTimeExercising: {
-      type: String,
+      type: Number,
       required: false,
       default: null
     },
@@ -64,10 +65,13 @@ export default Vue.extend({
   computed: {
     _totalTimeExercising: {
       get(): string {
-        return this.totalTimeExercising
+        return ms2stringTime(this.totalTimeExercising)
       },
       set(totalTimeExercising: string) {
-        this.$emit('update:totalTimeExercising', totalTimeExercising)
+        this.$emit(
+          'update:totalTimeExercising',
+          stringTime2ms(totalTimeExercising)
+        )
       }
     },
     totalTimeExercisingErrors(): Array<string> {

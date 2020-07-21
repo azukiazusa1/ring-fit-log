@@ -5,7 +5,7 @@ import { Record } from '~/types/record'
 const records: Record[] = [
   {
     _id: '1',
-    totalTimeExercising: '00:20:02',
+    totalTimeExercising: 1595341879,
     totalCaloriesBurned: 24.24,
     totalDistanceRun: 1.5,
     date: new Date('2020-7-1'),
@@ -19,7 +19,7 @@ const records: Record[] = [
   },
   {
     _id: '2',
-    totalTimeExercising: '00:30:32',
+    totalTimeExercising: 1595341879,
     totalCaloriesBurned: 32.32,
     totalDistanceRun: 4.53,
     date: new Date('2020-7-2'),
@@ -33,7 +33,7 @@ const records: Record[] = [
   },
   {
     _id: '3',
-    totalTimeExercising: '00:10:24',
+    totalTimeExercising: 1595341879,
     totalCaloriesBurned: 8.23,
     totalDistanceRun: null,
     date: new Date('2020-7-3'),

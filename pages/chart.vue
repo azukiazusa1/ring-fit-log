@@ -25,7 +25,7 @@ import DateRangeSelector from '~/components/molecule/DateRangeSelector.vue'
 import BarChart from '~/components/organism/BarChart.vue'
 import { ChartsStore, SettingStore, SnackbarModule } from '~/store'
 import { DateRange } from '~/types/chart'
-import { ms2StirngTime } from '~/utils/msConversion'
+import { ms2stringTime } from '~/utils/msConversion'
 import isInvalidDate from '~/utils/isInvalidDate'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
 
@@ -131,7 +131,7 @@ export default Vue.extend({
                 case 1:
                   return `${tooltipItem.value} km`
                 case 2:
-                  return ms2StirngTime(tooltipItem.value ?? 0)
+                  return ms2stringTime(tooltipItem.value ?? 0)
                 default:
                   throw new Error('Invalid datasetIndex')
               }
