@@ -36,13 +36,19 @@
     </v-row>
     <v-row>
       <v-col class="text-center">
-        <DeleteButton v-if="deleteMode" :disabled="disabled" :loading="loading" @clickOK="clickOK"></DeleteButton>
+        <DeleteButton
+          v-if="deleteMode"
+          :disabled="disabled"
+          :loading="loading"
+          @clickOK="clickOK"
+        ></DeleteButton>
         <SubmitButton
           v-else
           :disabled="disabled"
           :loading="loading"
           @click="submit"
-        >{{ submitButtonText }}</SubmitButton>
+          >{{ submitButtonText }}</SubmitButton
+        >
       </v-col>
     </v-row>
   </v-form>
