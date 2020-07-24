@@ -1,7 +1,7 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import moment from 'moment'
 import { unionBy, property } from 'lodash'
-import { ChartPoint } from 'chart.js'
+import { ChartPoint, ChartDataSets } from 'chart.js'
 import { $axios } from '~/utils/api'
 import { ChartData, DateRange } from '~/types/chart'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
@@ -62,25 +62,79 @@ export default class ChartsModule extends VuexModule {
     totalTimeExercising: []
   }
 
+  private weeklyChartData: ChartData = {
+    totalCaloriesBurned: [],
+    totalDistanceRun: [],
+    totalTimeExercising: []
+  }
+
+  private monthlyChartData: ChartData = {
+    totalCaloriesBurned: [],
+    totalDistanceRun: [],
+    totalTimeExercising: []
+  }
+
+  private get getChartData() {
+    return (dateRange: DateRange) => {
+      switch (dateRange) {
+        case WEEK1:
+        case MONTH1:
+          return this.chartData
+        case MONTH3:
+          return this.weeklyChartData
+        case YEAR1:
+          return this.monthlyChartData
+      }
+    }
+  }
+
   public get getTotalCaloriesBurned() {
     return (date: Date, dateRange: DateRange) =>
-      getFilteredChartData(this.chartData.totalCaloriesBurned, date, dateRange)
+      getFilteredChartData(
+        this.getChartData(dateRange).totalCaloriesBurned,
+        date,
+        dateRange
+      )
   }
 
   public get getTotalDistanceRun() {
     return (date: Date, dateRange: DateRange) =>
-      getFilteredChartData(this.chartData.totalDistanceRun, date, dateRange)
+      getFilteredChartData(
+        this.getChartData(dateRange).totalDistanceRun,
+        date,
+        dateRange
+      )
   }
 
   public get getTotalTimeExercising() {
     return (date: Date, dateRange: DateRange) =>
-      getFilteredChartData(this.chartData.totalTimeExercising, date, dateRange)
+      getFilteredChartData(
+        this.getChartData(dateRange).totalTimeExercising,
+        date,
+        dateRange
+      )
   }
 
   @Mutation
   private unionChartData(chartData: ChartData) {
     Object.entries(this.chartData).forEach(
       ([k, v]) => (this.chartData[k] = unionBy(chartData[k], v, property('x')))
+    )
+  }
+
+  @Mutation
+  private unionWeeklyChartData(chartData: ChartData) {
+    Object.entries(this.weeklyChartData).forEach(
+      ([k, v]) =>
+        (this.weeklyChartData[k] = unionBy(chartData[k], v, property('x')))
+    )
+  }
+
+  @Mutation
+  private unionMonthlyChartData(chartData: ChartData) {
+    Object.entries(this.monthlyChartData).forEach(
+      ([k, v]) =>
+        (this.monthlyChartData[k] = unionBy(chartData[k], v, property('x')))
     )
   }
 
@@ -92,13 +146,23 @@ export default class ChartsModule extends VuexModule {
     date: Date
     dateRange: DateRange
   }) {
-    console.log('store')
-    console.log(dateRange)
     const { data } = await $axios.get<ChartData>(
       `/api/chart/${dateRangeName[dateRange]}/${moment(date).format(
         'YYYY-MM-DD'
       )}`
     )
-    this.unionChartData(data)
+
+    switch (dateRange) {
+      case WEEK1:
+      case MONTH1:
+        this.unionChartData(data)
+        break
+      case MONTH3:
+        this.unionWeeklyChartData(data)
+        break
+      case YEAR1:
+        this.unionMonthlyChartData(data)
+        break
+    }
   }
 }

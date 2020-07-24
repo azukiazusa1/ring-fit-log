@@ -32,6 +32,7 @@ import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
 type Data = {
   dateRange: DateRange
   date: Date
+  selectedDateRange: DateRange[]
 }
 
 export default Vue.extend({
@@ -42,6 +43,7 @@ export default Vue.extend({
   },
   async asyncData({ app, query }): Promise<Data> {
     const dateRange = app.$cookies.get<DateRange>('dateRange') ?? WEEK1
+    const selectedDateRange = [dateRange]
     const queryDate = query.date as string
     const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
     try {
@@ -52,13 +54,14 @@ export default Vue.extend({
         message: 'データの取得に失敗しました。'
       })
     }
-    return { dateRange, date }
+    return { dateRange, date, selectedDateRange }
   },
   watchQuery: ['date'],
   data(): Data {
     return {
       dateRange: WEEK1,
-      date: new Date()
+      date: new Date(),
+      selectedDateRange: []
     }
   },
   computed: {
@@ -124,7 +127,7 @@ export default Vue.extend({
         },
         tooltips: {
           callbacks: {
-            label(tooltipItem, data) {
+            label(tooltipItem) {
               switch (tooltipItem.datasetIndex) {
                 case 0:
                   return `${tooltipItem.value} kcal`
@@ -211,14 +214,17 @@ export default Vue.extend({
     }
   },
   watch: {
-    dateRange(newVal: DateRange, oldVal: DateRange) {
-      this.$cookies.set('dateRange', newVal)
-      if (newVal < oldVal) return
-      // try {
-      //   await ChartsStore.fetchChartData(this.date, newVal)
-      // } catch (e) {
-      //   console.error(e)
-      // }
+    async dateRange(dateRange: DateRange) {
+      this.$cookies.set('dateRange', dateRange)
+      console.log(this.selectedDateRange)
+      if (this.selectedDateRange.includes(dateRange)) return
+      console.log('fetch')
+      this.selectedDateRange.push(dateRange)
+      try {
+        await ChartsStore.fetchChartData({ date: this.date, dateRange })
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 })
