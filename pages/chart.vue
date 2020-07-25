@@ -216,9 +216,7 @@ export default Vue.extend({
   watch: {
     async dateRange(dateRange: DateRange) {
       this.$cookies.set('dateRange', dateRange)
-      console.log(this.selectedDateRange)
       if (this.selectedDateRange.includes(dateRange)) return
-      console.log('fetch')
       this.selectedDateRange.push(dateRange)
       try {
         await ChartsStore.fetchChartData({ date: this.date, dateRange })
