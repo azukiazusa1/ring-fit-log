@@ -1,6 +1,8 @@
 import { isEmpty } from 'lodash'
+import { ChartPoint } from 'chart.js'
 import { createStore } from '~/.nuxt/store'
 import { initialiseStores, ChartsStore } from '~/utils/store-accessor'
+import { getFilteredChartData } from '~/store/charts'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
 import { $axios } from '~/utils/api'
 import { ChartData } from '~/types/chart'
@@ -125,6 +127,135 @@ describe('store/charts', () => {
         expect(
           ChartsStore.getDaylyChartData.totalCaloriesBurned.length
         ).toEqual(11)
+      })
+    })
+  })
+
+  describe('Getters', () => {
+    describe('日付と範囲を指定して、データを返す', () => {
+      const date = new Date('2020-07-08')
+      describe('日付の範囲が1週間', () => {
+        const dateRange = WEEK1
+        const data: ChartPoint[] = [
+          {
+            x: '2020-07-07',
+            y: 10
+          },
+          {
+            x: '2020-07-08',
+            y: 20
+          },
+          {
+            x: '2020-07-10',
+            y: 30
+          },
+          {
+            x: '2020-07-15',
+            y: 40
+          },
+          {
+            x: '2020-07-16',
+            y: 50
+          }
+        ]
+
+        test('2020-07-08から1週間分のデータを返す', () => {
+          expect(getFilteredChartData(data, date, dateRange).length).toEqual(3)
+        })
+      })
+
+      describe('日付の範囲が1ヶ月', () => {
+        const dateRange = MONTH1
+        const data: ChartPoint[] = [
+          {
+            x: '2020-06-30',
+            y: 10
+          },
+          {
+            x: '2020-07-01',
+            y: 20
+          },
+          {
+            x: '2020-07-15',
+            y: 30
+          },
+          {
+            x: '2020-07-31',
+            y: 40
+          },
+          {
+            x: '2020-08-01',
+            y: 50
+          }
+        ]
+
+        test('2020-07-08の月のデータを返す', () => {
+          expect(getFilteredChartData(data, date, dateRange).length).toEqual(3)
+        })
+      })
+
+      describe('日付の範囲が3ヶ月', () => {
+        const dateRange = MONTH3
+        const data: ChartPoint[] = [
+          {
+            x: '2020-06-30',
+            y: 10
+          },
+          {
+            x: '2020-07-01',
+            y: 20
+          },
+          {
+            x: '2020-08-01',
+            y: 30
+          },
+          {
+            x: '2020-09-01',
+            y: 40
+          },
+          {
+            x: '2020-09-30',
+            y: 50
+          },
+          {
+            x: '2020-10-01',
+            y: 60
+          }
+        ]
+
+        test('2020-07-08の月から3ヶ月のデータを返す', () => {
+          expect(getFilteredChartData(data, date, dateRange).length).toEqual(4)
+        })
+      })
+
+      describe('日付の範囲が1年', () => {
+        const dateRange = YEAR1
+        const data: ChartPoint[] = [
+          {
+            x: '2019-12-31',
+            y: 10
+          },
+          {
+            x: '2020-01-01',
+            y: 20
+          },
+          {
+            x: '2020-07-08',
+            y: 30
+          },
+          {
+            x: '2020-12-31',
+            y: 40
+          },
+          {
+            x: '2021-01-01',
+            y: 50
+          }
+        ]
+
+        test('2020-07-08の月から3ヶ月のデータを返す', () => {
+          expect(getFilteredChartData(data, date, dateRange).length).toEqual(3)
+        })
       })
     })
   })

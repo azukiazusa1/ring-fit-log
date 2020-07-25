@@ -27,12 +27,7 @@ export const getFilteredChartData = (
       )
     case MONTH3:
       return dataSets.filter((dataSet) =>
-        moment(dataSet.x).isBetween(
-          date,
-          moment(date).add(3, 'month'),
-          'month',
-          '[]'
-        )
+        moment(dataSet.x).isSame(date, 'quarter')
       )
     case YEAR1:
       return dataSets.filter((dataSet) =>
