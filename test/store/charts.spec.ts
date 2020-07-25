@@ -50,7 +50,25 @@ describe('store/charts', () => {
         expect($axios.get).toHaveBeenCalledWith(`${baseUrl}/1-week/2020-07-01`)
       })
 
-      test('chartData stateにデータが統合される', () => {
+      test('daylyChartData stateにデータが統合される', () => {
+        expect(isEmptyChartData(ChartsStore.getDaylyChartData)).toBeFalsy()
+      })
+    })
+
+    describe('日付の範囲が1ヶ月', () => {
+      const date = new Date('2020-07-01')
+      const dateRange = MONTH1
+      beforeEach(async () => {
+        await ChartsStore.fetchChartData({
+          date,
+          dateRange
+        })
+      })
+      test('正しいエンドポイントを叩いているか', () => {
+        expect($axios.get).toHaveBeenCalledWith(`${baseUrl}/1-month/2020-07-01`)
+      })
+
+      test('DaylyChartData stateにデータが統合される', () => {
         expect(isEmptyChartData(ChartsStore.getDaylyChartData)).toBeFalsy()
       })
     })
