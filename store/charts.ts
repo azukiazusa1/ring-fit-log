@@ -56,7 +56,7 @@ const dateRangeName = {
   namespaced: true
 })
 export default class ChartsModule extends VuexModule {
-  private chartData: ChartData = {
+  private daylyChartData: ChartData = {
     totalCaloriesBurned: [],
     totalDistanceRun: [],
     totalTimeExercising: []
@@ -74,12 +74,24 @@ export default class ChartsModule extends VuexModule {
     totalTimeExercising: []
   }
 
+  public get getDaylyChartData() {
+    return this.daylyChartData
+  }
+
+  public get getWeeklyChartData() {
+    return this.weeklyChartData
+  }
+
+  public get getMonthlyChartData() {
+    return this.monthlyChartData
+  }
+
   private get getChartData() {
     return (dateRange: DateRange) => {
       switch (dateRange) {
         case WEEK1:
         case MONTH1:
-          return this.chartData
+          return this.daylyChartData
         case MONTH3:
           return this.weeklyChartData
         case YEAR1:
@@ -116,9 +128,10 @@ export default class ChartsModule extends VuexModule {
   }
 
   @Mutation
-  private unionChartData(chartData: ChartData) {
-    Object.entries(this.chartData).forEach(
-      ([k, v]) => (this.chartData[k] = unionBy(chartData[k], v, property('x')))
+  private unionDaylyChartData(chartData: ChartData) {
+    Object.entries(this.daylyChartData).forEach(
+      ([k, v]) =>
+        (this.daylyChartData[k] = unionBy(chartData[k], v, property('x')))
     )
   }
 
@@ -155,7 +168,7 @@ export default class ChartsModule extends VuexModule {
     switch (dateRange) {
       case WEEK1:
       case MONTH1:
-        this.unionChartData(data)
+        this.unionDaylyChartData(data)
         break
       case MONTH3:
         this.unionWeeklyChartData(data)

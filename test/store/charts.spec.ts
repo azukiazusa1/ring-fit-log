@@ -1,3 +1,4 @@
+import { isEmpty } from 'lodash'
 import { createStore } from '~/.nuxt/store'
 import { initialiseStores, ChartsStore } from '~/utils/store-accessor'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
@@ -6,15 +7,24 @@ import { ChartData } from '~/types/chart'
 
 let mockEmpty = false
 const baseUrl = '/api/chart'
+const isEmptyChartData = (chartData: ChartData) => {
+  return Object.values(chartData).every((v) => isEmpty(v))
+}
 
 jest.mock('~/utils/api', () => ({
   $axios: {
     get: jest.fn((url: string) => {
-      const data: ChartData = {
-        totalCaloriesBurned: [],
-        totalDistanceRun: [],
-        totalTimeExercising: []
+      console.log(mockEmpty)
+      if (mockEmpty) {
+        const emptyData: ChartData = {
+          totalCaloriesBurned: [],
+          totalDistanceRun: [],
+          totalTimeExercising: []
+        }
+        return Promise.resolve({ data: emptyData })
       }
+
+      const data = require(`~/test/fixture${url}.json`)
       return Promise.resolve({ data })
     })
   }
@@ -28,14 +38,20 @@ describe('store/charts', () => {
 
   describe('Actions', () => {
     describe('日付の範囲が1週間', () => {
+      const date = new Date('2020-07-01')
+      const dateRange = WEEK1
       beforeEach(async () => {
         await ChartsStore.fetchChartData({
-          date: new Date('2020-07-01'),
-          dateRange: WEEK1
+          date,
+          dateRange
         })
       })
       test('正しいエンドポイントを叩いているか', () => {
         expect($axios.get).toHaveBeenCalledWith(`${baseUrl}/1-week/2020-07-01`)
+      })
+
+      test('chartData stateにデータが統合される', () => {
+        expect(isEmptyChartData(ChartsStore.getDaylyChartData)).toBeFalsy()
       })
     })
   })
