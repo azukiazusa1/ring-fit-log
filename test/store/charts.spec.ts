@@ -14,7 +14,6 @@ const isEmptyChartData = (chartData: ChartData) => {
 jest.mock('~/utils/api', () => ({
   $axios: {
     get: jest.fn((url: string) => {
-      console.log(mockEmpty)
       if (mockEmpty) {
         const emptyData: ChartData = {
           totalCaloriesBurned: [],
@@ -41,10 +40,7 @@ describe('store/charts', () => {
       const date = new Date('2020-07-01')
       const dateRange = WEEK1
       beforeEach(async () => {
-        await ChartsStore.fetchChartData({
-          date,
-          dateRange
-        })
+        await ChartsStore.fetchChartData({ date, dateRange })
       })
       test('正しいエンドポイントを叩いているか', () => {
         expect($axios.get).toHaveBeenCalledWith(`${baseUrl}/1-week/2020-07-01`)
@@ -59,10 +55,7 @@ describe('store/charts', () => {
       const date = new Date('2020-07-01')
       const dateRange = MONTH1
       beforeEach(async () => {
-        await ChartsStore.fetchChartData({
-          date,
-          dateRange
-        })
+        await ChartsStore.fetchChartData({ date, dateRange })
       })
       test('正しいエンドポイントを叩いているか', () => {
         expect($axios.get).toHaveBeenCalledWith(`${baseUrl}/1-month/2020-07-01`)
@@ -70,6 +63,38 @@ describe('store/charts', () => {
 
       test('DaylyChartData stateにデータが統合される', () => {
         expect(isEmptyChartData(ChartsStore.getDaylyChartData)).toBeFalsy()
+      })
+    })
+
+    describe('日付の範囲が3ヶ月', () => {
+      const date = new Date('2020-07-01')
+      const dateRange = MONTH3
+      beforeEach(async () => {
+        await ChartsStore.fetchChartData({ date, dateRange })
+      })
+
+      test('正しいエンドポイントを叩いているか', () => {
+        expect($axios.get).toHaveBeenCalledWith(`${baseUrl}/3-month/2020-07-01`)
+      })
+
+      test('weeklyChartData stateにデータが統合される', () => {
+        expect(isEmptyChartData(ChartsStore.getWeeklyChartData)).toBeFalsy()
+      })
+    })
+
+    describe('日付の範囲が1年', () => {
+      const date = new Date('2020-07-01')
+      const dateRange = YEAR1
+      beforeEach(async () => {
+        await ChartsStore.fetchChartData({ date, dateRange })
+      })
+
+      test('正しいエンドポイントを叩いているか', () => {
+        expect($axios.get).toHaveBeenCalledWith(`${baseUrl}/1-year/2020-07-01`)
+      })
+
+      test('MonthlyChartData stateにデータが統合される', () => {
+        expect(isEmptyChartData(ChartsStore.getMonthlyChartData)).toBeFalsy()
       })
     })
   })
