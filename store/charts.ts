@@ -1,12 +1,12 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import moment from 'moment'
 import { unionBy, property } from 'lodash'
-import { ChartPoint, ChartDataSets } from 'chart.js'
+import { ChartPoint } from 'chart.js'
 import { $axios } from '~/utils/api'
 import { ChartData, DateRange } from '~/types/chart'
 import { WEEK1, MONTH1, MONTH3, YEAR1 } from '~/config/constant'
 
-const getFilteredChartData = (
+export const getFilteredChartData = (
   dataSets: ChartPoint[],
   date: Date,
   dateRange: DateRange

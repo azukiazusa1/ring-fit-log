@@ -97,5 +97,35 @@ describe('store/charts', () => {
         expect(isEmptyChartData(ChartsStore.getMonthlyChartData)).toBeFalsy()
       })
     })
+
+    describe('同じ日付のデータは上書きされる', () => {
+      const dateRange = WEEK1
+      test('同じ日付のデータを取得', async () => {
+        await ChartsStore.fetchChartData({
+          date: new Date('2020-07-01'),
+          dateRange
+        })
+
+        const oldData = ChartsStore.getDaylyChartData.totalCaloriesBurned.find(
+          (v) => v.x === '2020-07-07'
+        )
+
+        expect(oldData!.y).toEqual(39.8)
+
+        await ChartsStore.fetchChartData({
+          date: new Date('2020-07-07'),
+          dateRange
+        })
+
+        const newData = ChartsStore.getDaylyChartData.totalCaloriesBurned.find(
+          (v) => v.x === '2020-07-07'
+        )
+
+        expect(newData!.y).toEqual(29.7)
+        expect(
+          ChartsStore.getDaylyChartData.totalCaloriesBurned.length
+        ).toEqual(11)
+      })
+    })
   })
 })
