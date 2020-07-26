@@ -84,6 +84,8 @@ export default {
     )
     if (record) {
       res.json(toJSON(record))
+    } else {
+      res.json({})
     }
   },
   month: (req: Express.Request, res: Express.Response) => {

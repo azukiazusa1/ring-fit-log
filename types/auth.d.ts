@@ -1,6 +1,7 @@
 export interface LoginUser {
   username: string
   identifier: string
+  strategy: string
   photoURL: string
   email: string
 }

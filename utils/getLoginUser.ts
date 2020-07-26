@@ -21,6 +21,7 @@ export default function getloginUser(
     loginUser = {
       username: user.name,
       identifier: user.sub,
+      strategy: 'google',
       email: user.email,
       photoURL: user.picture
     }
@@ -29,6 +30,7 @@ export default function getloginUser(
     loginUser = {
       username: user.name ? user.name : user.login,
       identifier: user.id,
+      strategy: 'github',
       email: user.email,
       photoURL: user.avatar_url
     }
@@ -37,6 +39,7 @@ export default function getloginUser(
     loginUser = {
       username: user.name,
       identifier: user.id,
+      strategy: 'facebook',
       email: user.email,
       photoURL: user.picture!.data.url
     }
