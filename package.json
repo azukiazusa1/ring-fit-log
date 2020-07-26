@@ -16,6 +16,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.1",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@hapi/boom": "^9.1.0",
     "@nuxt/typescript-runtime": "^0.4.10",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.3.6",
@@ -30,6 +31,7 @@
     "express": "^4.16.4",
     "http-status-codes": "^1.4.0",
     "lodash": "^4.17.15",
+    "mongoose": "^5.9.25",
     "nuxt": "^2.0.0",
     "universal-cookie": "^4.0.3",
     "vue-chartjs": "^3.5.0",
@@ -45,6 +47,7 @@
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/vuetify": "^1.0.0",
     "@types/jest": "^26.0.3",
+    "@types/mongoose": "^5.7.32",
     "@types/nuxtjs__auth": "^4.8.4",
     "@types/vue2-datepicker": "^3.3.0",
     "@vue/test-utils": "^1.0.0-beta.27",

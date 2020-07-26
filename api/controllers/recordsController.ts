@@ -1,4 +1,5 @@
 import Express from 'express'
+import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
 import moment from 'moment'
 import { isEmpty } from 'lodash'
@@ -68,11 +69,13 @@ const records: Record[] = [
 ]
 
 export default {
-  show: (req: Express.Request, res: Express.Response) => {
+  show: (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
     if (isInvalidDate(req.params.date)) {
-      res.status(httpStatusCode.BAD_REQUEST)
-      res.json({ message: 'Invalid Date' })
-      return
+      next(Boom.badRequest('Invalid Date'))
     }
     const date = new Date(req.params.date)
 
@@ -81,8 +84,6 @@ export default {
     )
     if (record) {
       res.json(toJSON(record))
-    } else {
-      res.json({})
     }
   },
   month: (req: Express.Request, res: Express.Response) => {
