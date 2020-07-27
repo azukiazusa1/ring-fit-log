@@ -1,4 +1,5 @@
 import Express from 'express'
+import httpStatus from 'http-status-codes'
 import Boom from '@hapi/boom'
 import AppUser from '../models/User'
 import { LoginUser } from '~/types/auth'
@@ -12,9 +13,9 @@ export default {
     const user: LoginUser = req.body.user
     try {
       const result = await AppUser.findOne().findOrCreate(user)
-      res.json({ uid: result._id })
+      res.status(httpStatus.OK).json({ uid: result._id })
     } catch (e) {
-      next(Boom.internal('Database Error!'))
+      next(Boom.internal('Database Error Occurred'))
     }
   }
 }

@@ -11,7 +11,8 @@ const userSchema: Schema = new Schema(
     },
     storategy: {
       type: String,
-      required: true
+      required: true,
+      enum: ['google', 'github', 'facebook']
     },
     identifier: {
       type: String,
