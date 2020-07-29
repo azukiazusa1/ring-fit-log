@@ -12,8 +12,7 @@ jest.mock('~/api/models/User', () => ({
     return AppUser
   }),
   findOrCreate: jest.fn((user: LoginUser) => {
-    console.log(user)
-    return { uid: '12345', ...user }
+    return { _id: '12345', ...user }
   })
 }))
 
@@ -40,6 +39,7 @@ describe('~/api/controllers/userController', () => {
       await usersConrtoller.create(req, res, next)
 
       expect(res.status.calledWith(200)).toBeTruthy()
+      expect(res.json.calledWith({ uid: '12345' })).toBeTruthy()
     })
   })
 })
