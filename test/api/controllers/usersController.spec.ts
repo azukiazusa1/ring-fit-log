@@ -1,15 +1,17 @@
 import { mockReq, mockRes } from 'sinon-express-mock'
-import AppUser from '~/api/models/User'
 import usersConrtoller from '~/api/controllers/usersController'
 import Boom from '@hapi/boom'
 import { LoginUser } from '~/types/auth'
 
 let mockError = false
 
+interface Request {
+  body: {
+    user: LoginUser
+  }
+}
 jest.mock('~/api/models/User', () => ({
-  findOne: jest.fn(() => {
-    return AppUser
-  }),
+  findOne: jest.fn().mockReturnThis(),
   findOrCreate: jest.fn((user: LoginUser) => {
     if (mockError) {
       throw new Error('mock error')
@@ -19,13 +21,13 @@ jest.mock('~/api/models/User', () => ({
 }))
 
 describe('~/api/controllers/userController', () => {
-  const request = {
+  const request: Request = {
     body: {
       user: {
         username: 'test',
-        storategy: 'google',
+        strategy: 'google',
         identifier: '12345',
-        emil: 'aaa@example.com',
+        email: 'aaa@example.com',
         photoURL: 'http://example.com'
       }
     }
