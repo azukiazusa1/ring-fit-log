@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export default () => {
+export const connect = () => {
   mongoose.Promise = global.Promise
 
   return mongoose.connect(
@@ -13,4 +13,8 @@ export default () => {
       }
     }
   )
+}
+
+export const disConnect = () => {
+  return mongoose.connection.close()
 }
