@@ -15,7 +15,7 @@ export default {
       const result = await AppUser.findOne().findOrCreate(user)
       res.status(httpStatus.OK).json({ uid: result._id })
     } catch (e) {
-      next(Boom.internal('Database Error Occurred'))
+      next(Boom.internal('予期せぬエラーが発生しました。'))
     }
   }
 }
