@@ -9,7 +9,7 @@ const userSchema: Schema = new Schema(
       type: String,
       required: true
     },
-    storategy: {
+    strategy: {
       type: String,
       required: true,
       enum: ['google', 'github', 'facebook']
@@ -28,7 +28,7 @@ const queryHelpers = {
   findOrCreate(this: DocumentQuery<any, UserDoc>, user: LoginUser) {
     return this.findOneAndUpdate(
       {
-        storategy: user.strategy,
+        strategy: user.strategy,
         identifier: user.identifier
       },
       user,
