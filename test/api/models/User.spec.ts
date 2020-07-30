@@ -12,8 +12,16 @@ const user1: LoginUser = {
 
 const user2: LoginUser = {
   username: 'user2',
-  strategy: 'github',
+  strategy: 'google',
   identifier: '54321',
+  email: 'aaa@example.com',
+  photoURL: 'http://example.com'
+}
+
+const user3: LoginUser = {
+  username: 'user3',
+  strategy: 'github',
+  identifier: 'abcde',
   email: 'aaa@example.com',
   photoURL: 'http://example.com'
 }
@@ -22,6 +30,10 @@ describe('~/api/models/User', () => {
   let _id: string
   beforeAll(async () => {
     await connect()
+  })
+
+  beforeEach(async () => {
+    await AppUser.remove({})
     const result = await AppUser.create(user1)
     _id = result._id
   })
@@ -41,6 +53,13 @@ describe('~/api/models/User', () => {
       expect(result.username).toEqual(user2.username)
       expect(result.strategy).toEqual(user2.strategy)
       expect(result.identifier).toEqual(user2.identifier)
+      expect(count).toEqual(2)
+    })
+
+    test('strategyが一致するが、identifierが一致しないユーザーは別のユーザー', async () => {
+      const result = await AppUser.findOne().findOrCreate(user3)
+      const count = await AppUser.count({})
+      expect(result.id).not.toEqual(_id)
       expect(count).toEqual(2)
     })
   })
