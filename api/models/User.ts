@@ -34,7 +34,8 @@ const queryHelpers = {
       user,
       {
         new: true,
-        upsert: true
+        upsert: true,
+        runValidators: true
       }
     )
   }

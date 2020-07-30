@@ -91,3 +91,6 @@ sw.*
 
 # http
 *.pem
+
+# jest mongoose 
+*.globalConfig.json
