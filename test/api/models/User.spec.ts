@@ -45,21 +45,21 @@ describe('~/api/models/User', () => {
   describe('findOrCreate', () => {
     let _id: string
     beforeEach(async () => {
-      await AppUser.remove({})
+      await AppUser.deleteMany({})
       const result = await AppUser.create(user1)
       _id = result._id
     })
 
     test('ユーザーが存在するなら、そのユーザーを返す', async () => {
       const result = await AppUser.findOne().findOrCreate(user1)
-      const count = await AppUser.count({})
+      const count = await AppUser.countDocuments({})
       expect(result._id).toEqual(_id)
       expect(count).toEqual(1)
     })
 
     test('ユーザーが存在しないなら、作成してユーザーを返す', async () => {
       const result = await AppUser.findOne().findOrCreate(user2)
-      const count = await AppUser.count({})
+      const count = await AppUser.countDocuments({})
       expect(result.id).not.toEqual(_id)
       expect(result.username).toEqual(user2.username)
       expect(result.strategy).toEqual(user2.strategy)
@@ -69,14 +69,14 @@ describe('~/api/models/User', () => {
 
     test('strategyが一致するが、identifierが異なるユーザーは別のユーザー', async () => {
       const result = await AppUser.findOne().findOrCreate(user3)
-      const count = await AppUser.count({})
+      const count = await AppUser.countDocuments({})
       expect(result.id).not.toEqual(_id)
       expect(count).toEqual(2)
     })
 
     test('identifierが一致するが、stragefyが異なるユーザーは別のユーザー', async () => {
       const result = await AppUser.findOne().findOrCreate(user4)
-      const count = await AppUser.count({})
+      const count = await AppUser.countDocuments({})
       expect(result.id).not.toEqual(_id)
       expect(count).toEqual(2)
     })
@@ -91,6 +91,21 @@ describe('~/api/models/User', () => {
           identifier: '11111',
           email: 'aaa@example.com',
           photoURL: 'http://example.com'
+        }
+        await expect(
+          AppUser.findOne().findOrCreate(invalidUser)
+        ).rejects.toThrow(ValidationError)
+      })
+    })
+
+    describe('strategy', () => {
+      test('strategyは必須項目', async () => {
+        const invalidUser = {
+          username: 'username',
+          strategy: '',
+          identifier: '11111',
+          email: 'aaa@example.com',
+          photoURL: 'example'
         }
         await expect(
           AppUser.findOne().findOrCreate(invalidUser)

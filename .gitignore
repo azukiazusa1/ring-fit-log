@@ -93,4 +93,4 @@ sw.*
 *.pem
 
 # jest mongoose 
-*.globalConfig.json
+globalConfig.json

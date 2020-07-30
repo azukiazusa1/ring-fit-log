@@ -5,7 +5,12 @@ export const connect = () => {
 
   return mongoose.connect(
     (global as any).__MONGO_URI__,
-    { useNewUrlParser: true, useCreateIndex: true },
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+      useUnifiedTopology: true
+    },
     (err) => {
       if (err) {
         console.error(err)
