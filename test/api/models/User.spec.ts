@@ -80,6 +80,19 @@ describe('~/api/models/User', () => {
       expect(result.id).not.toEqual(_id)
       expect(count).toEqual(2)
     })
+
+    test('バリデーションが働いている', async () => {
+      const invalidUser = {
+        username: '',
+        strategy: 'github',
+        identifier: '11111',
+        email: 'aaa@example.com',
+        photoURL: 'http://example.com'
+      }
+      await expect(AppUser.findOne().findOrCreate(invalidUser)).rejects.toThrow(
+        ValidationError
+      )
+    })
   })
 
   describe('バリデーション', () => {
@@ -92,9 +105,9 @@ describe('~/api/models/User', () => {
           email: 'aaa@example.com',
           photoURL: 'http://example.com'
         }
-        await expect(
-          AppUser.findOne().findOrCreate(invalidUser)
-        ).rejects.toThrow(ValidationError)
+        await expect(AppUser.create(invalidUser)).rejects.toThrow(
+          ValidationError
+        )
       })
     })
 
@@ -107,9 +120,73 @@ describe('~/api/models/User', () => {
           email: 'aaa@example.com',
           photoURL: 'example'
         }
-        await expect(
-          AppUser.findOne().findOrCreate(invalidUser)
-        ).rejects.toThrow(ValidationError)
+        await expect(AppUser.create(invalidUser)).rejects.toThrow(
+          ValidationError
+        )
+      })
+
+      test('githubはOK', async () => {
+        const invalidUser = {
+          username: 'username',
+          strategy: 'github',
+          identifier: '11111',
+          email: 'aaa@example.com',
+          photoURL: 'example'
+        }
+        const result = await AppUser.create(invalidUser)
+        expect(result._id).toBeDefined()
+      })
+
+      test('googleはOK', async () => {
+        const invalidUser = {
+          username: 'username',
+          strategy: 'google',
+          identifier: '11111',
+          email: 'aaa@example.com',
+          photoURL: 'example'
+        }
+        const result = await AppUser.create(invalidUser)
+        expect(result._id).toBeDefined()
+      })
+
+      test('facebookはOK', async () => {
+        const invalidUser = {
+          username: 'username',
+          strategy: 'facebook',
+          identifier: '11111',
+          email: 'aaa@example.com',
+          photoURL: 'example'
+        }
+        const result = await AppUser.create(invalidUser)
+        expect(result._id).toBeDefined()
+      })
+
+      test('それ以外はNG', async () => {
+        const invalidUser = {
+          username: 'username',
+          strategy: 'twitter',
+          identifier: '11111',
+          email: 'aaa@example.com',
+          photoURL: 'example'
+        }
+        await expect(AppUser.create(invalidUser)).rejects.toThrow(
+          ValidationError
+        )
+      })
+    })
+
+    describe('identifier', () => {
+      test('identifierは必須項目', async () => {
+        const invalidUser = {
+          username: 'username',
+          strategy: 'github',
+          identifier: '',
+          email: 'aaa@example.com',
+          photoURL: 'example'
+        }
+        await expect(AppUser.create(invalidUser)).rejects.toThrow(
+          ValidationError
+        )
       })
     })
   })
