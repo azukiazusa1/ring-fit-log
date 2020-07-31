@@ -1,7 +1,7 @@
 import { Error } from 'mongoose'
 import AppUser from '~/api/models/User'
 import { LoginUser } from '~/types/auth'
-import { connect, disConnect } from '~/test/db'
+import { connect, disConnect } from '~/api/db'
 
 const { ValidationError } = Error
 

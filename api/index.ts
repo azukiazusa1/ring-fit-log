@@ -2,7 +2,9 @@ import Express from 'express'
 import bodyParser from 'body-parser'
 import router from './routes'
 import errorController from './controllers/ErrorController'
-import './db'
+import { connect } from './db'
+
+connect()
 
 const app = Express()
 
