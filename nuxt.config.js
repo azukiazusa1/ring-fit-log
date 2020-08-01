@@ -98,7 +98,6 @@ const config = {
         },
         dark: {
           ...brands,
-          github: '#fff',
           main: '#ff8200',
           secondary: '#fb0'
         }

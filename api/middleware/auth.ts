@@ -8,9 +8,9 @@ export default (
   next: Express.NextFunction
 ) => {
   const cookie = new Cookies(req.headers.cookie)
-  const uid = cookie.get('uid')
-  if (uid) {
-    res.locals.uid = uid
+  const userId = cookie.get('userId')
+  if (userId) {
+    res.locals.userId = userId
     next()
   } else {
     next(Boom.unauthorized())

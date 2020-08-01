@@ -133,7 +133,6 @@ export default Vue.extend({
           message: '記録の削除に失敗しました。'
         })
       } finally {
-        console.log(RecordsStore.getRecords)
         this.loading = false
       }
     }

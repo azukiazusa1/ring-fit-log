@@ -5,12 +5,15 @@ export interface Stamps {
   yoga: boolean
 }
 
-export interface Record {
-  _id: string
+export interface IRecord {
   totalTimeExercising: number | null
   totalCaloriesBurned: number | null
   totalDistanceRun: number | null
   date: Date | string
   stamps: Stamps
   userId: string
+}
+
+export interface Record extends IRecord {
+  _id: string
 }

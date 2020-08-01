@@ -3,13 +3,14 @@ import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
 import moment from 'moment'
 import { isEmpty } from 'lodash'
+import Record from '../models/Record'
 import isInvalidDate from '../../utils/isInvalidDate'
 import { stringTime2ms as s } from '../../utils/msConversion'
 import toJSON from '../../utils/toJSON'
-import { Record } from '~/types/record'
+import { Record as R } from '~/types/record'
 
 // TODO mock
-const records: Record[] = [
+const records: R[] = [
   {
     _id: '1',
     totalTimeExercising: s('00:20:02'),
@@ -51,25 +52,11 @@ const records: Record[] = [
       yoga: true
     },
     userId: 'jfalfjafhaffj'
-  },
-  {
-    _id: '4',
-    totalTimeExercising: s('00:21:14'),
-    totalCaloriesBurned: 100.55,
-    totalDistanceRun: 3.5,
-    date: '2020-08-01T00:00:00+09:00',
-    stamps: {
-      arms: true,
-      stomach: false,
-      legs: false,
-      yoga: true
-    },
-    userId: 'jfalfjafhaffj'
   }
 ]
 
 export default {
-  show: (
+  show: async (
     req: Express.Request,
     res: Express.Response,
     next: Express.NextFunction
@@ -78,14 +65,18 @@ export default {
       next(Boom.badRequest('Invalid Date'))
     }
     const date = new Date(req.params.date)
-
-    const record = records.find((record) =>
-      moment(record.date).isSame(date, 'day')
-    )
-    if (record) {
-      res.json(toJSON(record))
-    } else {
-      res.json({})
+    const userId: string = res.locals.userId
+    try {
+      const record = await Record.findOne().findByDate(date, userId)
+      console.log(record)
+      if (record) {
+        res.json(record)
+      } else {
+        res.json({})
+      }
+    } catch (e) {
+      console.log(e)
+      next(e)
     }
   },
   month: (req: Express.Request, res: Express.Response) => {
@@ -106,11 +97,20 @@ export default {
       res.json({})
     }
   },
-  create: (req: Express.Request, res: Express.Response) => {
-    const record = req.body
-    console.log(record)
-    // TODO とりあえずオウム返し
-    res.json(record)
+  create: async (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    try {
+      const record = req.body
+      delete record._id
+      record.userId = res.locals.userId
+      const result = await Record.create(req.body)
+      res.json(result)
+    } catch {
+      next(Boom.internal())
+    }
   },
   update: (req: Express.Request, res: Express.Response) => {
     const record = req.body
