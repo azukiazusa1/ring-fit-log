@@ -49,7 +49,7 @@ export default Vue.extend({
     RecordDateSelector,
     RecrodFormArea
   },
-  async asyncData({ query, error }): Promise<AsyncData> {
+  async asyncData({ query }): Promise<AsyncData> {
     const queryDate = query.date as string
     const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
     if (RecordsStore.isRecoded(date)) {
@@ -60,9 +60,8 @@ export default Vue.extend({
       await RecordsStore.fetchRecord(date)
     } catch (e) {
       console.log(e)
-      error({
-        statusCode: e.response.status,
-        message: e.response.message
+      SnackbarModule.error({
+        message: 'データの取得時にエラーが発生しました。'
       })
     }
 
