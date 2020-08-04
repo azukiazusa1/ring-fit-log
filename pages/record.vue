@@ -102,8 +102,9 @@ export default Vue.extend({
     },
     async onUpdate(record: Record) {
       this.loading = true
+      const { _id } = record
       try {
-        await RecordsStore.updateRecord(record, record._id)
+        await RecordsStore.updateRecord({ record, _id })
         SnackbarModule.info({
           message: '記録を更新しました。'
         })

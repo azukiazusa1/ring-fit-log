@@ -63,10 +63,21 @@ const queryHelpers = {
     })
   }
 }
-
 recordSchema.query = queryHelpers
+
 interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   findOrCreate(date: Date, userId: string): Promise<RecordDoc>
+  updateById(id: string, record: IRecord): Promise<RecordDoc>
 }
+
+const statics = {
+  updateById(this: RecordModel, id: string, record: IRecord) {
+    return this.findByIdAndUpdate(id, record, {
+      new: true,
+      runValidators: true
+    })
+  }
+}
+recordSchema.statics = statics
 
 export default mongoose.model<RecordDoc, RecordModel>('Record', recordSchema)

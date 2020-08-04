@@ -119,7 +119,7 @@ describe('store/record', () => {
           },
           userId: 'jfalfjafhaffj'
         }
-        await RecordsStore.updateRecord(newData, newData._id)
+        await RecordsStore.updateRecord({ record: newData, _id: newData._id })
         expect(RecordsStore.getRecords[0]).not.toEqual(oldData)
         expect(RecordsStore.getRecords[0]).toEqual(newData)
         expect(RecordsStore.getRecords.length).toEqual(oldLength)

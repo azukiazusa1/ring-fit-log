@@ -68,15 +68,14 @@ export default {
     const userId: string = res.locals.userId
     try {
       const record = await Record.findOne().findByDate(date, userId)
-      console.log(record)
       if (record) {
         res.json(record)
       } else {
         res.json({})
       }
     } catch (e) {
-      console.log(e)
-      next(e)
+      console.error(e)
+      next(Boom.internal())
     }
   },
   month: (req: Express.Request, res: Express.Response) => {
@@ -112,11 +111,21 @@ export default {
       next(Boom.internal())
     }
   },
-  update: (req: Express.Request, res: Express.Response) => {
+  update: async (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const id: string = req.params.id
     const record = req.body
-    console.log(record)
-    // TODO とりあえずオウム返し
-    res.json(record)
+    try {
+      const result = await Record.updateById(id, record)
+      console.log(result)
+      res.json(result)
+    } catch (e) {
+      console.error(e)
+      next(Boom.internal())
+    }
   },
   delete: (req: Express.Request, res: Express.Response) => {
     const { id } = req.params
