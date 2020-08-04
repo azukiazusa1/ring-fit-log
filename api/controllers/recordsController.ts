@@ -116,20 +116,28 @@ export default {
     res: Express.Response,
     next: Express.NextFunction
   ) => {
-    const id: string = req.params.id
+    const { id } = req.params
     const record = req.body
     try {
       const result = await Record.updateById(id, record)
-      console.log(result)
-      res.json(result)
+      res.status(httpStatusCode.OK).json(result)
     } catch (e) {
       console.error(e)
       next(Boom.internal())
     }
   },
-  delete: (req: Express.Request, res: Express.Response) => {
+  delete: async (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
     const { id } = req.params
-    console.log(id)
-    res.json({})
+    try {
+      await Record.findByIdAndDelete(id)
+      res.status(httpStatusCode.NO_CONTENT).json({})
+    } catch (e) {
+      console.error(e)
+      next(Boom.internal())
+    }
   }
 }
