@@ -1,5 +1,4 @@
 import Express from 'express'
-import Cookies from 'universal-cookie'
 import Boom from '@hapi/boom'
 
 export default (
@@ -7,8 +6,9 @@ export default (
   res: Express.Response,
   next: Express.NextFunction
 ) => {
-  const cookie = new Cookies(req.headers.cookie)
-  const userId = cookie.get('userId')
+  console.log(req.cookies)
+  console.log(req.cookies.userId)
+  const userId = req.cookies.userId
   if (userId) {
     res.locals.userId = userId
     next()

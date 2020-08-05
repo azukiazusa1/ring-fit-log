@@ -42,7 +42,6 @@ export default {
 
     try {
       const records = await Record.find().findByMonth(date, userId)
-      console.log('★server★')
       if (!isEmpty(records)) {
         res.status(httpStatusCode.OK).json(records)
       } else {

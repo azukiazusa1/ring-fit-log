@@ -88,8 +88,6 @@ export default class RecordsModule extends VuexModule {
   @Action({ rawError: true })
   public async fetchRecordByMonth(month: string) {
     const { data } = await $axios.get<Record[]>(`/api/record/month/${month}`)
-    console.log('★client★')
-    console.log(data)
     this.cache(month)
     if (isEmpty(data)) {
       return
