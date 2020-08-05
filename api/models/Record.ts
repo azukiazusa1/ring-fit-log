@@ -53,11 +53,22 @@ const queryHelpers = {
     return this.findOne({
       date: {
         $gte: date,
-        $lt: new Date(
-          moment(date)
-            .add(1, 'day')
-            .format()
-        )
+        $lt: moment(date)
+          .add(1, 'day')
+          .format()
+      },
+      userId
+    })
+  },
+  findByMonth(this: DocumentQuery<any, RecordDoc>, date: Date, userId: string) {
+    return this.find({
+      date: {
+        $gte: moment(date)
+          .startOf('month')
+          .format(),
+        $lt: moment(date)
+          .endOf('month')
+          .format()
       },
       userId
     })
@@ -66,7 +77,6 @@ const queryHelpers = {
 recordSchema.query = queryHelpers
 
 interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
-  findOrCreate(date: Date, userId: string): Promise<RecordDoc>
   updateById(id: string, record: IRecord): Promise<RecordDoc>
 }
 

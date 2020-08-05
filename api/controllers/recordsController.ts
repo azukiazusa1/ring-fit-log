@@ -1,59 +1,9 @@
 import Express from 'express'
 import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
-import moment from 'moment'
 import { isEmpty } from 'lodash'
 import Record from '../models/Record'
 import isInvalidDate from '../../utils/isInvalidDate'
-import { stringTime2ms as s } from '../../utils/msConversion'
-import toJSON from '../../utils/toJSON'
-import { Record as R } from '~/types/record'
-
-// TODO mock
-const records: R[] = [
-  {
-    _id: '1',
-    totalTimeExercising: s('00:20:02'),
-    totalCaloriesBurned: 24.24,
-    totalDistanceRun: 1.5,
-    date: '2020-07-01T00:00:00+09:00',
-    stamps: {
-      arms: true,
-      stomach: false,
-      legs: true,
-      yoga: false
-    },
-    userId: 'jfalfjafhaffj'
-  },
-  {
-    _id: '2',
-    totalTimeExercising: s('00:30:32'),
-    totalCaloriesBurned: 32.32,
-    totalDistanceRun: 4.53,
-    date: '2020-07-02T00:00:00+09:00',
-    stamps: {
-      arms: true,
-      stomach: true,
-      legs: false,
-      yoga: false
-    },
-    userId: 'jfalfjafhaffj'
-  },
-  {
-    _id: '3',
-    totalTimeExercising: s('00:10:24'),
-    totalCaloriesBurned: 8.23,
-    totalDistanceRun: null,
-    date: '2020-07-06T00:00:00+09:00',
-    stamps: {
-      arms: false,
-      stomach: false,
-      legs: false,
-      yoga: true
-    },
-    userId: 'jfalfjafhaffj'
-  }
-]
 
 export default {
   show: async (
@@ -78,22 +28,29 @@ export default {
       next(Boom.internal())
     }
   },
-  month: (req: Express.Request, res: Express.Response) => {
+  month: async (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
     if (isInvalidDate(req.params.date)) {
-      res.status(httpStatusCode.BAD_REQUEST)
-      res.json({ message: 'Invalid Date' })
-      return
+      next(Boom.badRequest('Invalid Date'))
     }
 
     const date = new Date(req.params.date)
-    const monthRecord = records.filter((record) =>
-      moment(record.date).isSame(date, 'months')
-    )
+    const userId: string = res.locals.userId
 
-    if (!isEmpty(monthRecord)) {
-      res.json(monthRecord.map((r) => toJSON(r)))
-    } else {
-      res.json({})
+    try {
+      const records = await Record.find().findByMonth(date, userId)
+      console.log('★server★')
+      if (!isEmpty(records)) {
+        res.status(httpStatusCode.OK).json(records)
+      } else {
+        res.json({})
+      }
+    } catch (e) {
+      console.error(e)
+      next(Boom.internal())
     }
   },
   create: async (
