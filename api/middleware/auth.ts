@@ -6,8 +6,6 @@ export default (
   res: Express.Response,
   next: Express.NextFunction
 ) => {
-  console.log(req.cookies)
-  console.log(req.cookies.userId)
   const userId = req.cookies.userId
   if (userId) {
     res.locals.userId = userId
