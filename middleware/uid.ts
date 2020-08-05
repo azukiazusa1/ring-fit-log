@@ -13,7 +13,7 @@ const uid: Middleware = async ({ error, $axios, $auth, app }) => {
         sameSite: 'strict'
       })
     } catch (e) {
-      error(e.message)
+      error(e)
     }
   }
 }
