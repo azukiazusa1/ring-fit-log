@@ -1,4 +1,4 @@
-import Express from 'express'
+import Express, { response } from 'express'
 import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
 import { isEmpty } from 'lodash'
@@ -19,9 +19,9 @@ export default {
     try {
       const record = await Record.findOne().findByDate(date, userId)
       if (record) {
-        res.json(record)
+        res.status(httpStatusCode.OK).json(record)
       } else {
-        res.json({})
+        res.status(httpStatusCode.OK).json({})
       }
     } catch (e) {
       console.error(e)
