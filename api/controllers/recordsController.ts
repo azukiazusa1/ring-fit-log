@@ -60,7 +60,7 @@ export default {
       delete record._id
       record.userId = res.locals.userId
       const result = await Record.create(req.body)
-      res.json(result)
+      res.status(httpStatusCode.CREATED).json(result)
     } catch {
       next(Boom.internal())
     }
