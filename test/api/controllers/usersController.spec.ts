@@ -1,6 +1,6 @@
 import { mockReq, mockRes } from 'sinon-express-mock'
 import usersConrtoller from '~/api/controllers/usersController'
-import Boom from '@hapi/boom'
+import getCallError from '~/utils/getCallError'
 import { LoginUser } from '~/types/auth'
 
 let mockError = false
@@ -51,8 +51,8 @@ describe('~/api/controllers/userController', () => {
       await usersConrtoller.create(req, res, next)
 
       expect(next).toHaveBeenCalled()
-      const err = Boom.boomify(next.mock.calls[0][0])
-      expect(err.output.statusCode).toEqual(500)
+      const { output } = getCallError(next)
+      expect(output.statusCode).toEqual(500)
     })
   })
 })
