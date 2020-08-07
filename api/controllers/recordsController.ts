@@ -24,7 +24,6 @@ export default {
         res.status(httpStatusCode.OK).json({})
       }
     } catch (e) {
-      console.error(e)
       next(Boom.internal())
     }
   },
@@ -48,7 +47,6 @@ export default {
         res.json({})
       }
     } catch (e) {
-      console.error(e)
       next(Boom.internal())
     }
   },
@@ -78,7 +76,6 @@ export default {
       const result = await Record.updateById(id, record)
       res.status(httpStatusCode.OK).json(result)
     } catch (e) {
-      console.error(e)
       next(Boom.internal())
     }
   },
@@ -92,7 +89,6 @@ export default {
       await Record.findByIdAndDelete(id)
       res.status(httpStatusCode.NO_CONTENT).json({})
     } catch (e) {
-      console.error(e)
       next(Boom.internal())
     }
   }
