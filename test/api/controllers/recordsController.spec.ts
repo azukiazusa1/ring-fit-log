@@ -1,5 +1,5 @@
 import { mockReq, mockRes } from 'sinon-express-mock'
-import Boom from '@hapi/boom'
+import getCallError from '~/utils/getCallError'
 import { Record } from '~/types/record'
 import recordsController from '~/api/controllers/recordsController'
 
@@ -56,6 +56,49 @@ describe('~/api/controllers/recordController', () => {
 
         expect(res.status.calledWith(200)).toBeTruthy()
         expect(res.json.calledWith({})).toBeTruthy()
+      })
+    })
+  })
+
+  describe('異常系', () => {
+    describe('パラメータが不正', () => {
+      const req = mockReq({
+        params: {
+          date: '2020年8月1日'
+        }
+      })
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
+      test('req.params.dateが日付型に変換できない場合、400エラー', async () => {
+        await recordsController.show(req, res, next)
+
+        expect(next).toHaveBeenCalled()
+        const { output } = getCallError(next)
+        expect(output.statusCode).toEqual(400)
+        expect(output.payload.message).toEqual('Invalid Date')
+      })
+    })
+
+    describe('dbエラー', () => {
+      const req = mockReq({
+        params: {
+          date: '2020-08-01'
+        }
+      })
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
+
+      test('500エラー', async () => {
+        mockError = true
+        await recordsController.show(req, res, next)
+
+        expect(next).toHaveBeenCalled()
+        const { output } = getCallError(next)
+        expect(output.statusCode).toEqual(500)
       })
     })
   })
