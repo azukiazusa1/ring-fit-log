@@ -207,5 +207,34 @@ describe('~/api/controllers/recordController', () => {
         })
       })
     })
+
+    describe('異常系', () => {
+      const reqRecord: Record = {
+        _id: '',
+        totalCaloriesBurned: 20,
+        totalDistanceRun: 1,
+        totalTimeExercising: 1800000,
+        date: '2020-08-01',
+        stamps: {
+          arms: true,
+          legs: true,
+          stomach: true,
+          yoga: true
+        },
+        userId: ''
+      }
+      const req = mockReq({
+        body: reqRecord
+      })
+      describe('dbエラー', () => {
+        test('500エラー', async () => {
+          await recordsController.create(req, res, next)
+
+          expect(next).toHaveBeenCalled()
+          const { output } = getCallError(next)
+          expect(output.statusCode).toEqual(500)
+        })
+      })
+    })
   })
 })
