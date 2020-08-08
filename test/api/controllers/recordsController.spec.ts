@@ -3,6 +3,8 @@ import { cloneDeep } from 'lodash'
 import getCallError from '~/utils/getCallError'
 import { Record } from '~/types/record'
 import recordsController from '~/api/controllers/recordsController'
+import { nextTick } from 'vue/types/umd'
+import { expectationFailed } from '@hapi/boom'
 
 let mockError = false
 let mockEmpty = false
@@ -32,10 +34,22 @@ jest.mock('~/api/models/Record', () => ({
   }),
   create: jest.fn((record: Record) => {
     if (mockError) {
-      return Promise.resolve('mock error')
+      return Promise.reject('mock error')
     }
 
     return { ...record, _id: '12345' }
+  }),
+  updateById: jest.fn((id: string, record: Record) => {
+    if (mockError) {
+      return Promise.reject('mock error')
+    }
+    return Promise.resolve(record)
+  }),
+  findByIdAndDelete: jest.fn((id: string) => {
+    if (mockError) {
+      return Promise.reject('mock error')
+    }
+    return Promise.resolve()
   })
 }))
 
@@ -45,11 +59,6 @@ describe('~/api/controllers/recordController', () => {
     mockEmpty = false
   })
 
-  const res = mockRes({
-    locals: { userId }
-  })
-  const next = jest.fn()
-
   describe('show action', () => {
     describe('正常系', () => {
       const req = mockReq({
@@ -57,6 +66,11 @@ describe('~/api/controllers/recordController', () => {
           date: '2020-08-01'
         }
       })
+
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
 
       test('日付とuserIdを受け取りレコードを1件返す', async () => {
         await recordsController.show(req, res, next)
@@ -83,6 +97,11 @@ describe('~/api/controllers/recordController', () => {
         }
       })
 
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
+
       test('req.params.dateが日付型に変換できない場合、400エラー', async () => {
         await recordsController.show(req, res, next)
 
@@ -99,6 +118,11 @@ describe('~/api/controllers/recordController', () => {
           date: '2020-08-01'
         }
       })
+
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
 
       test('500エラー', async () => {
         mockError = true
@@ -118,6 +142,11 @@ describe('~/api/controllers/recordController', () => {
           date: '2020-08-01'
         }
       })
+
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
 
       test('日付とuserIdを受け取り日付の月のレコードをすべて返す', async () => {
         await recordsController.month(req, res, next)
@@ -143,6 +172,11 @@ describe('~/api/controllers/recordController', () => {
           }
         })
 
+        const res = mockRes({
+          locals: { userId }
+        })
+        const next = jest.fn()
+
         test('req.params.dateが日付型に変換できない場合、400エラー', async () => {
           await recordsController.month(req, res, next)
 
@@ -159,6 +193,11 @@ describe('~/api/controllers/recordController', () => {
             date: '2020-08-01'
           }
         })
+
+        const res = mockRes({
+          locals: { userId }
+        })
+        const next = jest.fn()
 
         test('500エラー', async () => {
           mockError = true
@@ -191,6 +230,11 @@ describe('~/api/controllers/recordController', () => {
       const req = mockReq({
         body: reqRecord
       })
+
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
 
       describe('レコードを作成して返す', () => {
         test('ステータスコードは201', async () => {
@@ -226,9 +270,165 @@ describe('~/api/controllers/recordController', () => {
       const req = mockReq({
         body: reqRecord
       })
+
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
+
       describe('dbエラー', () => {
         test('500エラー', async () => {
+          mockError = true
           await recordsController.create(req, res, next)
+
+          expect(next).toHaveBeenCalled()
+          const { output } = getCallError(next)
+          expect(output.statusCode).toEqual(500)
+        })
+      })
+    })
+  })
+
+  describe('update action', () => {
+    describe('正常系', () => {
+      const id = '12345'
+      const reqRecord: Record = {
+        _id: id,
+        totalCaloriesBurned: 20,
+        totalDistanceRun: 1,
+        totalTimeExercising: 1800000,
+        date: '2020-08-01',
+        stamps: {
+          arms: true,
+          legs: true,
+          stomach: true,
+          yoga: true
+        },
+        userId
+      }
+      const req = mockReq({
+        body: reqRecord,
+        params: { id }
+      })
+
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
+
+      describe('idでレコードを見つけてupdateする', () => {
+        test('ステータスコードとレスポンスが正しいか', async () => {
+          await recordsController.update(req, res, next)
+
+          expect(res.status.calledWith(200)).toBeTruthy()
+          expect(res.json.calledWith(reqRecord)).toBeTruthy()
+        })
+      })
+    })
+
+    describe('異常系', () => {
+      describe('レコードのuserIdとcookieのuserIdが一致しない', () => {
+        const id = '12345'
+        const reqRecord: Record = {
+          _id: id,
+          totalCaloriesBurned: 20,
+          totalDistanceRun: 1,
+          totalTimeExercising: 1800000,
+          date: '2020-08-01',
+          stamps: {
+            arms: true,
+            legs: true,
+            stomach: true,
+            yoga: true
+          },
+          userId: 'aaaaa'
+        }
+        const req = mockReq({
+          body: reqRecord,
+          params: { id }
+        })
+        const res = mockRes({
+          locals: { userId }
+        })
+        const next = jest.fn()
+
+        test('403エラー', async () => {
+          await recordsController.update(req, res, next)
+
+          expect(next).toHaveBeenCalled()
+          const { output } = getCallError(next)
+          expect(output.statusCode).toEqual(403)
+        })
+      })
+    })
+
+    describe('dbエラー', () => {
+      const id = '12345'
+      const reqRecord: Record = {
+        _id: id,
+        totalCaloriesBurned: 20,
+        totalDistanceRun: 1,
+        totalTimeExercising: 1800000,
+        date: '2020-08-01',
+        stamps: {
+          arms: true,
+          legs: true,
+          stomach: true,
+          yoga: true
+        },
+        userId
+      }
+      const req = mockReq({
+        body: reqRecord,
+        params: { id }
+      })
+      const res = mockRes({
+        locals: { userId }
+      })
+      const next = jest.fn()
+      test('500エラー', async () => {
+        mockError = true
+        await recordsController.update(req, res, next)
+
+        expect(next).toHaveBeenCalled()
+        const { output } = getCallError(next)
+        expect(output.statusCode).toEqual(500)
+      })
+    })
+  })
+
+  describe('delete action', () => {
+    describe('正常系', () => {
+      describe('idを渡してレコードを削除する', () => {
+        const req = mockReq({
+          params: { id: '12345' }
+        })
+        const res = mockRes({
+          locals: { userId }
+        })
+        const next = jest.fn()
+        test('レスポンスが正しいかどうか', async () => {
+          await recordsController.delete(req, res, next)
+
+          expect(res.status.calledWith(204)).toBeTruthy()
+          expect(res.json.calledWith({})).toBeTruthy()
+        })
+      })
+    })
+
+    describe('異常系', () => {
+      describe('dbエラー', () => {
+        const req = mockReq({
+          params: { id: '12345' }
+        })
+        const res = mockRes({
+          locals: { userId }
+        })
+        const next = jest.fn()
+
+        test('500エラー', async () => {
+          mockError = true
+          await recordsController.delete(req, res, next)
 
           expect(next).toHaveBeenCalled()
           const { output } = getCallError(next)

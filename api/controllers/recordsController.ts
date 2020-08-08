@@ -61,7 +61,7 @@ export default {
       record.userId = res.locals.userId
       const result = await Record.create(req.body)
       res.status(httpStatusCode.CREATED).json(result)
-    } catch {
+    } catch (e) {
       next(Boom.internal())
     }
   },
@@ -72,6 +72,10 @@ export default {
   ) => {
     const { id } = req.params
     const record = req.body
+    const userId = res.locals.userId
+    if (record.userId !== userId) {
+      next(Boom.forbidden())
+    }
     try {
       const result = await Record.updateById(id, record)
       res.status(httpStatusCode.OK).json(result)
