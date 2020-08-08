@@ -52,23 +52,42 @@ const queryHelpers = {
   findByDate(this: DocumentQuery<any, RecordDoc>, date: Date, userId: string) {
     return this.findOne({
       date: {
-        $gte: date,
+        $gte: moment(date)
+          .utc()
+          .startOf('day')
+          .toDate(),
         $lt: moment(date)
-          .add(1, 'day')
-          .format()
+          .utc()
+          .endOf('day')
+          .toDate()
       },
+
       userId
     })
   },
   findByMonth(this: DocumentQuery<any, RecordDoc>, date: Date, userId: string) {
+    console.log(
+      moment(date)
+        .utc()
+        .startOf('month')
+        .toDate()
+    )
+    console.log(
+      moment(date)
+        .utc()
+        .endOf('month')
+        .toDate()
+    )
     return this.find({
       date: {
         $gte: moment(date)
+          .utc()
           .startOf('month')
-          .format(),
+          .toDate(),
         $lt: moment(date)
+          .utc()
           .endOf('month')
-          .format()
+          .toDate()
       },
       userId
     })
