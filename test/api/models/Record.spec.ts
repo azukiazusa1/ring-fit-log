@@ -1,9 +1,7 @@
 import { Error } from 'mongoose'
-import moment from 'moment'
-import Record, { RecordDoc } from '~/api/models/Record'
+import Record from '~/api/models/Record'
 import { IRecord } from '~/types/record'
 import { connect, disConnect } from '~/api/db'
-import { isEqual } from 'lodash'
 
 const { ValidationError } = Error
 
