@@ -48,6 +48,8 @@ const recordSchema: Schema = new Schema(
   }
 )
 
+recordSchema.index({ date: 1, userId: 1 }, { unique: true })
+
 const queryHelpers = {
   findByDate(this: DocumentQuery<any, RecordDoc>, date: Date, userId: string) {
     return this.findOne({
@@ -66,18 +68,6 @@ const queryHelpers = {
     })
   },
   findByMonth(this: DocumentQuery<any, RecordDoc>, date: Date, userId: string) {
-    console.log(
-      moment(date)
-        .utc()
-        .startOf('month')
-        .toDate()
-    )
-    console.log(
-      moment(date)
-        .utc()
-        .endOf('month')
-        .toDate()
-    )
     return this.find({
       date: {
         $gte: moment(date)
