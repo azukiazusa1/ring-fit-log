@@ -232,26 +232,323 @@ describe('~/api/models/Record', () => {
             await expect(Record.create(record)).rejects.toThrow(ValidationError)
           })
         })
+
+        describe('必須項目ではない', () => {
+          test('nullでもok', async () => {
+            const record: IRecord = {
+              totalDistanceRun: null,
+              totalCaloriesBurned: 1,
+              totalTimeExercising: 1800000,
+              stamps: {
+                arms: false,
+                legs: false,
+                stomach: false,
+                yoga: true
+              },
+              userId: 'user1',
+              date: new Date('2020-10-31')
+            }
+            await expect(Record.create(record)).resolves.toBeDefined()
+          })
+        })
       })
 
-      describe('date + userId', () => {
-        test('同じdateとuserIdの組み合わせはエラー', async () => {
+      describe('totalCaloriesBurned', () => {
+        describe('最小値は0', () => {
+          test('0はok', async () => {
+            const record: IRecord = {
+              totalDistanceRun: 100,
+              totalCaloriesBurned: 0,
+              totalTimeExercising: 1800000,
+              stamps: {
+                arms: false,
+                legs: false,
+                stomach: false,
+                yoga: true
+              },
+              userId: 'user1',
+              date: new Date('2020-10-31')
+            }
+
+            await expect(Record.create(record)).resolves.toBeDefined()
+          })
+
+          test('-1はバリデーションエラー', async () => {
+            const record: IRecord = {
+              totalDistanceRun: 100,
+              totalCaloriesBurned: -1,
+              totalTimeExercising: 1800000,
+              stamps: {
+                arms: false,
+                legs: false,
+                stomach: false,
+                yoga: true
+              },
+              userId: 'user1',
+              date: new Date('2020-10-31')
+            }
+
+            await expect(Record.create(record)).rejects.toThrow(ValidationError)
+          })
+        })
+
+        describe('最大値は999.99', () => {
+          test('999.99はok', async () => {
+            const record: IRecord = {
+              totalDistanceRun: 100,
+              totalCaloriesBurned: 999.99,
+              totalTimeExercising: 1800000,
+              stamps: {
+                arms: false,
+                legs: false,
+                stomach: false,
+                yoga: true
+              },
+              userId: 'user1',
+              date: new Date('2020-10-31')
+            }
+
+            await expect(Record.create(record)).resolves.toBeDefined()
+          })
+
+          test('1000はバリデーションエラー', async () => {
+            const record: IRecord = {
+              totalDistanceRun: 100,
+              totalCaloriesBurned: 1000,
+              totalTimeExercising: 1800000,
+              stamps: {
+                arms: false,
+                legs: false,
+                stomach: false,
+                yoga: true
+              },
+              userId: 'user1',
+              date: new Date('2020-10-31')
+            }
+
+            await expect(Record.create(record)).rejects.toThrow(ValidationError)
+          })
+        })
+
+        describe('必須項目ではない', () => {
+          test('nullでもok', async () => {
+            const record: IRecord = {
+              totalDistanceRun: 100,
+              totalCaloriesBurned: null,
+              totalTimeExercising: 1800000,
+              stamps: {
+                arms: false,
+                legs: false,
+                stomach: false,
+                yoga: true
+              },
+              userId: 'user1',
+              date: new Date('2020-10-31')
+            }
+
+            await expect(Record.create(record)).resolves.toBeDefined()
+          })
+        })
+      })
+    })
+
+    describe('totalDistanceRun', () => {
+      describe('最小値は0', () => {
+        test('0はok', async () => {
           const record: IRecord = {
+            totalDistanceRun: 0,
             totalCaloriesBurned: 20,
-            totalDistanceRun: 2,
-            totalTimeExercising: 3600000,
+            totalTimeExercising: 1800000,
             stamps: {
-              arms: true,
-              legs: true,
-              stomach: true,
-              yoga: false
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
             },
-            date: new Date('2020-07-31'),
-            userId: 'user1'
+            userId: 'user1',
+            date: new Date('2020-10-31')
           }
 
-          await expect(Record.create(record)).rejects.toThrow()
+          await expect(Record.create(record)).resolves.toBeDefined()
         })
+
+        test('-1はバリデーションエラー', async () => {
+          const record: IRecord = {
+            totalDistanceRun: -1,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: 'user1',
+            date: new Date('2020-10-31')
+          }
+
+          await expect(Record.create(record)).rejects.toThrow(ValidationError)
+        })
+      })
+
+      describe('最大値は100', () => {
+        test('100はok', async () => {
+          const record: IRecord = {
+            totalDistanceRun: 100,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: 'user1',
+            date: new Date('2020-10-31')
+          }
+
+          await expect(Record.create(record)).resolves.toBeDefined()
+        })
+
+        test('101はバリデーションエラー', async () => {
+          const record: IRecord = {
+            totalDistanceRun: 101,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: 'user1',
+            date: new Date('2020-10-31')
+          }
+
+          await expect(Record.create(record)).rejects.toThrow(ValidationError)
+        })
+      })
+
+      describe('必須項目ではない', () => {
+        test('nullでもok', async () => {
+          const record: IRecord = {
+            totalDistanceRun: null,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: 'user1',
+            date: new Date('2020-10-31')
+          }
+
+          await expect(Record.create(record)).resolves.toBeDefined()
+        })
+      })
+    })
+
+    describe('date', () => {
+      describe('dateは日付型', () => {
+        test('日付に変換できる表現は許容する', async () => {
+          const record: IRecord = {
+            totalDistanceRun: null,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: 'user1',
+            date: '2020-10-31'
+          }
+
+          await expect(Record.create(record)).resolves.toBeDefined()
+        })
+
+        test('日付にキャストできないときにはバリデーションエラー', async () => {
+          const record: IRecord = {
+            totalDistanceRun: 2,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: 'user1',
+            date: 'abcde'
+          }
+
+          await expect(Record.create(record)).rejects.toThrow(ValidationError)
+        })
+      })
+
+      describe('必須項目', () => {
+        test('空文字のときはバリデーションエラー', async () => {
+          const record: IRecord = {
+            totalDistanceRun: null,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: 'user1',
+            date: ''
+          }
+
+          await expect(Record.create(record)).rejects.toThrow(ValidationError)
+        })
+      })
+    })
+
+    describe('userId', () => {
+      describe('必須項目', () => {
+        test('空文字のときはバリデーションエラー', async () => {
+          const record: IRecord = {
+            totalDistanceRun: null,
+            totalCaloriesBurned: 20,
+            totalTimeExercising: 1800000,
+            stamps: {
+              arms: false,
+              legs: false,
+              stomach: false,
+              yoga: true
+            },
+            userId: '',
+            date: new Date('2020-10-01')
+          }
+
+          await expect(Record.create(record)).rejects.toThrow(ValidationError)
+        })
+      })
+    })
+
+    describe('date + userId', () => {
+      test('同じdateとuserIdの組み合わせはエラー', async () => {
+        const record: IRecord = {
+          totalCaloriesBurned: 20,
+          totalDistanceRun: 2,
+          totalTimeExercising: 3600000,
+          stamps: {
+            arms: true,
+            legs: true,
+            stomach: true,
+            yoga: false
+          },
+          date: new Date('2020-07-31'),
+          userId: 'user1'
+        }
+
+        await expect(Record.create(record)).rejects.toThrow()
       })
     })
   })
