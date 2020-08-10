@@ -4,7 +4,6 @@ import { RecordDoc } from '~/api/models/Record'
 import { disConnect } from '~/api/db'
 import seed from '~/test/api/seed/record'
 import { IRecord } from '~/types/record'
-import { response } from 'express'
 
 describe('intergration user', () => {
   let records: RecordDoc[]
