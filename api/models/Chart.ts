@@ -38,21 +38,21 @@ export default class Chart {
     const totalDistanceRun: ChartPoint[] = []
 
     records.forEach((record) => {
-      if (record.totalTimeExercising) {
+      if (record.totalTimeExercising !== null) {
         totalTimeExercising.push({
           x: record.date,
           y: record.totalTimeExercising
         })
       }
 
-      if (record.totalCaloriesBurned) {
+      if (record.totalCaloriesBurned !== null) {
         totalCaloriesBurned.push({
           x: record.date,
           y: record.totalCaloriesBurned
         })
       }
 
-      if (record.totalDistanceRun) {
+      if (record.totalDistanceRun !== null) {
         totalDistanceRun.push({
           x: record.date,
           y: record.totalDistanceRun

@@ -26,6 +26,6 @@ export default {
     }
   },
   quarter: (_req: Express.Request, res: Express.Response) => {
-    res.json(Chart.quarter)
+    res.json({})
   }
 }
