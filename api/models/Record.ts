@@ -67,6 +67,22 @@ const queryHelpers = {
       userId
     })
   },
+  findByWeek(this: DocumentQuery<any, RecordDoc>, date: Date, userId: string) {
+    return this.find({
+      date: {
+        $gte: moment(date)
+          .utc()
+          .startOf('day')
+          .toDate(),
+        $lt: moment(date)
+          .utc()
+          .add(1, 'week')
+          .endOf('day')
+          .toDate()
+      },
+      userId
+    })
+  },
   findByMonth(this: DocumentQuery<any, RecordDoc>, date: Date, userId: string) {
     return this.find({
       date: {
