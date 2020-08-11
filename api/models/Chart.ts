@@ -2,7 +2,6 @@ import Record, { RecordDoc } from './Record'
 import { isEmpty } from 'lodash'
 import { ChartPoint } from 'chart.js'
 import { ChartData } from '../../types/chart'
-import record from '~/test/api/seed/record'
 
 export default class Chart {
   private _date: Date
@@ -69,6 +68,11 @@ export default class Chart {
 
   public async week() {
     const records = await Record.find().findByWeek(this.date, this.userId)
+    return this.convert(records)
+  }
+
+  public async month() {
+    const records = await Record.find().findByMonth(this.date, this.userId)
     return this.convert(records)
   }
 }
