@@ -5,7 +5,7 @@ import httpStatusCode from 'http-status-codes'
 import isInvalidDate from '../../utils/isInvalidDate'
 
 export default {
-  week: async (
+  hangleRequest: (
     req: Express.Request,
     res: Express.Response,
     next: Express.NextFunction
@@ -16,7 +16,15 @@ export default {
 
     const date = new Date(req.params.date)
     const userId: string = res.locals.userId
-    const chart = new Chart(date, userId)
+    res.locals.chart = new Chart(date, userId)
+    next()
+  },
+  week: async (
+    _req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const chart: Chart = res.locals.chart
 
     try {
       const chartData = await chart.week()
@@ -26,17 +34,11 @@ export default {
     }
   },
   month: async (
-    req: Express.Request,
+    _req: Express.Request,
     res: Express.Response,
     next: Express.NextFunction
   ) => {
-    if (isInvalidDate(req.params.date)) {
-      next(Boom.badRequest())
-    }
-
-    const date = new Date(req.params.date)
-    const userId: string = res.locals.userId
-    const chart = new Chart(date, userId)
+    const chart: Chart = res.locals.chart
 
     try {
       const chartData = await chart.month()
