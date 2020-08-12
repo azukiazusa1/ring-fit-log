@@ -89,7 +89,9 @@ export default Vue.extend({
   computed: {
     _date: {
       get(): string {
-        return this.$moment(this.date).format()
+        return this.pickerType === 'date'
+          ? this.$moment(this.date).format('YYYY-MM-DD')
+          : this.$moment(this.date).format('YYYY-MM')
       },
       set(date: string) {
         this.$emit('changeDate', date)
