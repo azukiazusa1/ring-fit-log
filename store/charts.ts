@@ -28,7 +28,7 @@ export const getFilteredChartData = (
     case MONTH3:
       return dataSets.filter((dataSet) =>
         moment(dataSet.x).isBetween(
-          date,
+          moment(date).startOf('months'),
           moment(date).add(3, 'months'),
           'day',
           '[]'
