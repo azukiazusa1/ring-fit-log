@@ -152,7 +152,10 @@ export default Vue.extend({
                   week: 'YYYY/MM/DD',
                   month: 'YYYY/MM'
                 },
-                tooltipFormat: 'YYYY/MM/DD（ddd）'
+                tooltipFormat: this.tooltipFormat
+              },
+              ticks: {
+                source: 'data'
               },
               gridLines: {
                 display: SettingStore.getGridLineX
@@ -211,6 +214,9 @@ export default Vue.extend({
         default:
           return 'day'
       }
+    },
+    tooltipFormat(): string {
+      return this.dateRange === YEAR1 ? 'YYYY/MM' : 'YYYY/MM/DD（ddd）'
     }
   },
   watch: {

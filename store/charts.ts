@@ -27,7 +27,12 @@ export const getFilteredChartData = (
       )
     case MONTH3:
       return dataSets.filter((dataSet) =>
-        moment(dataSet.x).isSame(date, 'quarter')
+        moment(dataSet.x).isBetween(
+          date,
+          moment(date).add(3, 'months'),
+          'day',
+          '[]'
+        )
       )
     case YEAR1:
       return dataSets.filter((dataSet) =>
@@ -36,6 +41,16 @@ export const getFilteredChartData = (
     default:
       throw new Error('Invalid dateRange')
   }
+}
+
+const sortCompare = (a: ChartPoint, b: ChartPoint) => {
+  if (moment(a.x).isBefore(b.x)) {
+    return -1
+  }
+  if (moment(a.x).isAfter(b.x)) {
+    return 1
+  }
+  return 0
 }
 
 const dateRangeName = {
@@ -96,53 +111,59 @@ export default class ChartsModule extends VuexModule {
   }
 
   public get getTotalCaloriesBurned() {
-    return (date: Date, dateRange: DateRange) =>
-      getFilteredChartData(
+    return (date: Date, dateRange: DateRange) => {
+      return getFilteredChartData(
         this.getChartData(dateRange).totalCaloriesBurned,
         date,
         dateRange
       )
+    }
   }
 
   public get getTotalDistanceRun() {
-    return (date: Date, dateRange: DateRange) =>
-      getFilteredChartData(
+    return (date: Date, dateRange: DateRange) => {
+      return getFilteredChartData(
         this.getChartData(dateRange).totalDistanceRun,
         date,
         dateRange
       )
+    }
   }
 
   public get getTotalTimeExercising() {
-    return (date: Date, dateRange: DateRange) =>
-      getFilteredChartData(
+    return (date: Date, dateRange: DateRange) => {
+      return getFilteredChartData(
         this.getChartData(dateRange).totalTimeExercising,
         date,
         dateRange
       )
+    }
   }
 
   @Mutation
   private unionDaylyChartData(chartData: ChartData) {
-    Object.entries(this.daylyChartData).forEach(
-      ([k, v]) =>
-        (this.daylyChartData[k] = unionBy(chartData[k], v, property('x')))
+    Object.entries(this.daylyChartData).forEach(([k, v]) =>
+      (this.daylyChartData[k] = unionBy(chartData[k], v, property('x'))).sort(
+        sortCompare
+      )
     )
   }
 
   @Mutation
   private unionWeeklyChartData(chartData: ChartData) {
-    Object.entries(this.weeklyChartData).forEach(
-      ([k, v]) =>
-        (this.weeklyChartData[k] = unionBy(chartData[k], v, property('x')))
+    Object.entries(this.weeklyChartData).forEach(([k, v]) =>
+      (this.weeklyChartData[k] = unionBy(chartData[k], v, property('x'))).sort(
+        sortCompare
+      )
     )
   }
 
   @Mutation
   private unionMonthlyChartData(chartData: ChartData) {
-    Object.entries(this.monthlyChartData).forEach(
-      ([k, v]) =>
-        (this.monthlyChartData[k] = unionBy(chartData[k], v, property('x')))
+    Object.entries(this.monthlyChartData).forEach(([k, v]) =>
+      (this.monthlyChartData[k] = unionBy(chartData[k], v, property('x'))).sort(
+        sortCompare
+      )
     )
   }
 
