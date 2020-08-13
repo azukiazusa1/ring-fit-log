@@ -115,6 +115,20 @@ const statics = {
   },
   findByQuater(this: RecordModel, date: Date, userId: string) {
     return this.aggregate()
+      .match({
+        date: {
+          $gte: moment(date)
+            .utc()
+            .startOf('month')
+            .toDate(),
+          $le: moment(date)
+            .utc()
+            .add(3, 'month')
+            .endOf('month')
+            .toDate()
+        },
+        userId
+      })
       .group({
         _id: {
           $week: '$date'
