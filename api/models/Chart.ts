@@ -1,5 +1,5 @@
 import Record, { RecordDoc } from './Record'
-import { isEmpty } from 'lodash'
+import { isEmpty, floor } from 'lodash'
 import { ChartPoint } from 'chart.js'
 import { ChartData } from '../../types/chart'
 
@@ -9,10 +9,6 @@ export default class Chart {
   constructor(date: Date, userId: string) {
     this._date = date
     this._userId = userId
-  }
-
-  public set date(date: Date) {
-    this.date = date
   }
 
   public get date() {
@@ -47,14 +43,14 @@ export default class Chart {
       if (record.totalCaloriesBurned !== null) {
         totalCaloriesBurned.push({
           x: record.date,
-          y: record.totalCaloriesBurned
+          y: floor(record.totalCaloriesBurned, 2)
         })
       }
 
       if (record.totalDistanceRun !== null) {
         totalDistanceRun.push({
           x: record.date,
-          y: record.totalDistanceRun
+          y: floor(record.totalDistanceRun, 2)
         })
       }
     })
