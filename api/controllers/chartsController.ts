@@ -61,5 +61,20 @@ export default {
       console.log(e)
       next(Boom.internal())
     }
+  },
+  year: async (
+    _req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const chart: Chart = res.locals.chart
+
+    try {
+      const chartData = await chart.year()
+      res.status(httpStatusCode.OK).json(chartData)
+    } catch (e) {
+      console.log(e)
+      next(Boom.internal())
+    }
   }
 }

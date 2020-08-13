@@ -21,7 +21,7 @@ router.get(
 router.get(
   '/1-year/:date',
   chartsController.hangleRequest,
-  chartsController.week
+  chartsController.year
 )
 
 export default router

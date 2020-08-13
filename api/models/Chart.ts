@@ -77,4 +77,10 @@ export default class Chart {
     console.log(records)
     return this.convert(records)
   }
+
+  public async year() {
+    const records = await Record.findByYear(this.date, this.userId)
+    console.log(records)
+    return this.convert(records)
+  }
 }

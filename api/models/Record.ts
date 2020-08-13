@@ -104,6 +104,7 @@ recordSchema.query = queryHelpers
 interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   updateById(id: string, record: IRecord): Promise<RecordDoc>
   findByQuater(date: Date, userId: string): Promise<RecordDoc[]>
+  findByYear(date: Date, userId: string): Promise<RecordDoc[]>
 }
 
 const statics = {
@@ -121,7 +122,7 @@ const statics = {
             .utc()
             .startOf('month')
             .toDate(),
-          $le: moment(date)
+          $lt: moment(date)
             .utc()
             .add(3, 'month')
             .endOf('month')
@@ -132,6 +133,46 @@ const statics = {
       .group({
         _id: {
           $week: '$date'
+        },
+        totalTimeExercising: { $sum: '$totalTimeExercising' },
+        totalCaloriesBurned: { $sum: '$totalCaloriesBurned' },
+        totalDistanceRun: { $sum: '$totalDistanceRun' },
+        date: { $first: '$date' }
+      })
+      .sort({
+        date: -1
+      })
+  },
+  findByYear(this: RecordModel, date: Date, userId: string) {
+    console.log(
+      moment(date)
+        .utc()
+        .startOf('year')
+        .toDate()
+    )
+    console.log(
+      moment(date)
+        .utc()
+        .endOf('year')
+        .toDate()
+    )
+    return this.aggregate()
+      .match({
+        date: {
+          $gte: moment(date)
+            .utc()
+            .startOf('year')
+            .toDate(),
+          $lt: moment(date)
+            .utc()
+            .endOf('year')
+            .toDate()
+        },
+        userId
+      })
+      .group({
+        _id: {
+          $month: '$date'
         },
         totalTimeExercising: { $sum: '$totalTimeExercising' },
         totalCaloriesBurned: { $sum: '$totalCaloriesBurned' },
