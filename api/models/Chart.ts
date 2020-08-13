@@ -75,4 +75,10 @@ export default class Chart {
     const records = await Record.find().findByMonth(this.date, this.userId)
     return this.convert(records)
   }
+
+  public async quarter() {
+    const records = await Record.findByQuater(this.date, this.userId)
+    console.log(records)
+    return this.convert(records)
+  }
 }

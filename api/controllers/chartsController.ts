@@ -47,7 +47,19 @@ export default {
       next(Boom.internal())
     }
   },
-  quarter: (_req: Express.Request, res: Express.Response) => {
-    res.json({})
+  quarter: async (
+    _req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const chart: Chart = res.locals.chart
+
+    try {
+      const chartData = await chart.quarter()
+      res.status(httpStatusCode.OK).json(chartData)
+    } catch (e) {
+      console.log(e)
+      next(Boom.internal())
+    }
   }
 }

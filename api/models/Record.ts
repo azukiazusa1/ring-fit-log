@@ -103,6 +103,7 @@ recordSchema.query = queryHelpers
 
 interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   updateById(id: string, record: IRecord): Promise<RecordDoc>
+  findByQuater(date: Date, userId: string): Promise<RecordDoc[]>
 }
 
 const statics = {
@@ -111,6 +112,21 @@ const statics = {
       new: true,
       runValidators: true
     })
+  },
+  findByQuater(this: RecordModel, date: Date, userId: string) {
+    return this.aggregate()
+      .group({
+        _id: {
+          $week: '$date'
+        },
+        totalTimeExercising: { $sum: '$totalTimeExercising' },
+        totalCaloriesBurned: { $sum: '$totalCaloriesBurned' },
+        totalDistanceRun: { $sum: '$totalDistanceRun' },
+        date: { $first: '$date' }
+      })
+      .sort({
+        date: -1
+      })
   }
 }
 recordSchema.statics = statics
