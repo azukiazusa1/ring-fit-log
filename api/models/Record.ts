@@ -144,18 +144,6 @@ const statics = {
       })
   },
   findByYear(this: RecordModel, date: Date, userId: string) {
-    console.log(
-      moment(date)
-        .utc()
-        .startOf('year')
-        .toDate()
-    )
-    console.log(
-      moment(date)
-        .utc()
-        .endOf('year')
-        .toDate()
-    )
     return this.aggregate()
       .match({
         date: {

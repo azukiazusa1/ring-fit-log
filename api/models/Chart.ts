@@ -1,4 +1,5 @@
 import Record, { RecordDoc } from './Record'
+import moment from 'moment'
 import { isEmpty, floor } from 'lodash'
 import { ChartPoint } from 'chart.js'
 import { ChartData } from '../../types/chart'
@@ -74,13 +75,17 @@ export default class Chart {
 
   public async quarter() {
     const records = await Record.findByQuater(this.date, this.userId)
-    console.log(records)
-    return this.convert(records)
+    const ajustRecords = records.map((v) => {
+      v.date = moment(v.date)
+        .startOf('week')
+        .toDate()
+      return v
+    })
+    return this.convert(ajustRecords)
   }
 
   public async year() {
     const records = await Record.findByYear(this.date, this.userId)
-    console.log(records)
     return this.convert(records)
   }
 }
