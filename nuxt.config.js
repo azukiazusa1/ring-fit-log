@@ -22,6 +22,9 @@ const config = {
    ** Headers of the page
    */
   head: {
+    htmlAttrs: {
+      lang: 'ja'
+    },
     titleTemplate: '%s - ' + 'リングフィットログ',
     title: 'リングフィットログ',
     meta: [
@@ -35,6 +38,23 @@ const config = {
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+  },
+  // pwa
+  manifest: {
+    name: 'リングフィットログ',
+    lang: 'ja',
+    short_name: 'RFLog',
+    title: 'リングフィットログ',
+    'og:title': 'リングフィットログ',
+    description:
+      'リングフィットログでは、リングフィットアドベンチャー運動ログ(活動時間，消費カロリー，走行距離)を記録してカレンダーやグラフで確認することができます。',
+    'og:description':
+      'リングフィットログでは、リングフィットアドベンチャー運動ログ(活動時間，消費カロリー，走行距離)を記録してカレンダーやグラフで確認することができます。',
+    theme_color: '#ffffff',
+    background_color: '#ffffff'
+  },
+  workbox: {
+    dev: true
   },
   /*
    ** Customize the progress-bar color
