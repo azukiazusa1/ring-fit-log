@@ -21,9 +21,6 @@
           ></brand-icon-button>
         </v-col>
       </v-row>
-      <v-row>
-        <snackbar-button></snackbar-button>
-      </v-row>
     </v-container>
   </v-card>
 </template>

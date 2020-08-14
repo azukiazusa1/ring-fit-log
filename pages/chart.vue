@@ -56,6 +56,11 @@ export default Vue.extend({
     }
     return { dateRange, date, selectedDateRange }
   },
+  head() {
+    return {
+      title: 'グラフ'
+    }
+  },
   watchQuery: ['date'],
   data(): Data {
     return {

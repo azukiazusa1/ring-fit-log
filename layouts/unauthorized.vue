@@ -26,7 +26,7 @@ export default Vue.extend({
   },
   data(): DataType {
     return {
-      title: 'Vuetify.js'
+      title: 'リングフィットログ'
     }
   }
 })

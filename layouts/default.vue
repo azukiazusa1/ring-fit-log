@@ -53,7 +53,7 @@ export default Vue.extend({
           to: '/setting'
         }
       ],
-      title: 'Vuetify.js'
+      title: 'リングフィットログ'
     }
   }
 })

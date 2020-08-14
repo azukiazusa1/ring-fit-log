@@ -42,6 +42,11 @@ export default Vue.extend({
       })
     }
   },
+  head() {
+    return {
+      title: 'カレンダー'
+    }
+  },
   data() {
     return {
       date: '',

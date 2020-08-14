@@ -49,6 +49,9 @@ import ToggleDarkMode from '~/components/atom/ToggleDarkMode.vue'
 export default Vue.extend({
   components: {
     ToggleDarkMode
+  },
+  head: {
+    title: '設定'
   }
 })
 </script>

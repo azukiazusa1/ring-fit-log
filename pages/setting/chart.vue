@@ -76,6 +76,11 @@ export default Vue.extend({
     SettingPageTitle,
     SettingChartItemGroup
   },
+  head() {
+    return {
+      title: '設定 - グラフ'
+    }
+  },
   computed: {
     smoothing: {
       get() {

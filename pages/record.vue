@@ -67,6 +67,13 @@ export default Vue.extend({
 
     return { date }
   },
+  head(): {
+    title: string
+  } {
+    return {
+      title: `${this.$moment(this.date).format('YYYY-MM-DD')}の記録`
+    }
+  },
   watchQuery: ['date'],
   data(): Data {
     return {
