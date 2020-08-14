@@ -39,6 +39,21 @@
         </v-list-item>
       </v-list>
     </v-card>
+    <h2 class="headline my-5">情報</h2>
+    <v-card>
+      <v-list outlined>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>プライバシーポリシー</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-btn icon to="/privacy">
+              <v-icon>fas fa-angle-right</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
+    </v-card>
   </div>
 </template>
 
