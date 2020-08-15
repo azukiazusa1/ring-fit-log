@@ -15,7 +15,7 @@ const brands = {
 }
 
 const config = {
-  serverMiddleware: ['~/api'],
+  serverMiddleware: ['~/api/index.ts'],
 
   mode: 'universal',
   /*
@@ -99,7 +99,7 @@ const config = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    https: !!process.env.HTTPS
+    https: !!process.env.HTTPS || process.env.NODE_ENV === 'production'
   },
   /*
    ** vuetify module configuration
