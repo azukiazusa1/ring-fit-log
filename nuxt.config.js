@@ -54,7 +54,7 @@ const config = {
     background_color: '#ffffff'
   },
   workbox: {
-    dev: true
+    dev: process.env.NODE_ENV === 'development'
   },
   /*
    ** Customize the progress-bar color
