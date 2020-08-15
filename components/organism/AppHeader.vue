@@ -52,7 +52,7 @@ export default Vue.extend({
           message: 'ログアウトしました。'
         })
         this.$router.push('/')
-        this.$cookies.remove('uid')
+        this.$cookies.remove('userId')
       } catch {
         SnackbarModule.error({
           message: 'ログアウトに失敗しました。'

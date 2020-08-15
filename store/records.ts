@@ -55,6 +55,11 @@ export default class RecordsModule extends VuexModule {
   }
 
   @Mutation
+  private clearRecord() {
+    this.records = []
+  }
+
+  @Mutation
   private cache(month: string) {
     this.cachedMonth.push(month)
   }
@@ -118,5 +123,11 @@ export default class RecordsModule extends VuexModule {
   public async deleteRecord(_id: string) {
     await $axios.delete(`/api/record/${_id}`)
     this.removeRecord(_id)
+  }
+
+  @Action({ rawError: true })
+  public async deleteAll() {
+    await $axios.delete('/api/record/')
+    this.clearRecord()
   }
 }

@@ -21,9 +21,7 @@
             <v-list-item-title>カレンダーの設定</v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn icon to="/setting/calendar">
-              <v-icon>fas fa-angle-right</v-icon>
-            </v-btn>
+            <AngleRight @click="router.push('/setting/calendar')" />
           </v-list-item-action>
         </v-list-item>
         <v-divider />
@@ -32,9 +30,7 @@
             <v-list-item-title>グラフの設定</v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn icon to="/setting/chart">
-              <v-icon>fas fa-angle-right</v-icon>
-            </v-btn>
+            <AngleRight @click="$router.push('/setting/chart')" />
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -47,9 +43,46 @@
             <v-list-item-title>プライバシーポリシー</v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
-            <v-btn icon to="/privacy">
-              <v-icon>fas fa-angle-right</v-icon>
-            </v-btn>
+            <AngleRight @click="$router.push('/privacy')" />
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
+    </v-card>
+    <h2 class="headline my-5">データ</h2>
+    <v-card>
+      <v-list outlined>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="error--text"
+              >すべてのデータを削除</v-list-item-title
+            >
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-dialog v-model="dialog" max-width="290">
+              <template v-slot:activator="{ on, attrs }">
+                <TrashCan v-on="on" v-bind="attrs" />
+              </template>
+              <slot name="dialog">
+                <v-card>
+                  <v-card-title class="subtitle-1">
+                    すべてのデータを削除します。本当によろしいですか？
+                  </v-card-title>
+                  <v-card-text>
+                    この操作は取り消せません。
+                  </v-card-text>
+                  <v-divider></v-divider>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" text @click="clickCancel">
+                      キャンセル
+                    </v-btn>
+                    <v-btn color="error" text @click="clickOK">
+                      削除する
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </slot>
+            </v-dialog>
           </v-list-item-action>
         </v-list-item>
       </v-list>
@@ -59,14 +92,43 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { RecordsStore, SnackbarModule } from '~/store'
 import ToggleDarkMode from '~/components/atom/ToggleDarkMode.vue'
+import AngleRight from '~/components/atom/icon/AngleRight.vue'
+import TrashCan from '~/components/atom/icon/TrashCan.vue'
 
 export default Vue.extend({
   components: {
-    ToggleDarkMode
+    ToggleDarkMode,
+    AngleRight,
+    TrashCan
   },
   head: {
     title: '設定'
+  },
+  data() {
+    return {
+      dialog: false
+    }
+  },
+  methods: {
+    clickCancel() {
+      this.dialog = false
+    },
+    async clickOK() {
+      this.dialog = false
+      try {
+        await RecordsStore.deleteAll()
+        SnackbarModule.info({
+          message: 'データの削除に成功しました。'
+        })
+      } catch (e) {
+        console.error(e)
+        SnackbarModule.error({
+          message: 'データの削除に失敗しました。'
+        })
+      }
+    }
   }
 })
 </script>

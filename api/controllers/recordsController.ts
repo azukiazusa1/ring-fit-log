@@ -95,5 +95,18 @@ export default {
     } catch (e) {
       next(Boom.internal())
     }
+  },
+  deleteAll: async (
+    _req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const userId = res.locals.userId
+    try {
+      await Record.deleteMany({ userId })
+      res.status(httpStatusCode.NO_CONTENT).json({})
+    } catch (e) {
+      next(Boom.internal())
+    }
   }
 }
