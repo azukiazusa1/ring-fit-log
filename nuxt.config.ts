@@ -99,7 +99,9 @@ const config = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    https: !!process.env.HTTPS || process.env.NODE_ENV === 'production'
+    https: !!process.env.HTTPS || process.env.NODE_ENV === 'production',
+    baseURL: process.env.BASE_URL,
+    browserBaseURL: process.env.BASE_URL
   },
   /*
    ** vuetify module configuration
