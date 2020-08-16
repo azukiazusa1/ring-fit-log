@@ -224,7 +224,7 @@ describe('store/charts', () => {
         ]
 
         test('2020-07-08の月から3ヶ月のデータを返す', () => {
-          expect(getFilteredChartData(data, date, dateRange).length).toEqual(4)
+          expect(getFilteredChartData(data, date, dateRange).length).toEqual(5)
         })
       })
 
