@@ -1,5 +1,5 @@
 <template>
-  <v-list-group no-action sub-group>
+  <v-list-group no-action>
     <template #activator>
       <v-list-item-content>
         <v-list-item-title>{{ item }}</v-list-item-title>
@@ -12,7 +12,7 @@
       <v-list-item-content>
         <v-list-item-title>非表示</v-list-item-title>
         <v-list-item-subtitle>
-          {{ item }}のデータが表示されなくなれます。
+          データが表示されなくなれます。
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
@@ -23,7 +23,7 @@
       <v-list-item-content>
         <v-list-item-title>カラー</v-list-item-title>
         <v-list-item-subtitle>
-          {{ item }}のカラーを変更します。
+          カラーを変更します。
         </v-list-item-subtitle>
       </v-list-item-content>
       <v-list-item-action>
