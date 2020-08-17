@@ -3,7 +3,7 @@
     v-model.number="_totalDistanceRun"
     :error-messages="totalDistanceRunErrors"
     prepend-icon="fas fa-running"
-    type="number"
+    type="tel"
     outlined
     dense
     color="orange darken-1"

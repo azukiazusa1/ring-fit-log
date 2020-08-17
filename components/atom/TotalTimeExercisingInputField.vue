@@ -1,34 +1,27 @@
 <template>
-  <date-picker
-    v-model="_totalTimeExercising"
-    :clearable="false"
-    type="time"
-    :open.sync="open"
-    format="HH:mm:ss"
-    value-type="HH:mm:ss"
-    @change="handleChange"
-  >
-    <template #input>
-      <v-text-field
+  <v-row>
+    <v-col cols="1">
+      <v-icon>fas fa-stopwatch</v-icon>
+    </v-col>
+    <v-col cols="11">
+      <time-picker
         v-model="_totalTimeExercising"
-        :error-messages="totalTimeExercisingErrors"
-        prepend-icon="fas fa-stopwatch"
-        clearable
-        dense
-        readonly
-        color="orange darken-1"
-        label="活動時間"
-        @input="$v._totalTimeExercising.$touch()"
-        @blur="$v._totalTimeExercising.$touch()"
+        auto-scroll
+        format="HH:mm:ss"
+        placeholder="活動時間"
+        hour-label="時"
+        minute-label="分"
+        second-label="秒"
+        input-width="100%"
       />
-    </template>
-  </date-picker>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import DatePicker from 'vue2-datepicker'
-import 'vue2-datepicker/index.css'
+import TimePicker from 'vue2-timepicker'
+import 'vue2-timepicker/dist/VueTimepicker.css'
 import { validationMixin } from 'vuelidate'
 import { helpers } from 'vuelidate/lib/validators'
 import { timeError } from '~/config/validationErrorMessages'
@@ -38,7 +31,7 @@ const time = helpers.regex('time', /^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/)
 export default Vue.extend({
   name: 'TotalTimeExercisingInputField',
   components: {
-    DatePicker
+    TimePicker
   },
   mixins: [validationMixin],
   validations: {
@@ -68,6 +61,7 @@ export default Vue.extend({
         return ms2stringTime(this.totalTimeExercising)
       },
       set(totalTimeExercising: string) {
+        totalTimeExercising = totalTimeExercising.replace(/HH|mm|ss/g, '00')
         this.$emit(
           'update:totalTimeExercising',
           stringTime2ms(totalTimeExercising)
@@ -88,28 +82,6 @@ export default Vue.extend({
     validate(value) {
       if (value) this.$v.$touch()
     }
-  },
-  methods: {
-    handleChange(_v: string, type: string) {
-      if (type === 'second') {
-        this.open = false
-      }
-    }
   }
 })
 </script>
-
-<style>
-.mx-datepicker {
-  width: 100%;
-}
-
-.mx-icon-calendar {
-  display: none;
-}
-
-.popup-class {
-  position: relative;
-  bottom: 25px;
-}
-</style>
