@@ -49,7 +49,8 @@ export default Vue.extend({
     RecordDateSelector,
     RecrodFormArea
   },
-  async asyncData({ query }): Promise<AsyncData> {
+  async asyncData({ query, app, req }): Promise<AsyncData> {
+    console.log(app.$cookies.get('userId'))
     const queryDate = query.date as string
     const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
     if (RecordsStore.isRecoded(date)) {
