@@ -89,8 +89,6 @@ export default Vue.extend({
   },
   methods: {
     async clickOK() {
-      console.log('clickOK')
-      return
       try {
         await RecordsStore.deleteAll()
         SnackbarModule.info({

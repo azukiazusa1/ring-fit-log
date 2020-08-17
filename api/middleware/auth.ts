@@ -6,7 +6,7 @@ export default (
   res: Express.Response,
   next: Express.NextFunction
 ) => {
-  const userId = req.cookies.userId
+  const userId = req.cookies.userId ?? req.headers.uid
   if (userId) {
     res.locals.userId = userId
     next()
