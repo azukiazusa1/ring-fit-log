@@ -9,18 +9,18 @@
         ></TotalTimeExercisingInputField>
       </v-col>
       <v-col cols="12">
-        <TotalDistanceRunInputField
-          :total-distance-run.sync="record.totalDistanceRun"
-          :has-error.sync="errors.totalDistanceRunError"
-          :validate="validate"
-        ></TotalDistanceRunInputField>
-      </v-col>
-      <v-col cols="12">
         <TotalCaloriesBurnedInputField
           :total-calories-burned.sync="record.totalCaloriesBurned"
           :has-error.sync="errors.totalCaloriesBurnedError"
           :validate="validate"
         ></TotalCaloriesBurnedInputField>
+      </v-col>
+      <v-col cols="12">
+        <TotalDistanceRunInputField
+          :total-distance-run.sync="record.totalDistanceRun"
+          :has-error.sync="errors.totalDistanceRunError"
+          :validate="validate"
+        ></TotalDistanceRunInputField>
       </v-col>
       <v-col cols="12">
         <v-card class="pa-2 text-center center" rounded outlined>
