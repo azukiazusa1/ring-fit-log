@@ -4,7 +4,7 @@
       v-model.number="_totalCaloriesBurned"
       :error-messages="totalCaloriesBurnedErrors"
       prepend-icon="as fa-fire"
-      type="tel"
+      type="number"
       step="0.01"
       outlined
       dense
