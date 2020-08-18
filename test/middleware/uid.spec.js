@@ -98,8 +98,7 @@ describe('~/middleware/uid', () => {
         expect($axios.post.mock.calls[0][1]).toEqual({ user: loginUser })
       })
 
-      test('cookieに返却されたuidがセットされる', async () => {
-        await middleware(context, cb)
+      test('cookieに返却されたuidがセットされる', () => {
         expect(app.$cookies.set.mock.calls[0][0]).toEqual('userId')
         expect(app.$cookies.set.mock.calls[0][1]).toEqual(uid)
       })
