@@ -3,12 +3,34 @@ import app from '~/api'
 import { RecordDoc } from '~/api/models/Record'
 import { disConnect } from '~/api/db'
 import seed from '~/test/api/seed/record'
+import { LoginUser } from '~/types/auth'
 import { IRecord } from '~/types/record'
 
-describe('intergration user', () => {
+describe('intergration test', () => {
   let records: RecordDoc[]
   beforeEach(async () => {
     records = await seed()
+  })
+
+  describe('POST /api/user', () => {
+    test('response uid', async () => {
+      const user: LoginUser = {
+        username: 'username',
+        strategy: 'github',
+        identifier: '12345',
+        email: 'aaa@example.com',
+        photoURL: 'aaa'
+      }
+
+      const response = await request(app)
+        .post('/api/users')
+        .send({ user })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+
+      expect(response.body.uid).toBeDefined()
+    })
   })
   describe('GET /api/record/:date', () => {
     test('respond with json', async () => {
@@ -222,7 +244,7 @@ describe('intergration user', () => {
     })
   })
 
-  afterAll(() => {
-    disConnect()
+  afterAll(async () => {
+    await disConnect()
   })
 })
