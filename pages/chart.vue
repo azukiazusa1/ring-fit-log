@@ -41,11 +41,21 @@ export default Vue.extend({
     DateRangeSelector,
     BarChart
   },
-  async asyncData({ app, query }): Promise<Data> {
+  async asyncData({ app, query, $moment }): Promise<Data> {
     const dateRange = app.$cookies.get<DateRange>('dateRange') ?? WEEK1
     const selectedDateRange = [dateRange]
     const queryDate = query.date as string
-    const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
+    let date: Date
+    if (isInvalidDate(queryDate)) {
+      date = new Date()
+      if (dateRange === WEEK1) {
+        date = $moment(date)
+          .startOf('week')
+          .toDate()
+      }
+    } else {
+      date = new Date(queryDate)
+    }
     try {
       await ChartsStore.fetchChartData({ date, dateRange })
     } catch (e) {
@@ -229,6 +239,11 @@ export default Vue.extend({
       this.$cookies.set('dateRange', dateRange)
       if (this.selectedDateRange.includes(dateRange)) return
       this.selectedDateRange.push(dateRange)
+      if (this.$route.query && dateRange === WEEK1) {
+        this.date = this.$moment(this.date)
+          .startOf('week')
+          .toDate()
+      }
       try {
         await ChartsStore.fetchChartData({ date: this.date, dateRange })
       } catch (e) {
