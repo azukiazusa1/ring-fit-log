@@ -1,6 +1,6 @@
 <template>
   <v-app-bar fixed app color="main" dark>
-    <v-toolbar-title v-text="title" />
+    <toolbar-title>{{ title }}</toolbar-title>
     <v-spacer />
     <span v-for="(item, key) in items" :key="key" class="d-none d-md-flex">
       <NavItem
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue'
+import ToolbarTitle from '~/components/atom/ToolbarTitle.vue'
 import NavItem from '~/components/atom/NavItem.vue'
 import AvatorMenu from '~/components/molecule/AvatorMenu.vue'
 import { SnackbarModule } from '~/store'
@@ -26,6 +27,7 @@ import { Item } from '~/types/index'
 export default Vue.extend({
   name: 'AppHeader',
   components: {
+    ToolbarTitle,
     NavItem,
     AvatorMenu
   },
