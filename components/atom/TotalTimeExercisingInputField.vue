@@ -1,27 +1,21 @@
 <template>
-  <v-row>
-    <v-col cols="1">
-      <v-icon>fas fa-stopwatch</v-icon>
-    </v-col>
-    <v-col cols="11">
-      <time-picker
-        v-model="_totalTimeExercising"
-        auto-scroll
-        format="HH:mm:ss"
-        placeholder="活動時間"
-        hour-label="時"
-        minute-label="分"
-        second-label="秒"
-        input-width="100%"
-      />
-    </v-col>
-  </v-row>
+  <client-only>
+    <TimePicker
+      :value.sync="_totalTimeExercising"
+      :error-messages="totalTimeExercisingErrors"
+      prepend-icon="fas fa-stopwatch"
+      outlined
+      dense
+      color="orange darken-1"
+      label="活動時間"
+      hide-details="auto"
+    />
+  </client-only>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import TimePicker from 'vue2-timepicker'
-import 'vue2-timepicker/dist/VueTimepicker.css'
+import TimePicker from '~/components/atom/TimePicker.vue'
 import { validationMixin } from 'vuelidate'
 import { helpers } from 'vuelidate/lib/validators'
 import { timeError } from '~/config/validationErrorMessages'
@@ -61,7 +55,6 @@ export default Vue.extend({
         return ms2stringTime(this.totalTimeExercising)
       },
       set(totalTimeExercising: string) {
-        totalTimeExercising = totalTimeExercising.replace(/HH|mm|ss/g, '00')
         this.$emit(
           'update:totalTimeExercising',
           stringTime2ms(totalTimeExercising)

@@ -4,13 +4,13 @@
       v-model.number="_totalCaloriesBurned"
       :error-messages="totalCaloriesBurnedErrors"
       prepend-icon="as fa-fire"
-      type="tel"
-      step="0.01"
+      type="number"
       outlined
       dense
       color="orange darken-1"
       suffix="kcal"
       label="合計消費カロリー"
+      hide-details="auto"
       @input="$v._totalCaloriesBurned.$touch()"
       @blur="onBlur"
     ></v-text-field>

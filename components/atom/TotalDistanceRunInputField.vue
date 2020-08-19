@@ -3,12 +3,13 @@
     v-model.number="_totalDistanceRun"
     :error-messages="totalDistanceRunErrors"
     prepend-icon="fas fa-running"
-    type="tel"
+    type="number"
     outlined
     dense
     color="orange darken-1"
     suffix="km"
     label="合計走行距離"
+    hide-details="auto"
     @input="$v._totalDistanceRun.$touch()"
     @blur="onBlur"
   ></v-text-field>

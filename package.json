@@ -37,7 +37,6 @@
     "nuxt": "^2.0.0",
     "universal-cookie": "^4.0.3",
     "vue-chartjs": "^3.5.0",
-    "vue2-timepicker": "^1.1.4",
     "vuelidate": "^0.7.5",
     "vuex-persistedstate": "^3.0.1",
     "yarn": "^1.22.4"
