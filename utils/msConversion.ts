@@ -12,7 +12,8 @@ export function ms2stringTime(unixTime: number | string | null): string {
 }
 
 export function stringTime2ms(time: string): number | null {
-  const d = new Date(`1970-01-01T${time}+0000`)
+  const d = new Date(`1970-01-01T${time}+00:00`)
+  console.log(d)
   if (d.toString() === 'Invalid Date') return null
   return d.getTime()
 }

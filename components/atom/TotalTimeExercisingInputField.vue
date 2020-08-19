@@ -1,16 +1,14 @@
 <template>
-  <client-only>
-    <TimePicker
-      :value.sync="_totalTimeExercising"
-      :error-messages="totalTimeExercisingErrors"
-      prepend-icon="fas fa-stopwatch"
-      outlined
-      dense
-      color="orange darken-1"
-      label="活動時間"
-      hide-details="auto"
-    />
-  </client-only>
+  <TimePicker
+    :value.sync="_totalTimeExercising"
+    :error-messages="totalTimeExercisingErrors"
+    prepend-icon="fas fa-stopwatch"
+    outlined
+    dense
+    color="orange darken-1"
+    label="活動時間"
+    hide-details="auto"
+  />
 </template>
 
 <script lang="ts">
@@ -55,6 +53,7 @@ export default Vue.extend({
         return ms2stringTime(this.totalTimeExercising)
       },
       set(totalTimeExercising: string) {
+        console.log(stringTime2ms(totalTimeExercising))
         this.$emit(
           'update:totalTimeExercising',
           stringTime2ms(totalTimeExercising)
