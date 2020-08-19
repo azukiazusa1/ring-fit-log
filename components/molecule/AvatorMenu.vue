@@ -2,7 +2,10 @@
   <v-menu :offset-y="true">
     <template v-slot:activator="{ on }">
       <v-list-item-avatar v-on="on">
-        <v-img :src="user.photoURL" :alt="user.username"></v-img>
+        <v-img
+          src="https://www.iscle.com/wp-content/uploads/2018/02/human-icon-big.png"
+          :alt="user.username"
+        ></v-img>
       </v-list-item-avatar>
     </template>
     <v-list>
