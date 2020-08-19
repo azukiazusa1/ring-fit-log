@@ -9,6 +9,7 @@
     color="orange darken-1"
     suffix="km"
     label="合計走行距離"
+    hide-details="auto"
     @input="$v._totalDistanceRun.$touch()"
     @blur="onBlur"
   ></v-text-field>

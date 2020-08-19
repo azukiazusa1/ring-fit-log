@@ -5,12 +5,12 @@
       :error-messages="totalCaloriesBurnedErrors"
       prepend-icon="as fa-fire"
       type="number"
-      step="0.01"
       outlined
       dense
       color="orange darken-1"
       suffix="kcal"
       label="合計消費カロリー"
+      hide-details="auto"
       @input="$v._totalCaloriesBurned.$touch()"
       @blur="onBlur"
     ></v-text-field>
