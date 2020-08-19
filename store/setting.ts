@@ -10,7 +10,7 @@ import { SUNDAY } from '~/config/constant'
 export default class SettingModule extends VuexModule {
   private firstDayOfWeek: Week = SUNDAY
   private calendarColor: string = '#ffbb00'
-  private smoothing = true
+  private smoothing = false
   private gridLineX = true
   private gridLineY = false
   private hiddenTotalTimeExercising = false
