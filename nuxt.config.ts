@@ -147,7 +147,14 @@ const config = {
         scope: ['public_profile', 'email', 'user_birthday']
       }
     },
-    vuex: false
+    cookie: {
+      options: {
+        maxAge: 60 * 60 * 24 * 365,
+        secure: process.env.NODE_ENV === 'production'
+      }
+    },
+    vuex: false,
+    localStorage: false
   },
   router: {
     middleware: ['auth', 'uid']
