@@ -53,7 +53,6 @@ export default Vue.extend({
         return ms2stringTime(this.totalTimeExercising)
       },
       set(totalTimeExercising: string) {
-        console.log(stringTime2ms(totalTimeExercising))
         this.$emit(
           'update:totalTimeExercising',
           stringTime2ms(totalTimeExercising)
