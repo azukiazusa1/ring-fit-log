@@ -97,7 +97,7 @@ export default Vue.extend({
         return this.splitValue[0]
       },
       set(hour: string) {
-        this._value = `${hour}:${this.minuteValue ?? ZERO}:${this.secondValue ??
+        this._value = `${hour}:${this.minuteValue ?? ZERO}:${this.secondValue ||
           ZERO}`
       }
     },
@@ -106,7 +106,7 @@ export default Vue.extend({
         return this.splitValue[1]
       },
       set(minute: string) {
-        this._value = `${this.hourValue ?? ZERO}:${minute}:${this.secondValue ??
+        this._value = `${this.hourValue || ZERO}:${minute}:${this.secondValue ||
           ZERO}`
       }
     },
@@ -115,7 +115,7 @@ export default Vue.extend({
         return this.splitValue[2]
       },
       set(second: string) {
-        this._value = `${this.hourValue ?? ZERO}:${this.minuteValue ??
+        this._value = `${this.hourValue || ZERO}:${this.minuteValue ||
           ZERO}:${second}`
       }
     }

@@ -29,7 +29,9 @@ export default Vue.extend({
         return this.$cookies.get(THEME_COOKIE_KEY)
       },
       set(theme: Theme) {
-        this.$cookies.set(THEME_COOKIE_KEY, theme)
+        this.$cookies.set(THEME_COOKIE_KEY, theme, {
+          maxAge: 60 * 60 * 24 * 365
+        })
       }
     }
   }

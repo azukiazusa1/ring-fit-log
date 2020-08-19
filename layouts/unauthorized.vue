@@ -2,7 +2,7 @@
   <v-app>
     <app-snackbar></app-snackbar>
     <v-app-bar fixed app color="main" dark>
-      <v-toolbar-title v-text="title" />
+      <toolbar-title>{{ title }}</toolbar-title>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -14,6 +14,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import ToolbarTitle from '~/components/atom/ToolbarTitle.vue'
 import AppSnackbar from '~/components/organism/AppSnackbar.vue'
 
 type DataType = {
@@ -22,6 +23,7 @@ type DataType = {
 
 export default Vue.extend({
   components: {
+    ToolbarTitle,
     AppSnackbar
   },
   data(): DataType {
