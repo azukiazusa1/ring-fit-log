@@ -33,9 +33,19 @@ export interface FacebookUser {
   }
 }
 
+type photo = {
+  value: string
+}
+export interface TwitterUser {
+  readonly displayName: string
+  readonly id: string
+  readonly photos: photo[]
+}
+
 export type GoogleStrategy = 'google'
 export type GitHubStrategy = 'github'
 export type FacebookStrategy = 'facebook'
+export type TwitterStrategy = 'twitter'
 
 export interface Google {
   $state: {
@@ -56,4 +66,11 @@ export interface Facebook {
     strategy: FacebookStrategy
   }
   user: Partial<FacebookUser>
+}
+
+export interface Twitter {
+  $state: {
+    strategy: TwitterStrategy
+  }
+  user: Partial<TwitterUser>
 }
