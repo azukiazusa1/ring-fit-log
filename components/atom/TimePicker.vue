@@ -4,7 +4,7 @@
       <v-text-field
         readonly
         clearable
-        :value="value"
+        v-model="_value"
         v-bind="$attrs"
         v-on="{ ...$listeners, ...on }"
       />
