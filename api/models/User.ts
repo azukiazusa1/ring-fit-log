@@ -12,7 +12,7 @@ const userSchema: Schema = new Schema(
     strategy: {
       type: String,
       required: true,
-      enum: ['google', 'github', 'facebook']
+      enum: ['google', 'github', 'facebook', 'twitter']
     },
     identifier: {
       type: String,

@@ -161,10 +161,22 @@ describe('~/api/models/User', () => {
         expect(result._id).toBeDefined()
       })
 
-      test('それ以外はNG', async () => {
+      test('twitterはOK', async () => {
         const invalidUser = {
           username: 'username',
           strategy: 'twitter',
+          identifier: '11111',
+          email: 'aaa@example.com',
+          photoURL: 'example'
+        }
+        const result = await AppUser.create(invalidUser)
+        expect(result._id).toBeDefined()
+      })
+
+      test('それ以外はNG', async () => {
+        const invalidUser = {
+          username: 'username',
+          strategy: 'yahoo',
           identifier: '11111',
           email: 'aaa@example.com',
           photoURL: 'example'

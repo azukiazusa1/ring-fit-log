@@ -5,7 +5,7 @@ const uid: Middleware = async ({ error, $axios, $auth, app }) => {
   const { $cookies } = app
   const uid: string = $cookies.get('userId')
   if ($auth.loggedIn && !uid) {
-    const user = getLoginUser($auth)
+    const user = app.$cookies.get('userInfo') || getLoginUser($auth)
     try {
       const { data } = await $axios.post('/api/users', { user })
       $cookies.set('userId', data.uid, {

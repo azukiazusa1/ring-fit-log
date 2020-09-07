@@ -133,6 +133,11 @@ const config = {
       home: '/record'
     },
     strategies: {
+      twitter: {
+        _scheme: 'oauth2',
+        authorization_endpoint: process.env.BASE_URL + '/api/auth/twitter',
+        userinfo_endpoint: false
+      },
       github: {
         client_id: GITHUB_CLIENT,
         client_secret: GITHUB_CLIENT_SECRET

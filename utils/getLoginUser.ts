@@ -1,19 +1,33 @@
-import { LoginUser, Google, GitHub, Facebook } from '~/types/auth'
+import { LoginUser, Google, GitHub, Facebook, Twitter } from '~/types/auth'
+import Cookie from 'universal-cookie'
+import { isEmpty } from 'lodash'
 
-export function isGoogle(test: Google | GitHub | Facebook): test is Google {
+export function isGoogle(
+  test: Google | GitHub | Facebook | Twitter
+): test is Google {
   return test.$state.strategy === 'google'
 }
 
-export function isGitHub(test: Google | GitHub | Facebook): test is GitHub {
+export function isGitHub(
+  test: Google | GitHub | Facebook | Twitter
+): test is GitHub {
   return test.$state.strategy === 'github'
 }
 
-export function isFacebook(test: Google | GitHub | Facebook): test is Facebook {
+export function isFacebook(
+  test: Google | GitHub | Facebook | Twitter
+): test is Facebook {
   return test.$state.strategy === 'facebook'
 }
 
+export function isTwitter(
+  test: Google | GitHub | Facebook | Twitter
+): test is Twitter {
+  return test.$state.strategy === 'twitter'
+}
+
 export default function getloginUser(
-  auth: Google | GitHub | Facebook
+  auth: Google | GitHub | Facebook | Twitter
 ): Partial<LoginUser> {
   let loginUser: Partial<LoginUser>
   if (isGoogle(auth)) {
@@ -42,6 +56,16 @@ export default function getloginUser(
       strategy: 'facebook',
       email: user.email,
       photoURL: user.picture!.data.url
+    }
+  } else if (isTwitter(auth)) {
+    const { user } = auth
+
+    loginUser = {
+      username: user.displayName,
+      identifier: user.id,
+      strategy: 'twitter',
+      email: '',
+      photoURL: user.photos ? user.photos[0].value : ''
     }
   } else {
     throw new Error('Invalid strategy')

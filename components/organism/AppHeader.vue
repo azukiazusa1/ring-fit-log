@@ -3,13 +3,7 @@
     <toolbar-title>{{ title }}</toolbar-title>
     <v-spacer />
     <span v-for="(item, key) in items" :key="key" class="d-none d-md-flex">
-      <NavItem
-        :title="item.title"
-        :icon="item.icon"
-        :to="item.to"
-        prepend-icon
-        text
-      />
+      <NavItem :title="item.title" :icon="item.icon" :to="item.to" prepend-icon text />
     </span>
     <avator-menu :user="user" @logout="logout"></avator-menu>
   </v-app-bar>
@@ -23,6 +17,7 @@ import AvatorMenu from '~/components/molecule/AvatorMenu.vue'
 import { SnackbarModule } from '~/store'
 import getLoginUser from '~/utils/getLoginUser'
 import { Item } from '~/types/index'
+import { LoginUser } from '~/types/auth'
 
 export default Vue.extend({
   name: 'AppHeader',
@@ -42,8 +37,8 @@ export default Vue.extend({
     }
   },
   computed: {
-    user() {
-      return getLoginUser(this.$auth)
+    user(): Partial<LoginUser> {
+      return this.$cookies.get('userInfo') || getLoginUser(this.$auth)
     }
   },
   methods: {
@@ -55,6 +50,7 @@ export default Vue.extend({
         })
         this.$router.push('/')
         this.$cookies.remove('userId')
+        this.$cookies.remove('userInfo')
       } catch {
         SnackbarModule.error({
           message: 'ログアウトに失敗しました。'

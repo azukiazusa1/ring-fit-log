@@ -3,22 +3,16 @@
     <v-container>
       <v-row>
         <v-col cols="12" class="text-center">
-          <brand-icon-button
-            brand="google"
-            @click="loginWithGoogle"
-          ></brand-icon-button>
+          <brand-icon-button brand="twitter" @click="loginWithTwitter"></brand-icon-button>
         </v-col>
         <v-col cols="12" class="text-center">
-          <brand-icon-button
-            brand="github"
-            @click="loginWithGithub"
-          ></brand-icon-button>
+          <brand-icon-button brand="google" @click="loginWithGoogle"></brand-icon-button>
         </v-col>
         <v-col cols="12" class="text-center">
-          <brand-icon-button
-            brand="facebook"
-            @click="loginWithFacebook"
-          ></brand-icon-button>
+          <brand-icon-button brand="github" @click="loginWithGithub"></brand-icon-button>
+        </v-col>
+        <v-col cols="12" class="text-center">
+          <brand-icon-button brand="facebook" @click="loginWithFacebook"></brand-icon-button>
         </v-col>
       </v-row>
     </v-container>
@@ -38,6 +32,13 @@ export default Vue.extend({
     SnackbarButton
   },
   methods: {
+    loginWithTwitter(): void {
+      try {
+        this.$auth.loginWith('twitter')
+      } catch (e) {
+        this.loginError()
+      }
+    },
     loginWithGithub(): void {
       try {
         this.$auth.loginWith('github')
