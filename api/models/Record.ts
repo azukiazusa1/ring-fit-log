@@ -105,6 +105,8 @@ interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   updateById(id: string, record: IRecord): Promise<RecordDoc>
   findByQuater(date: Date, userId: string): Promise<RecordDoc[]>
   findByYear(date: Date, userId: string): Promise<RecordDoc[]>
+  average(): Promise<RecordDoc[]>
+  averageByUser(userId: string): Promise<RecordDoc[]>
 }
 
 const statics = {
@@ -169,6 +171,25 @@ const statics = {
       })
       .sort({
         date: -1
+      })
+  },
+  average(this: RecordModel) {
+    return this.aggregate()
+      .group({
+        _id: null,
+        avgTimeExercising: { $avg: '$totalTimeExercising' },
+        avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
+        avgDistanceRun: { $avg: '$totalDistanceRun' },
+      })
+  },
+  averageByUser(this: RecordModel, userId: string) {
+    return this.aggregate()
+      .match({userId})
+      .group({
+        _id: null,
+        avgTimeExercising: { $avg: '$totalTimeExercising' },
+        avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
+        avgDistanceRun: { $avg: '$totalDistanceRun' },
       })
   }
 }
