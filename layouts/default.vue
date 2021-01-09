@@ -48,6 +48,11 @@ export default Vue.extend({
           to: '/chart'
         },
         {
+          icon: 'fas fa-calculator',
+          title: '集計',
+          to: '/aggregation'
+        },
+        {
           icon: 'fa fa-cog',
           title: '設定',
           to: '/setting'
