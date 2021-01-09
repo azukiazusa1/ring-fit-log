@@ -40,7 +40,7 @@ export default class AggregateModule extends VuexModule {
 
   @Action({ rawError: true })
   public async fetch() {
-    const { data } = await $axios.get<AverageData[]>(`/api/aggregate`)
+    const { data } = await $axios.get<AverageData[]>(`/api/aggregate/average`)
     console.log(data)
     const [averageData, userAverageData] = data
 
