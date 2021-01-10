@@ -1,9 +1,10 @@
-import Express, { response } from 'express'
+import Express from 'express'
 import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
 import { isEmpty } from 'lodash'
 import Record from '../models/Record'
 import isInvalidDate from '../../utils/isInvalidDate'
+import { createPagenationOptions } from '../utils/createPaginationOptions'
 
 export default {
   show: async (
@@ -106,6 +107,26 @@ export default {
       await Record.deleteMany({ userId })
       res.status(httpStatusCode.NO_CONTENT).json({})
     } catch (e) {
+      next(Boom.internal())
+    }
+  },
+  list: async (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const userId = res.locals.userId
+    const options = createPagenationOptions(req)
+    try {
+      const records = await Record.paginate({ userId }, options)
+      console.log(records)
+      if (!isEmpty(records)) {
+        res.status(httpStatusCode.OK).json(records)
+      } else {
+        res.json({})
+      }
+    } catch (e) {
+      console.log(e)
       next(Boom.internal())
     }
   }
