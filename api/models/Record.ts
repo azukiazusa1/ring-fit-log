@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model, DocumentQuery } from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 import moment from 'moment'
 import { IRecord } from '~/types/record'
 
@@ -48,6 +49,7 @@ const recordSchema: Schema = new Schema(
   }
 )
 
+recordSchema.plugin(mongoosePaginate)
 recordSchema.index({ date: 1, userId: 1 }, { unique: true })
 
 const queryHelpers = {
@@ -174,22 +176,21 @@ const statics = {
       })
   },
   average(this: RecordModel) {
-    return this.aggregate()
-      .group({
-        _id: null,
-        avgTimeExercising: { $avg: '$totalTimeExercising' },
-        avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
-        avgDistanceRun: { $avg: '$totalDistanceRun' },
-      })
+    return this.aggregate().group({
+      _id: null,
+      avgTimeExercising: { $avg: '$totalTimeExercising' },
+      avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
+      avgDistanceRun: { $avg: '$totalDistanceRun' }
+    })
   },
   averageByUser(this: RecordModel, userId: string) {
     return this.aggregate()
-      .match({userId})
+      .match({ userId })
       .group({
         _id: null,
         avgTimeExercising: { $avg: '$totalTimeExercising' },
         avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
-        avgDistanceRun: { $avg: '$totalDistanceRun' },
+        avgDistanceRun: { $avg: '$totalDistanceRun' }
       })
   }
 }
