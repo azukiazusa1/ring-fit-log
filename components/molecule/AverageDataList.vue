@@ -2,7 +2,7 @@
   <v-data-iterator :items="items" hide-default-footer>
     <template v-slot:header>
       <v-toolbar class="mb-2" color="indigo accent-2" dark flat>
-        <v-toolbar-title>平均</v-toolbar-title>
+        <v-toolbar-title>１日の平均</v-toolbar-title>
       </v-toolbar>
     </template>
 
@@ -14,7 +14,7 @@
           cols="12"
           sm="6"
           md="4"
-          lg="3"
+          lg="4"
         >
           <v-card>
             <v-card-title class="subheading font-weight-bold">
