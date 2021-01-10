@@ -1,7 +1,7 @@
 import { Request } from 'express'
 export const createPagenationOptions = (req: Request) => {
-  const page = req.params.page ? Number(req.params.page) : 1
-  const limit = req.params.page ? Number(req.params.limit) : 10
+  const page = req.query.page ? Number(req.query.page) : 1
+  const limit = req.query.limit ? Number(req.query.limit) : 10
   const sort = createSortOption(req)
 
   return {
@@ -12,15 +12,16 @@ export const createPagenationOptions = (req: Request) => {
 }
 
 export const createSortOption = (req: Request) => {
-  if (!req.params.sortBy) {
+  if (!req.query.sortBy || !Array.isArray(req.query.sortBy)) {
     return {
       date: 'desc'
     }
   }
 
-  const order = req.params.sortDesc ? 'desc' : 'asc'
+  const order = req.query.sortDesc ? 'desc' : 'asc'
+  const field = req.query.sortBy[0] as string
 
   return {
-    [req.params.sortBy]: order
+    [field]: order
   }
 }
