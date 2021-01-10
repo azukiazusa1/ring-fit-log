@@ -1,4 +1,12 @@
-import mongoose, { Schema, Document, Model, DocumentQuery } from 'mongoose'
+import mongoose, {
+  Schema,
+  Document,
+  Model,
+  DocumentQuery,
+  PaginateOptions,
+  PaginateResult,
+  FilterQuery
+} from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 import moment from 'moment'
 import { IRecord } from '~/types/record'
@@ -49,7 +57,6 @@ const recordSchema: Schema = new Schema(
   }
 )
 
-recordSchema.plugin(mongoosePaginate)
 recordSchema.index({ date: 1, userId: 1 }, { unique: true })
 
 const queryHelpers = {
@@ -109,6 +116,11 @@ interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   findByYear(date: Date, userId: string): Promise<RecordDoc[]>
   average(): Promise<RecordDoc[]>
   averageByUser(userId: string): Promise<RecordDoc[]>
+  paginate(
+    query?: FilterQuery<RecordDoc>,
+    options?: PaginateOptions,
+    callback?: (err: any, result: PaginateResult<RecordDoc>) => void
+  ): Promise<PaginateResult<RecordDoc>>
 }
 
 const statics = {
@@ -195,5 +207,7 @@ const statics = {
   }
 }
 recordSchema.statics = statics
+
+recordSchema.plugin(mongoosePaginate)
 
 export default mongoose.model<RecordDoc, RecordModel>('Record', recordSchema)
