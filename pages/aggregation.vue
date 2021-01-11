@@ -6,23 +6,36 @@
     />
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="items"
       :options.sync="options"
-      :server-items-length="totalDesserts"
+      :server-items-length="total"
       :loading="loading"
+      :footer-props="footerProps"
+      locale="ja"
       class="elevation-1"
-    ></v-data-table>
+      @click:row="clickTableTow"
+    >
+      <template v-slot:item.date="{ item }">
+        <app-time :date="item.date" format="YYYY/MM/DD（ddd）" />
+      </template>
+      <template v-slot:item.totalTimeExercising="{ item }">
+        {{ ms2stringTime(item.totalTimeExercising) }}
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import { AggregateStore, SnackbarModule } from '~/store'
+import { AggregateStore, RecordsStore, SnackbarModule } from '~/store'
 import AverageDataList from '~/components/molecule/AverageDataList.vue'
+import AppTime from '~/components/atom/AppTime.vue'
+import { ms2stringTime } from '~/utils/msConversion'
 
 export default Vue.extend({
   components: {
-    AverageDataList
+    AverageDataList,
+    AppTime
   },
   async asyncData(): Promise<void> {
     try {
@@ -35,23 +48,22 @@ export default Vue.extend({
   },
   data() {
     return {
-      totalDesserts: 0,
-      desserts: [],
-      loading: false,
+      loading: true,
       options: {},
       headers: [
         {
-          text: 'Dessert (100g serving)',
+          text: '日付',
           align: 'start',
           sortable: false,
-          value: 'name'
+          value: 'date'
         },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Iron (%)', value: 'iron' }
-      ]
+        { text: '活動時間', value: 'totalTimeExercising' },
+        { text: '消費カロリー(kcal)', value: 'totalCaloriesBurned' },
+        { text: '走行距離(km)', value: 'totalDistanceRun' }
+      ],
+      footerProps: {
+        itemsPerPageOptions: [5, 10, 15]
+      }
     }
   },
   computed: {
@@ -60,6 +72,41 @@ export default Vue.extend({
     },
     averageData() {
       return AggregateStore.getAverageData
+    },
+    items() {
+      return RecordsStore.getRecordList?.docs
+    },
+    total() {
+      return RecordsStore.getRecordList?.totalDocs
+    }
+  },
+  watch: {
+    options: {
+      handler() {
+        this.loading = true
+        try {
+          RecordsStore.fetchRecordList(this.options)
+        } catch (e) {
+          SnackbarModule.error({
+            message: 'データの取得に失敗しました。'
+          })
+        } finally {
+          this.loading = false
+        }
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  methods: {
+    ms2stringTime,
+    clickTableTow(items) {
+      this.$router.push({
+        name: 'record',
+        query: {
+          date: this.$moment(items.date).format('YYYY-MM-DD')
+        }
+      })
     }
   },
   head() {
