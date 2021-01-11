@@ -31,6 +31,7 @@ import { AggregateStore, RecordsStore, SnackbarModule } from '~/store'
 import AverageDataList from '~/components/molecule/AverageDataList.vue'
 import AppTime from '~/components/atom/AppTime.vue'
 import { ms2stringTime } from '~/utils/msConversion'
+import { Record } from '~/types/record'
 
 export default Vue.extend({
   components: {

@@ -59,7 +59,6 @@ export default Vue.extend({
     try {
       await RecordsStore.fetchRecord(date)
     } catch (e) {
-      console.log(e)
       SnackbarModule.error({
         message: 'データの取得時にエラーが発生しました。'
       })
@@ -67,14 +66,6 @@ export default Vue.extend({
 
     return { date }
   },
-  head(): {
-    title: string
-  } {
-    return {
-      title: `${this.$moment(this.date).format('YYYY-MM-DD')}の記録`
-    }
-  },
-  watchQuery: ['date'],
   data(): Data {
     return {
       date: new Date(),
@@ -144,6 +135,14 @@ export default Vue.extend({
         this.loading = false
       }
     }
-  }
+  },
+  head(): {
+    title: string
+  } {
+    return {
+      title: `${this.$moment(this.date).format('YYYY-MM-DD')}の記録`
+    }
+  },
+  watchQuery: ['date']
 })
 </script>
