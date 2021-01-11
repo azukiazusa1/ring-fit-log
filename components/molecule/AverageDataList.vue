@@ -75,7 +75,7 @@ export default Vue.extend({
         {
           name: '消費カロリー（kcal）',
           my: floor(this.userAverageData.avgCaloriesBurned, PRECISION),
-          all: floor(this.averageData.avgDistanceRun, PRECISION)
+          all: floor(this.averageData.avgCaloriesBurned, PRECISION)
         },
         {
           name: '走行距離（km）',
