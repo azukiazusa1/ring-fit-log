@@ -12,7 +12,7 @@ export default Vue.extend({
   name: 'AppTime',
   props: {
     date: {
-      type: Date,
+      type: [Date, String],
       required: true
     },
     format: {
