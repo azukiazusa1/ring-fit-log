@@ -3,7 +3,13 @@
     <toolbar-title>{{ title }}</toolbar-title>
     <v-spacer />
     <span v-for="(item, key) in items" :key="key" class="d-none d-md-flex">
-      <NavItem :title="item.title" :icon="item.icon" :to="item.to" prepend-icon text />
+      <NavItem
+        :title="item.title"
+        :icon="item.icon"
+        :to="item.to"
+        prepend-icon
+        text
+      />
     </span>
     <avator-menu :user="user" @logout="logout"></avator-menu>
   </v-app-bar>

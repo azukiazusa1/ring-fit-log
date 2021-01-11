@@ -12,7 +12,7 @@ const uid: Middleware = async ({ error, $axios, $auth, app }) => {
         maxAge: 60 * 60 * 24 * 7,
         sameSite: 'strict'
       })
-      $axios.defaults.headers.common['uid'] = data.uid
+      $axios.defaults.headers.common.uid = data.uid
     } catch (e) {
       error(e)
     }

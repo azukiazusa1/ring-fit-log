@@ -3,16 +3,28 @@
     <v-container>
       <v-row>
         <v-col cols="12" class="text-center">
-          <brand-icon-button brand="twitter" @click="loginWithTwitter"></brand-icon-button>
+          <brand-icon-button
+            brand="twitter"
+            @click="loginWithTwitter"
+          ></brand-icon-button>
         </v-col>
         <v-col cols="12" class="text-center">
-          <brand-icon-button brand="google" @click="loginWithGoogle"></brand-icon-button>
+          <brand-icon-button
+            brand="google"
+            @click="loginWithGoogle"
+          ></brand-icon-button>
         </v-col>
         <v-col cols="12" class="text-center">
-          <brand-icon-button brand="github" @click="loginWithGithub"></brand-icon-button>
+          <brand-icon-button
+            brand="github"
+            @click="loginWithGithub"
+          ></brand-icon-button>
         </v-col>
         <v-col cols="12" class="text-center">
-          <brand-icon-button brand="facebook" @click="loginWithFacebook"></brand-icon-button>
+          <brand-icon-button
+            brand="facebook"
+            @click="loginWithFacebook"
+          ></brand-icon-button>
         </v-col>
       </v-row>
     </v-container>
@@ -22,14 +34,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import BrandIconButton from '~/components/atom/BrandLoginButton.vue'
-import SnackbarButton from '~/components/SnackbarButton.vue'
 import { SnackbarModule } from '~/store'
 
 export default Vue.extend({
   name: 'LoginButtons',
   components: {
-    BrandIconButton,
-    SnackbarButton
+    BrandIconButton
   },
   methods: {
     loginWithTwitter(): void {

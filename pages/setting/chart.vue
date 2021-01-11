@@ -76,11 +76,6 @@ export default Vue.extend({
     SettingPageTitle,
     SettingChartItemGroup
   },
-  head() {
-    return {
-      title: '設定 - グラフ'
-    }
-  },
   computed: {
     smoothing: {
       get() {
@@ -153,6 +148,11 @@ export default Vue.extend({
       set(color: string) {
         SettingStore.changeTotalTimeExercisingColor(color)
       }
+    }
+  },
+  head() {
+    return {
+      title: '設定 - グラフ'
     }
   }
 })
