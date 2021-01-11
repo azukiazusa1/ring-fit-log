@@ -100,11 +100,11 @@ export default Vue.extend({
   },
   methods: {
     ms2stringTime,
-    clickTableTow(items) {
+    clickTableTow(item: Record) {
       this.$router.push({
         name: 'record',
         query: {
-          date: this.$moment(items.date).format('YYYY-MM-DD')
+          date: this.$moment(item.date).format('YYYY-MM-DD')
         }
       })
     }
