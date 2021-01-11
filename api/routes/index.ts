@@ -1,10 +1,10 @@
 import Express from 'express'
+import auth from '../middleware/auth'
 import userRoutes from './userRoutes'
 import recordRoutes from './recordRoutes'
 import chartRoutes from './chartRoutes'
 import aggregateRoutes from './aggregateRoutes'
 import errorRoutes from './errorRoutes'
-import auth from '../middleware/auth'
 
 const router = Express.Router()
 

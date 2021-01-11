@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon @click="$emit('click')" :to="to">
+  <v-btn icon :to="to" @click="$emit('click')">
     <v-icon>fas fa-angle-double-right</v-icon>
   </v-btn>
 </template>

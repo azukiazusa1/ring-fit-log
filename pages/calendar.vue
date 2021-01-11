@@ -42,11 +42,6 @@ export default Vue.extend({
       })
     }
   },
-  head() {
-    return {
-      title: 'カレンダー'
-    }
-  },
   data() {
     return {
       date: '',
@@ -82,6 +77,11 @@ export default Vue.extend({
     },
     buttonClick() {
       this.$router.push(`/record?date=${this.date}`)
+    }
+  },
+  head() {
+    return {
+      title: 'カレンダー'
     }
   }
 })

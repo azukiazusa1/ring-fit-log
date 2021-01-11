@@ -1,6 +1,6 @@
 import { mockReq, mockRes } from 'sinon-express-mock'
-import auth from '~/api/middleware/auth'
 import Boom from '@hapi/boom'
+import auth from '~/api/middleware/auth'
 
 interface Request {
   headers?: {

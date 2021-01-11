@@ -1,7 +1,7 @@
 import Express from 'express'
-import Chart from '../models/Chart'
 import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
+import Chart from '../models/Chart'
 import isInvalidDate from '../../utils/isInvalidDate'
 
 export default {
@@ -58,7 +58,6 @@ export default {
       const chartData = await chart.quarter()
       res.status(httpStatusCode.OK).json(chartData)
     } catch (e) {
-      console.log(e)
       next(Boom.internal())
     }
   },
@@ -73,7 +72,6 @@ export default {
       const chartData = await chart.year()
       res.status(httpStatusCode.OK).json(chartData)
     } catch (e) {
-      console.log(e)
       next(Boom.internal())
     }
   }

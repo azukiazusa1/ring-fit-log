@@ -59,19 +59,12 @@ export default Vue.extend({
     try {
       await ChartsStore.fetchChartData({ date, dateRange })
     } catch (e) {
-      console.error(e)
       SnackbarModule.error({
         message: 'データの取得に失敗しました。'
       })
     }
     return { dateRange, date, selectedDateRange }
   },
-  head() {
-    return {
-      title: 'グラフ'
-    }
-  },
-  watchQuery: ['date'],
   data(): Data {
     return {
       dateRange: WEEK1,
@@ -244,12 +237,14 @@ export default Vue.extend({
           .startOf('week')
           .toDate()
       }
-      try {
-        await ChartsStore.fetchChartData({ date: this.date, dateRange })
-      } catch (e) {
-        console.error(e)
-      }
+      await ChartsStore.fetchChartData({ date: this.date, dateRange })
     }
-  }
+  },
+  head() {
+    return {
+      title: 'グラフ'
+    }
+  },
+  watchQuery: ['date']
 })
 </script>

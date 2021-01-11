@@ -1,6 +1,4 @@
 import { LoginUser, Google, GitHub, Facebook, Twitter } from '~/types/auth'
-import Cookie from 'universal-cookie'
-import { isEmpty } from 'lodash'
 
 export function isGoogle(
   test: Google | GitHub | Facebook | Twitter
