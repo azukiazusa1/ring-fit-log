@@ -1,6 +1,7 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
 import moment from 'moment'
 import { isEmpty } from 'lodash'
+import { PaginateResult } from 'mongoose'
 import { $axios } from '~/utils/api'
 import toJSON from '~/utils/toJSON'
 import { Record } from '~/types/record'
@@ -12,10 +13,15 @@ import { Record } from '~/types/record'
 })
 export default class RecordsModule extends VuexModule {
   private records: Record[] = []
+  private recordList: PaginateResult<Record> | null = null
   private cachedMonth: string[] = []
 
   public get getRecords() {
     return this.records
+  }
+
+  public get getRecordList() {
+    return this.recordList
   }
 
   public get getRecordByDate() {
@@ -35,6 +41,11 @@ export default class RecordsModule extends VuexModule {
   @Mutation
   private addRecord(record: Record) {
     this.records.push(record)
+  }
+
+  @Mutation
+  private setRecordList(recordList: PaginateResult<Record>) {
+    this.recordList = recordList
   }
 
   @Mutation
@@ -75,6 +86,17 @@ export default class RecordsModule extends VuexModule {
         this.addRecord(v)
       }
     })
+  }
+
+  @Action({ rawError: true })
+  public async fetchRecordList(params: any) {
+    const { data } = await $axios.get<PaginateResult<Record>>(
+      '/api/record/list',
+      {
+        params
+      }
+    )
+    this.setRecordList(data)
   }
 
   @Action({ rawError: true })
