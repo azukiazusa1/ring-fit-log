@@ -4,16 +4,19 @@ import { getModule } from 'vuex-module-decorators'
 import Snackbar from '~/store/snackbar'
 import RecordsModule from '~/store/records'
 import ChartsModule from '~/store/charts'
+import AggregateModule from '~/store/aggregate'
 import SettingModule from '~/store/setting'
 
 let SnackbarModule: Snackbar
 let RecordsStore: RecordsModule
 let ChartsStore: ChartsModule
+let AggregateStore: AggregateModule
 let SettingStore: SettingModule
 function initialiseStores(store: Store<any>): void {
   SnackbarModule = getModule(Snackbar, store)
   RecordsStore = getModule(RecordsModule, store)
   ChartsStore = getModule(ChartsModule, store)
+  AggregateStore = getModule(AggregateModule, store)
   SettingStore = getModule(SettingModule, store)
 }
 
@@ -22,5 +25,6 @@ export {
   SnackbarModule,
   RecordsStore,
   ChartsStore,
+  AggregateStore,
   SettingStore
 }

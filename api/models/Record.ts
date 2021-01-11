@@ -1,4 +1,13 @@
-import mongoose, { Schema, Document, Model, DocumentQuery } from 'mongoose'
+import mongoose, {
+  Schema,
+  Document,
+  Model,
+  DocumentQuery,
+  PaginateOptions,
+  PaginateResult,
+  FilterQuery
+} from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 import moment from 'moment'
 import { IRecord } from '~/types/record'
 
@@ -105,6 +114,13 @@ interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   updateById(id: string, record: IRecord): Promise<RecordDoc>
   findByQuater(date: Date, userId: string): Promise<RecordDoc[]>
   findByYear(date: Date, userId: string): Promise<RecordDoc[]>
+  average(): Promise<RecordDoc[]>
+  averageByUser(userId: string): Promise<RecordDoc[]>
+  paginate(
+    query?: FilterQuery<RecordDoc>,
+    options?: PaginateOptions,
+    callback?: (err: any, result: PaginateResult<RecordDoc>) => void
+  ): Promise<PaginateResult<RecordDoc>>
 }
 
 const statics = {
@@ -170,8 +186,28 @@ const statics = {
       .sort({
         date: -1
       })
+  },
+  average(this: RecordModel) {
+    return this.aggregate().group({
+      _id: null,
+      avgTimeExercising: { $avg: '$totalTimeExercising' },
+      avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
+      avgDistanceRun: { $avg: '$totalDistanceRun' }
+    })
+  },
+  averageByUser(this: RecordModel, userId: string) {
+    return this.aggregate()
+      .match({ userId })
+      .group({
+        _id: null,
+        avgTimeExercising: { $avg: '$totalTimeExercising' },
+        avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
+        avgDistanceRun: { $avg: '$totalDistanceRun' }
+      })
   }
 }
 recordSchema.statics = statics
+
+recordSchema.plugin(mongoosePaginate)
 
 export default mongoose.model<RecordDoc, RecordModel>('Record', recordSchema)
