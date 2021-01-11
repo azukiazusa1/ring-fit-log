@@ -5,7 +5,7 @@ import Record from '../models/Record'
 
 export default {
   average: async (
-    req: Express.Request,
+    _req: Express.Request,
     res: Express.Response,
     next: Express.NextFunction
   ) => {
@@ -17,5 +17,5 @@ export default {
     } catch (e) {
       next(Boom.internal())
     }
-  },
+  }
 }

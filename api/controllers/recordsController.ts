@@ -119,14 +119,12 @@ export default {
     const options = createPagenationOptions(req)
     try {
       const records = await Record.paginate({ userId }, options)
-      console.log(records)
       if (!isEmpty(records)) {
         res.status(httpStatusCode.OK).json(records)
       } else {
         res.json({})
       }
     } catch (e) {
-      console.log(e)
       next(Boom.internal())
     }
   }
