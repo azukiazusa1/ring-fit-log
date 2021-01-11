@@ -1,13 +1,16 @@
 import { Request } from 'express'
 export const createPagenationOptions = (req: Request) => {
   const page = req.query.page ? Number(req.query.page) : 1
-  const limit = req.query.limit ? Number(req.query.limit) : 10
+
+  const limit = req.query.itemsPerPage ? Number(req.query.itemsPerPage) : 10
+  const pagination = limit !== -1
   const sort = createSortOption(req)
 
   return {
     page,
     limit,
-    sort
+    sort,
+    pagination
   }
 }
 
