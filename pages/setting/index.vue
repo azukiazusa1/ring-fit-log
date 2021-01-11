@@ -79,9 +79,6 @@ export default Vue.extend({
     AngleRight,
     TrashCan
   },
-  head: {
-    title: '設定'
-  },
   data() {
     return {
       dialog: false
@@ -95,12 +92,14 @@ export default Vue.extend({
           message: 'データの削除に成功しました。'
         })
       } catch (e) {
-        console.error(e)
         SnackbarModule.error({
           message: 'データの削除に失敗しました。'
         })
       }
     }
+  },
+  head: {
+    title: '設定'
   }
 })
 </script>

@@ -6,7 +6,7 @@
       リングフィットログでは、リングフィットアドベンチャー運動ログ(活動時間，消費カロリー，走行距離)を記録してカレンダーやグラフで確認することができます。
     </p>
 
-    <v-col sm="12" md="4" v-for="(item, i) in items" :key="i">
+    <v-col v-for="(item, i) in items" :key="i" sm="12" md="4">
       <v-img :src="item.src" />
     </v-col>
   </v-row>

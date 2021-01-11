@@ -1,8 +1,8 @@
-import Record, { RecordDoc } from './Record'
 import moment from 'moment'
 import { isEmpty, floor } from 'lodash'
 import { ChartPoint } from 'chart.js'
 import { ChartData } from '../../types/chart'
+import Record, { RecordDoc } from './Record'
 
 export default class Chart {
   private _date: Date

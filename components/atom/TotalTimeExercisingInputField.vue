@@ -13,9 +13,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import TimePicker from '~/components/atom/TimePicker.vue'
 import { validationMixin } from 'vuelidate'
 import { helpers } from 'vuelidate/lib/validators'
+import TimePicker from '~/components/atom/TimePicker.vue'
 import { timeError } from '~/config/validationErrorMessages'
 import { ms2stringTime, stringTime2ms } from '~/utils/msConversion'
 const time = helpers.regex('time', /^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/)

@@ -25,13 +25,14 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 passport.use(
+  // eslint-disable-next-line new-cap
   new twitterStrategy(
     {
       consumerKey: process.env.TWITTER_CLIENT || 'test',
       consumerSecret: process.env.TWITTER_CLIENT_SECRET || 'test',
       callbackURL: process.env.BASE_URL + '/login'
     },
-    function(token, tokenSecret, profile, done) {
+    function(_token, _tokenSecret, profile, done) {
       return done(null, profile)
     }
   )

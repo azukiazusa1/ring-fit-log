@@ -41,11 +41,6 @@ export default Vue.extend({
     SelectFirstDayOfWeek,
     ChangeColorModal
   },
-  head() {
-    return {
-      title: '設定 - カレンダー'
-    }
-  },
   computed: {
     day() {
       return SettingStore.getFirstDayOfWeek
@@ -62,6 +57,11 @@ export default Vue.extend({
   methods: {
     changeFirstDayOfWeek(v: Week) {
       SettingStore.changeFirstDayOfWeek(v)
+    }
+  },
+  head() {
+    return {
+      title: '設定 - カレンダー'
     }
   }
 })

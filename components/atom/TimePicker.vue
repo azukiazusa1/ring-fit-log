@@ -2,46 +2,46 @@
   <v-menu v-model="active" :close-on-content-click="false" offset-y>
     <template v-slot:activator="{ on }">
       <v-text-field
+        v-model="_value"
         readonly
         clearable
-        v-model="_value"
         v-bind="$attrs"
         v-on="{ ...$listeners, ...on }"
       />
     </template>
     <v-card class="d-flex align-center">
       <v-select
+        v-model="hourValue"
         label="時"
         dense
         hide-details
         class="_v-digital-time-picker__select pt-0 mt-0 align-center"
         rounded
         :items="hours"
-        v-model="hourValue"
       />
       <span class="_v-digital-time-picker__comma">
         :
       </span>
       <v-select
+        v-model="minuteValue"
         label="分"
         dense
         hide-details
         class="_v-digital-time-picker__select pt-0 mt-0 align-center"
         :items="minutes"
         rounded
-        v-model="minuteValue"
       />
       <span class="_v-digital-time-picker__comma">
         :
       </span>
       <v-select
+        v-model="secondValue"
         label="秒"
         dense
         hide-details
         class="_v-digital-time-picker__select pt-0 mt-0 align-center"
         :items="seconds"
         rounded
-        v-model="secondValue"
       />
     </v-card>
   </v-menu>
@@ -60,9 +60,7 @@ interface data {
 const ZERO = '00'
 
 function generateNumbStringArray(length: number): string[] {
-  return Array.from({ length }, (value, index) =>
-    index.toString().padStart(2, '0')
-  )
+  return Array.from({ length }, (_, index) => index.toString().padStart(2, '0'))
 }
 export default Vue.extend({
   name: 'VTimePicker',
