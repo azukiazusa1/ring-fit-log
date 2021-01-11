@@ -168,9 +168,9 @@ const config = {
    ** Build configuration
    */
   build: {
-    /*
-     ** You can extend webpack config here
-     */
+    filenames: {
+      chunk: ({ isDev }: any) => (isDev ? '[name].js' : '[chunkhash].js')
+    }
   }
 }
 
