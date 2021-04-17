@@ -11,7 +11,8 @@
     "start": "cross-env NODE_ENV=production nuxt-ts start",
     "generate": "nuxt-ts generate",
     "lint": "eslint --ext .js,.vue,.ts --ignore-path .gitignore .",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.1",
