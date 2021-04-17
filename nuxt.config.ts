@@ -164,7 +164,7 @@ const config = {
   },
   sentry: {
     dsn: process.env.SENTRY_DSN || '',
-    disabled: process.env.NODE_ENV === 'production',
+    disabled: process.env.NODE_ENV !== 'production',
     sourceMapStyle: 'hidden-source-map',
     config: {
       release: process.env.GIT_SHA
