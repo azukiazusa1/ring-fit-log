@@ -1,7 +1,7 @@
 import userRoutes from '~/api/routes/userRoutes'
 import usersController from '~/api/controllers/usersController'
 
-jest.mock('Express', () => ({
+jest.mock('express', () => ({
   Router: () => ({
     post: jest.fn()
   })

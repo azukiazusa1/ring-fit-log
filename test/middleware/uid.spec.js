@@ -5,9 +5,9 @@ let mockError = false
 const uid = '12345'
 const error = jest.fn()
 const $axios = {
-  post: jest.fn((url, data) => {
+  post: jest.fn((_url, _data) => {
     if (mockError) {
-      return Promise.reject('mock error')
+      return Promise.reject(new Error('mock error'))
     }
     return Promise.resolve({ data: { uid } })
   })
