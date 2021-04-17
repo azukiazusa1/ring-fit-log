@@ -14,7 +14,7 @@ jest.mock('~/api/models/Record', () => ({
   find: jest.fn().mockReturnThis(),
   findByDate: jest.fn((_date: Date, _userId: string) => {
     if (mockError) {
-      return Promise.reject(new Error(new Error('mock error')))
+      return Promise.reject(new Error('mock error'))
     }
     if (mockEmpty) {
       return Promise.resolve(null)
@@ -23,7 +23,7 @@ jest.mock('~/api/models/Record', () => ({
   }),
   findByMonth: jest.fn((_date: Date, _userId: string) => {
     if (mockError) {
-      return Promise.reject(new Error(new Error('mock error')))
+      return Promise.reject(new Error('mock error'))
     }
     if (mockEmpty) {
       return Promise.resolve([])
