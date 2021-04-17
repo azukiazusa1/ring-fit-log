@@ -92,7 +92,8 @@ const config = {
     '@nuxtjs/dotenv',
     '@nuxtjs/auth',
     '@nuxtjs/vuetify',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    '@nuxtjs/sentry'
   ],
   /*
    ** Axios module configuration
@@ -160,6 +161,14 @@ const config = {
     },
     vuex: false,
     localStorage: false
+  },
+  sentry: {
+    dsn: process.env.SENTRY_DSN || '',
+    disabled: process.env.NODE_ENV === 'production',
+    sourceMapStyle: 'hidden-source-map',
+    config: {
+      release: process.env.GIT_SHA
+    }
   },
   router: {
     middleware: ['auth', 'uid']

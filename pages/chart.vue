@@ -41,7 +41,7 @@ export default Vue.extend({
     DateRangeSelector,
     BarChart
   },
-  async asyncData({ app, query, $moment }): Promise<Data> {
+  async asyncData({ app, query, $moment, $sentry }): Promise<Data> {
     const dateRange = app.$cookies.get<DateRange>('dateRange') ?? WEEK1
     const selectedDateRange = [dateRange]
     const queryDate = query.date as string
@@ -59,6 +59,7 @@ export default Vue.extend({
     try {
       await ChartsStore.fetchChartData({ date, dateRange })
     } catch (e) {
+      $sentry.captureException(e)
       SnackbarModule.error({
         message: 'データの取得に失敗しました。'
       })

@@ -23,7 +23,8 @@
       "@nuxtjs/moment",
       "@nuxtjs/vuetify",
       "cookie-universal-nuxt",
-      "@types/jest"
+      "@types/jest",
+      "@nuxtjs/sentry"
     ],
     "resolveJsonModule": true
   },

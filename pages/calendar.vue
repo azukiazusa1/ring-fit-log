@@ -27,7 +27,7 @@ export default Vue.extend({
   components: {
     ShowRecord
   },
-  async asyncData({ $moment }) {
+  async asyncData({ $moment, $sentry }) {
     const now = new Date()
     const date = $moment(now).format('YYYY-MM-DD')
     const month = $moment(now).format('YYYY-MM')
@@ -37,6 +37,7 @@ export default Vue.extend({
       await RecordsStore.fetchRecordByMonth(month)
       return { date }
     } catch (e) {
+      $sentry.captureException(e)
       SnackbarModule.error({
         message: 'データの取得時にエラーが発生しました。'
       })
@@ -65,6 +66,7 @@ export default Vue.extend({
       try {
         await RecordsStore.fetchRecordByMonth(val)
       } catch (e) {
+        this.$sentry.captureException(e)
         SnackbarModule.error({
           message: 'データの取得時にエラーが発生しました。'
         })

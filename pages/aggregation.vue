@@ -38,10 +38,11 @@ export default Vue.extend({
     AverageDataList,
     AppTime
   },
-  async asyncData(): Promise<void> {
+  async asyncData({ $sentry }): Promise<void> {
     try {
       await AggregateStore.fetch()
     } catch (e) {
+      $sentry.captureException(e)
       SnackbarModule.error({
         message: 'データの取得に失敗しました。'
       })
@@ -88,6 +89,7 @@ export default Vue.extend({
         try {
           RecordsStore.fetchRecordList(this.options)
         } catch (e) {
+          this.$sentry.captureException(e)
           SnackbarModule.error({
             message: 'データの取得に失敗しました。'
           })

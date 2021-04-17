@@ -14,13 +14,13 @@ export default {
     _next: Express.NextFunction
   ) => {
     const boomErr: Boom = boomify(err)
+    const { statusCode, message } = boomErr.output.payload
     if (boomErr.isServer) {
       res.status(500)
       res.json({ message: 'Internal Server Error' })
     }
-
-    const { statusCode, message } = boomErr.output.payload
     res.status(statusCode)
     res.json({ message })
+    process.sentry.captureMessage(message)
   }
 }
