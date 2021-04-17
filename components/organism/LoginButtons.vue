@@ -46,31 +46,32 @@ export default Vue.extend({
       try {
         this.$auth.loginWith('twitter')
       } catch (e) {
-        this.loginError()
+        this.loginError(e)
       }
     },
     loginWithGithub(): void {
       try {
         this.$auth.loginWith('github')
       } catch (e) {
-        this.loginError()
+        this.loginError(e)
       }
     },
     loginWithGoogle(): void {
       try {
         this.$auth.loginWith('google')
       } catch (e) {
-        this.loginError()
+        this.loginError(e)
       }
     },
     loginWithFacebook(): void {
       try {
         this.$auth.loginWith('facebook')
       } catch (e) {
-        this.loginError()
+        this.loginError(e)
       }
     },
-    loginError(): void {
+    loginError(e: Error): void {
+      this.$sentry.captureException(e)
       SnackbarModule.error({
         message: 'ログインに失敗しました。'
       })

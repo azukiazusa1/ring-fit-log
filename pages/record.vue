@@ -49,7 +49,7 @@ export default Vue.extend({
     RecordDateSelector,
     RecrodFormArea
   },
-  async asyncData({ query }): Promise<AsyncData> {
+  async asyncData({ query, $sentry }): Promise<AsyncData> {
     const queryDate = query.date as string
     const date = isInvalidDate(queryDate) ? new Date() : new Date(queryDate)
     if (RecordsStore.isRecoded(date)) {
@@ -59,6 +59,7 @@ export default Vue.extend({
     try {
       await RecordsStore.fetchRecord(date)
     } catch (e) {
+      $sentry.captureException(e)
       SnackbarModule.error({
         message: 'データの取得時にエラーが発生しました。'
       })
@@ -90,6 +91,7 @@ export default Vue.extend({
           message: '新しい記録を登録しました。'
         })
       } catch (e) {
+        this.$sentry.captureException(e)
         SnackbarModule.error({
           message: '記録の登録に失敗しました。'
         })
@@ -106,6 +108,7 @@ export default Vue.extend({
           message: '記録を更新しました。'
         })
       } catch (e) {
+        this.$sentry.captureException(e)
         SnackbarModule.error({
           message: '記録の更新に失敗しました。'
         })
@@ -125,6 +128,7 @@ export default Vue.extend({
           message: '記録を削除しました。'
         })
       } catch (e) {
+        this.$sentry.captureException(e)
         SnackbarModule.error({
           message: '記録の削除に失敗しました。'
         })

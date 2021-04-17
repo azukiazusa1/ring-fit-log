@@ -92,6 +92,7 @@ export default Vue.extend({
           message: 'データの削除に成功しました。'
         })
       } catch (e) {
+        this.$sentry.captureException(e)
         SnackbarModule.error({
           message: 'データの削除に失敗しました。'
         })
