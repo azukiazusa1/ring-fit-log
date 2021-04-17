@@ -12,15 +12,18 @@ export const createPagenationOptions = (req: Request) => {
 }
 
 export const createSortOption = (req: Request) => {
-  if (!req.query.sortBy || !Array.isArray(req.query.sortBy)) {
+  if (
+    !req.query.sortBy ||
+    !Array.isArray(req.query.sortBy) ||
+    !Array.isArray(req.query.sortDesc)
+  ) {
     return {
       date: 'desc'
     }
   }
 
-  const order = req.query.sortDesc ? 'desc' : 'asc'
+  const order = req.query.sortDesc[0] === 'true' ? 'asc' : 'desc'
   const field = req.query.sortBy[0] as string
-
   return {
     [field]: order
   }
