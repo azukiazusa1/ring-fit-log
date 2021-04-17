@@ -1,7 +1,7 @@
 import recordRoutes from '~/api/routes/recordRoutes'
 import recordsController from '~/api/controllers/recordsController'
 
-jest.mock('Express', () => ({
+jest.mock('express', () => ({
   Router: () => ({
     get: jest.fn(),
     post: jest.fn(),

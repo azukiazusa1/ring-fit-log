@@ -12,18 +12,18 @@ const mockRecords: Record[] = require('~/test/fixture/api/record/month/2020-07')
 jest.mock('~/api/models/Record', () => ({
   findOne: jest.fn().mockReturnThis(),
   find: jest.fn().mockReturnThis(),
-  findByDate: jest.fn((date: Date, userId: string) => {
+  findByDate: jest.fn((_date: Date, _userId: string) => {
     if (mockError) {
-      return Promise.reject('mock error')
+      return Promise.reject(new Error(new Error('mock error')))
     }
     if (mockEmpty) {
       return Promise.resolve(null)
     }
     return Promise.resolve(mockRecords[0])
   }),
-  findByMonth: jest.fn((date: Date, userId: string) => {
+  findByMonth: jest.fn((_date: Date, _userId: string) => {
     if (mockError) {
-      return Promise.reject('mock error')
+      return Promise.reject(new Error(new Error('mock error')))
     }
     if (mockEmpty) {
       return Promise.resolve([])
@@ -32,20 +32,20 @@ jest.mock('~/api/models/Record', () => ({
   }),
   create: jest.fn((record: Record) => {
     if (mockError) {
-      return Promise.reject('mock error')
+      return Promise.reject(new Error('mock error'))
     }
 
     return { ...record, _id: '12345' }
   }),
-  updateById: jest.fn((id: string, record: Record) => {
+  updateById: jest.fn((_id: string, record: Record) => {
     if (mockError) {
-      return Promise.reject('mock error')
+      return Promise.reject(new Error('mock error'))
     }
     return Promise.resolve(record)
   }),
-  findByIdAndDelete: jest.fn((id: string) => {
+  findByIdAndDelete: jest.fn((_id: string) => {
     if (mockError) {
-      return Promise.reject('mock error')
+      return Promise.reject(new Error('mock error'))
     }
     return Promise.resolve()
   })
