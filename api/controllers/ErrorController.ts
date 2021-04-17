@@ -13,6 +13,7 @@ export default {
     res: Express.Response,
     _next: Express.NextFunction
   ) => {
+    process.sentry.captureException(err)
     const boomErr: Boom = boomify(err)
     if (boomErr.isServer) {
       res.status(500)
