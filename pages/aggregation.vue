@@ -4,6 +4,15 @@
       :user-average-data="userAverageData"
       :average-data="averageData"
     />
+    <v-toolbar class="my-5" color="#ffbb00" dark flat>
+      <v-toolbar-title class="font-weight-bold">すべての記録</v-toolbar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn text href="/api/record/csv" download>
+        <span class="font-weight-bold">CSVでダウンロード</span>
+        <v-icon small class="ml-2">fas fa-download</v-icon>
+      </v-btn>
+    </v-toolbar>
     <v-data-table
       :headers="headers"
       :items="items"

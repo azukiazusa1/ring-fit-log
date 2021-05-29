@@ -1,8 +1,8 @@
 <template>
   <v-data-iterator :items="items" hide-default-footer>
     <template v-slot:header>
-      <v-toolbar class="mb-2" color="indigo accent-2" dark flat>
-        <v-toolbar-title>１日の平均</v-toolbar-title>
+      <v-toolbar class="mb-2" color="#ffbb00" dark flat>
+        <v-toolbar-title class="font-weight-bold">１日の平均</v-toolbar-title>
       </v-toolbar>
     </template>
 
