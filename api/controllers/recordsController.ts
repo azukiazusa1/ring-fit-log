@@ -2,6 +2,7 @@ import Express from 'express'
 import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
 import { isEmpty } from 'lodash'
+import { parse } from 'json2csv'
 import Record from '../models/Record'
 import isInvalidDate from '../../utils/isInvalidDate'
 import { createPagenationOptions } from '../utils/createPaginationOptions'
@@ -124,6 +125,36 @@ export default {
       } else {
         res.json({})
       }
+    } catch (e) {
+      next(Boom.internal())
+    }
+  },
+  csv: async (
+    _req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const userId = res.locals.userId
+    try {
+      res.setHeader('Content-disposition', 'attachment; filename=data.csv')
+      res.setHeader('Content-Type', 'text/csv; charset=UTF-8')
+      const fields = [
+        '活動時間(ms)',
+        '合計消費カロリー(kcal)',
+        '合計走行距離(km)',
+        '日付'
+      ]
+      const records = await Record.find({ userId })
+      const coverted = records.map((record) => {
+        return {
+          [fields[0]]: record.totalTimeExercising,
+          [fields[1]]: record.totalCaloriesBurned,
+          [fields[2]]: record.totalDistanceRun,
+          [fields[3]]: record.date
+        }
+      })
+      const data = parse(coverted, { fields, withBOM: true })
+      res.status(httpStatusCode.OK).send(data)
     } catch (e) {
       next(Boom.internal())
     }
