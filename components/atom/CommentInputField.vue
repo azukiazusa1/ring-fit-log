@@ -54,7 +54,6 @@ export default Vue.extend({
     },
     commentErrors(): Array<string> {
       const errors: string[] = []
-      console.log(this.$v._comment)
       if (!this.$v._comment!.$dirty) return errors
       !this.$v._comment!.maxLength &&
         errors.push(maxLengthError('ヒトコト', 140))
