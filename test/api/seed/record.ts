@@ -5,6 +5,7 @@ const records: any[] = [
     totalCaloriesBurned: 100,
     totalDistanceRun: 1,
     totalTimeExercising: 1800000,
+    comment: '',
     stamps: {
       arms: true,
       legs: true,
@@ -18,6 +19,7 @@ const records: any[] = [
     totalCaloriesBurned: 100,
     totalDistanceRun: 1,
     totalTimeExercising: 1800000,
+    comment: '',
     stamps: {
       arms: true,
       legs: true,
@@ -31,6 +33,7 @@ const records: any[] = [
     totalCaloriesBurned: 100,
     totalDistanceRun: 1,
     totalTimeExercising: 1800000,
+    comment: '',
     stamps: {
       arms: true,
       legs: true,
@@ -44,6 +47,7 @@ const records: any[] = [
     totalCaloriesBurned: 100,
     totalDistanceRun: 1,
     totalTimeExercising: 1800000,
+    comment: '',
     stamps: {
       arms: true,
       legs: true,
@@ -57,6 +61,7 @@ const records: any[] = [
     totalCaloriesBurned: 100,
     totalDistanceRun: 1,
     totalTimeExercising: 1800000,
+    comment: '',
     stamps: {
       arms: true,
       legs: true,
@@ -70,6 +75,7 @@ const records: any[] = [
     totalCaloriesBurned: 100,
     totalDistanceRun: 1,
     totalTimeExercising: 1800000,
+    comment: '',
     stamps: {
       arms: true,
       legs: true,
@@ -83,6 +89,7 @@ const records: any[] = [
     totalCaloriesBurned: 100,
     totalDistanceRun: 1,
     totalTimeExercising: 1800000,
+    comment: '',
     stamps: {
       arms: true,
       legs: true,
