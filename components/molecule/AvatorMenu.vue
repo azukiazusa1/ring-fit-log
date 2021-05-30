@@ -15,6 +15,8 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
+    </v-list>
+    <v-list>
       <v-list-item to="/setting">
         <v-list-item-icon>
           <v-icon>fa fa-cog</v-icon>
