@@ -97,6 +97,7 @@ describe('intergration test', () => {
       totalCaloriesBurned: 20,
       totalDistanceRun: 1,
       totalTimeExercising: 1800000,
+      comment: '',
       stamps: {
         arms: true,
         legs: true,
@@ -123,6 +124,7 @@ describe('intergration test', () => {
         totalCaloriesBurned: 20,
         totalDistanceRun: 1,
         totalTimeExercising: 1800000,
+        comment: '',
         stamps: {
           arms: true,
           legs: true,
@@ -157,6 +159,7 @@ describe('intergration test', () => {
       totalCaloriesBurned: 40,
       totalDistanceRun: 1,
       totalTimeExercising: 1800000,
+      comment: '',
       stamps: {
         arms: true,
         legs: true,
@@ -185,6 +188,7 @@ describe('intergration test', () => {
         totalCaloriesBurned: 20,
         totalDistanceRun: 1,
         totalTimeExercising: 1800000,
+        comment: '',
         stamps: {
           arms: true,
           legs: true,

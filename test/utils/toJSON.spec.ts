@@ -9,6 +9,7 @@ const records: Record[] = [
     totalCaloriesBurned: 24.24,
     totalDistanceRun: 1.5,
     date: new Date('2020-7-1'),
+    comment: '',
     stamps: {
       arms: true,
       stomach: false,
@@ -23,6 +24,7 @@ const records: Record[] = [
     totalCaloriesBurned: 32.32,
     totalDistanceRun: 4.53,
     date: new Date('2020-7-2'),
+    comment: '',
     stamps: {
       arms: true,
       stomach: true,
@@ -37,6 +39,7 @@ const records: Record[] = [
     totalCaloriesBurned: 8.23,
     totalDistanceRun: null,
     date: new Date('2020-7-3'),
+    comment: '',
     stamps: {
       arms: false,
       stomach: false,
