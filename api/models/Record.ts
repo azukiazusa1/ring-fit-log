@@ -31,6 +31,7 @@ const recordSchema: Schema = new Schema(
     },
     comment: {
       type: String,
+      maxlength: 140,
       default: ''
     },
     date: {
