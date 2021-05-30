@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <record-date-selector :date="date"></record-date-selector>
     <recrod-form-area
       :props-record="record"
@@ -148,3 +148,10 @@ export default Vue.extend({
   watchQuery: ['date']
 })
 </script>
+
+<style scoped>
+.wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+}
+</style>

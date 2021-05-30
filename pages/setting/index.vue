@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h1 class="h3 py-5">設定</h1>
     <h2 class="headline my-5">基本設定</h2>
     <v-card>
@@ -104,3 +104,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+}
+</style>
