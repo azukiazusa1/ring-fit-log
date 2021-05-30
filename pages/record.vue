@@ -34,6 +34,7 @@ const initialData: Record = {
   totalDistanceRun: null,
   totalCaloriesBurned: null,
   totalTimeExercising: null,
+  comment: '',
   date: '',
   stamps: {
     arms: false,

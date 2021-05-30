@@ -23,6 +23,13 @@
         ></TotalDistanceRunInputField>
       </v-col>
       <v-col cols="12">
+        <CommentInputField
+          :comment.sync="record.comment"
+          :has-error.sync="errors.commentError"
+          :validate="validate"
+        />
+      </v-col>
+      <v-col cols="12">
         <v-card class="pa-2 text-center center" rounded outlined>
           <StampIcons
             :stamps="record.stamps"
@@ -60,6 +67,7 @@ import { cloneDeep } from 'lodash'
 import TotalTimeExercisingInputField from '~/components/atom/TotalTimeExercisingInputField.vue'
 import TotalDistanceRunInputField from '~/components/atom/TotalDistanceRunInputField.vue'
 import TotalCaloriesBurnedInputField from '~/components/atom/totalCaloriesBurnedInputField.vue'
+import CommentInputField from '~/components/atom/CommentInputField.vue'
 import SubmitButton from '~/components/atom/SubmitButton.vue'
 import DeleteButton from '~/components/atom/DeleteButton.vue'
 import StampIcons from '~/components/molecule/StampIcons.vue'
@@ -71,6 +79,7 @@ type Data = {
     totalDistanceRunError: boolean
     totalTimeExercisingError: boolean
     totalCaloriesBurnedError: boolean
+    commentError: boolean
   }
   validate: boolean
 }
@@ -80,6 +89,7 @@ const initialData: Record = {
   totalDistanceRun: null,
   totalCaloriesBurned: null,
   totalTimeExercising: null,
+  comment: '',
   date: '',
   stamps: {
     arms: false,
@@ -96,6 +106,7 @@ export default Vue.extend({
     TotalTimeExercisingInputField,
     TotalDistanceRunInputField,
     TotalCaloriesBurnedInputField,
+    CommentInputField,
     SubmitButton,
     DeleteButton,
     StampIcons
@@ -121,7 +132,8 @@ export default Vue.extend({
       errors: {
         totalDistanceRunError: false,
         totalTimeExercisingError: false,
-        totalCaloriesBurnedError: false
+        totalCaloriesBurnedError: false,
+        commentError: false
       },
       validate: false
     }
@@ -138,12 +150,14 @@ export default Vue.extend({
         totalDistanceRun,
         totalCaloriesBurned,
         totalTimeExercising,
+        comment,
         stamps
       } = this.record
       return (
         totalDistanceRun === null &&
         totalCaloriesBurned === null &&
         totalTimeExercising === null &&
+        comment === '' &&
         !Object.values(stamps).includes(true)
       )
     },
