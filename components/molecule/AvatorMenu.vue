@@ -15,7 +15,16 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
+      <v-list-item to="/setting">
+        <v-list-item-icon>
+          <v-icon>fa fa-cog</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>設定</v-list-item-title>
+      </v-list-item>
       <v-list-item @click="logout">
+        <v-list-item-icon>
+          <v-icon>fas fa-sign-out-alt</v-icon>
+        </v-list-item-icon>
         <v-list-item-title @click="logout">ログアウト</v-list-item-title>
       </v-list-item>
     </v-list>
