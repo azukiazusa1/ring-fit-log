@@ -9,6 +9,7 @@ export interface IRecord {
   totalTimeExercising: number | null
   totalCaloriesBurned: number | null
   totalDistanceRun: number | null
+  comment: string
   date: Date | string
   stamps: Stamps
   userId: string

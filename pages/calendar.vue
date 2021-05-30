@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="wrapper">
     <client-only>
       <v-date-picker
         v-model="date"
@@ -88,3 +88,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+}
+</style>

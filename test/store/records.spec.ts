@@ -83,6 +83,7 @@ describe('store/record', () => {
           totalCaloriesBurned: 40.4,
           totalDistanceRun: 1.77,
           date: '2020-07-05T00:00:00+09:00',
+          comment: '',
           stamps: {
             arms: true,
             stomach: true,
@@ -111,6 +112,7 @@ describe('store/record', () => {
           totalCaloriesBurned: 40.4,
           totalDistanceRun: 1.77,
           date: '2020-07-01T00:00:00+09:00',
+          comment: '',
           stamps: {
             arms: true,
             stomach: true,

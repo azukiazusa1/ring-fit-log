@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h1>プライバシーポリシー</h1>
     <div>
       <ul>
@@ -31,3 +31,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+}
+</style>

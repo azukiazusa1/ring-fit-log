@@ -65,6 +65,7 @@ describe('~/api/models/Record', () => {
           totalDistanceRun: 20,
           totalCaloriesBurned: 2,
           totalTimeExercising: 3600000,
+          comment: '',
           stamps: {
             arms: false,
             legs: false,
@@ -84,6 +85,7 @@ describe('~/api/models/Record', () => {
           totalDistanceRun: 999,
           totalCaloriesBurned: 2,
           totalTimeExercising: 3600000,
+          comment: '',
           stamps: {
             arms: false,
             legs: false,
@@ -108,6 +110,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: 0,
               totalCaloriesBurned: 1,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -125,6 +128,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: -1,
               totalCaloriesBurned: 1,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -144,6 +148,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: null,
               totalCaloriesBurned: 1,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -165,6 +170,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: 100,
               totalCaloriesBurned: 0,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -183,6 +189,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: 100,
               totalCaloriesBurned: -1,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -203,6 +210,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: 100,
               totalCaloriesBurned: 999.99,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -221,6 +229,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: 100,
               totalCaloriesBurned: 1000,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -241,6 +250,7 @@ describe('~/api/models/Record', () => {
               totalDistanceRun: 100,
               totalCaloriesBurned: null,
               totalTimeExercising: 1800000,
+              comment: '',
               stamps: {
                 arms: false,
                 legs: false,
@@ -264,6 +274,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: 0,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -282,6 +293,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: -1,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -302,6 +314,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: 100,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -320,6 +333,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: 101,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -340,6 +354,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: null,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -362,6 +377,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: null,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -380,6 +396,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: 2,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -400,6 +417,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: null,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -422,6 +440,7 @@ describe('~/api/models/Record', () => {
             totalDistanceRun: null,
             totalCaloriesBurned: 20,
             totalTimeExercising: 1800000,
+            comment: '',
             stamps: {
               arms: false,
               legs: false,
@@ -443,6 +462,7 @@ describe('~/api/models/Record', () => {
           totalCaloriesBurned: 20,
           totalDistanceRun: 2,
           totalTimeExercising: 3600000,
+          comment: '',
           stamps: {
             arms: true,
             legs: true,
@@ -454,6 +474,46 @@ describe('~/api/models/Record', () => {
         }
 
         await expect(Record.create(record)).rejects.toThrow()
+      })
+    })
+
+    describe('comment', () => {
+      test('140文字まで入力できる', async () => {
+        const record: IRecord = {
+          totalCaloriesBurned: 20,
+          totalDistanceRun: 2,
+          totalTimeExercising: 3600000,
+          comment: 'a'.repeat(140),
+          stamps: {
+            arms: true,
+            legs: true,
+            stomach: true,
+            yoga: false
+          },
+          date: new Date('2021-06-01'),
+          userId: 'user1'
+        }
+
+        await expect(Record.create(record)).resolves.toBeDefined()
+      })
+
+      test('141文字以上はバリデーションエラー', async () => {
+        const record: IRecord = {
+          totalCaloriesBurned: 20,
+          totalDistanceRun: 2,
+          totalTimeExercising: 3600000,
+          comment: 'a'.repeat(141),
+          stamps: {
+            arms: true,
+            legs: true,
+            stomach: true,
+            yoga: false
+          },
+          date: new Date('2021-06-01'),
+          userId: 'user1'
+        }
+
+        await expect(Record.create(record)).rejects.toThrow(ValidationError)
       })
     })
   })

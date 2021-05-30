@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="wrapper">
     <SettingPageTitle>グラフの設定</SettingPageTitle>
     <v-card-text>
       <v-list>
@@ -157,3 +157,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+}
+</style>

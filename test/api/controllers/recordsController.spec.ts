@@ -216,6 +216,7 @@ describe('~/api/controllers/recordController', () => {
         totalCaloriesBurned: 20,
         totalDistanceRun: 1,
         totalTimeExercising: 1800000,
+        comment: '',
         date: '2020-08-01',
         stamps: {
           arms: true,
@@ -257,6 +258,7 @@ describe('~/api/controllers/recordController', () => {
         totalDistanceRun: 1,
         totalTimeExercising: 1800000,
         date: '2020-08-01',
+        comment: '',
         stamps: {
           arms: true,
           legs: true,
@@ -296,6 +298,7 @@ describe('~/api/controllers/recordController', () => {
         totalDistanceRun: 1,
         totalTimeExercising: 1800000,
         date: '2020-08-01',
+        comment: '',
         stamps: {
           arms: true,
           legs: true,
@@ -333,6 +336,7 @@ describe('~/api/controllers/recordController', () => {
           totalDistanceRun: 1,
           totalTimeExercising: 1800000,
           date: '2020-08-01',
+          comment: '',
           stamps: {
             arms: true,
             legs: true,
@@ -368,6 +372,7 @@ describe('~/api/controllers/recordController', () => {
         totalDistanceRun: 1,
         totalTimeExercising: 1800000,
         date: '2020-08-01',
+        comment: '',
         stamps: {
           arms: true,
           legs: true,
