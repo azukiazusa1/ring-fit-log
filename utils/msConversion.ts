@@ -4,7 +4,7 @@ export function ms2stringTime(unixTime: number | string | null): string {
   if (typeof unixTime === 'string') {
     unixTime = parseInt(unixTime)
   }
-  if (!unixTime) return ''
+  if (unixTime === null || Number.isNaN(unixTime)) return ''
 
   return moment(unixTime)
     .utc()
