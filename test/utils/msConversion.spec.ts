@@ -7,6 +7,10 @@ describe('utils/msConversion', () => {
       expect(ms2stringTime(5622000)).toEqual('01:33:42')
     })
 
+    test('0を渡したとき、00:00:00を返す', () => {
+      expect(ms2stringTime(0)).toEqual('00:00:00')
+    })
+
     test('文字列でミリ秒を渡す', () => {
       expect(ms2stringTime('1202000')).toEqual('00:20:02')
       expect(ms2stringTime('5622000')).toEqual('01:33:42')
