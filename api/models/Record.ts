@@ -115,12 +115,19 @@ const queryHelpers = {
 }
 recordSchema.query = queryHelpers
 
+type AverageRecordDoc = {
+  _id: null
+  avgTimeExercising: number | null
+  avgCaloriesBurned: number | null
+  avgDistanceRun: number | null
+}
+
 interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   updateById(id: string, record: IRecord): Promise<RecordDoc>
   findByQuater(date: Date, userId: string): Promise<RecordDoc[]>
   findByYear(date: Date, userId: string): Promise<RecordDoc[]>
-  average(): Promise<RecordDoc[]>
-  averageByUser(userId: string): Promise<RecordDoc[]>
+  average(): Promise<AverageRecordDoc[]>
+  averageByUser(userId: string): Promise<AverageRecordDoc[]>
   paginate(
     query?: FilterQuery<RecordDoc>,
     options?: PaginateOptions,
@@ -193,7 +200,7 @@ const statics = {
       })
   },
   average(this: RecordModel) {
-    return this.aggregate().group({
+    return this.aggregate<AverageRecordDoc>().group({
       _id: null,
       avgTimeExercising: { $avg: '$totalTimeExercising' },
       avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
@@ -201,7 +208,7 @@ const statics = {
     })
   },
   averageByUser(this: RecordModel, userId: string) {
-    return this.aggregate()
+    return this.aggregate<AverageRecordDoc>()
       .match({ userId })
       .group({
         _id: null,
