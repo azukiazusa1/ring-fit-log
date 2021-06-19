@@ -27,27 +27,21 @@ const userSchema: Schema = new Schema(
     timestamps: true
   }
 )
-
-const queryHelpers = {
-  findOrCreate(this: DocumentQuery<any, UserDoc>, user: LoginUser) {
-    return this.findOneAndUpdate(
-      {
-        strategy: user.strategy,
-        identifier: user.identifier,
-        photoURL: user.photoURL
-      },
-      user,
-      {
-        new: true,
-        upsert: true,
-        runValidators: true
-      }
-    )
-  }
-}
-userSchema.query = queryHelpers
-interface UserModel extends Model<UserDoc, typeof queryHelpers> {
+interface UserModel extends Model<UserDoc> {
   findOrCreate(user: LoginUser): Promise<UserDoc>
 }
+
+const statics = {
+  async findOrCreate(this: UserModel, user: LoginUser) {
+    const exists = await this.findOne({
+      strategy: user.strategy,
+      identifier: user.identifier
+    }).exec()
+
+    return exists || (await this.create(user))
+  }
+}
+
+userSchema.statics = statics
 
 export default mongoose.model<UserDoc, UserModel>('User', userSchema)

@@ -29,11 +29,13 @@ describe('intergration test', () => {
         .expect('Content-Type', /json/)
         .expect(200)
 
-      expect(response.body.uid).toBeDefined()
+      console.log(response)
+
+      expect(response.body._id).toBeDefined()
     })
   })
   describe('GET /api/record/:date', () => {
-    test('respond with json', async () => {
+    test('response with json', async () => {
       const response = await request(app)
         .get('/api/record/2020-07-31')
         .set('Accept', 'application/json')

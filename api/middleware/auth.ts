@@ -1,16 +1,14 @@
 import Express from 'express'
 import Boom from '@hapi/boom'
-import AppUser from '../models/User'
 
-export default async (
+export default (
   req: Express.Request,
   res: Express.Response,
   next: Express.NextFunction
 ) => {
-  if (req.method === 'POST' && req.path === '/users') next()
+  if (req.method === 'POST' && req.path === '/users') return next()
   const userId = req.cookies.userId ?? req.headers?.uid
-  const user = await AppUser.findById(userId)
-  if (user) {
+  if (userId) {
     res.locals.userId = userId
     next()
   } else {

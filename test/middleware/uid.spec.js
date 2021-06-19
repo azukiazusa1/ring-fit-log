@@ -2,14 +2,14 @@ import middleware from '~/middleware/uid'
 import getLoginUser from '~/utils/getLoginUser'
 
 let mockError = false
-const uid = '12345'
+const _id = '12345'
 const error = jest.fn()
 const $axios = {
   post: jest.fn((_url, _data) => {
     if (mockError) {
       return Promise.reject(new Error('mock error'))
     }
-    return Promise.resolve({ data: { uid } })
+    return Promise.resolve({ data: { _id } })
   })
 }
 
@@ -52,7 +52,7 @@ describe('~/middleware/uid', () => {
       const app = {
         $cookies: {
           get() {
-            return uid
+            return _id
           },
           set: jest.fn()
         }
@@ -68,7 +68,7 @@ describe('~/middleware/uid', () => {
       const app = {
         $cookies: {
           get() {
-            return uid
+            return _id
           },
           set: jest.fn()
         }
@@ -100,7 +100,7 @@ describe('~/middleware/uid', () => {
 
       test('cookieに返却されたuidがセットされる', () => {
         expect(app.$cookies.set.mock.calls[0][0]).toEqual('userId')
-        expect(app.$cookies.set.mock.calls[0][1]).toEqual(uid)
+        expect(app.$cookies.set.mock.calls[0][1]).toEqual(_id)
       })
     })
   })

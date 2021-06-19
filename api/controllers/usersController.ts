@@ -12,7 +12,7 @@ export default {
   ) => {
     const user: LoginUser = req.body.user
     try {
-      const result = await AppUser.findOne().findOrCreate(user)
+      const result = await AppUser.findOrCreate(user)
       res.status(httpStatus.OK).json(result)
     } catch (e) {
       next(Boom.internal())

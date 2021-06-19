@@ -15,7 +15,7 @@ const uid: Middleware = async ({ error, $axios, $auth, app }) => {
       $cookies.set('userInfo', JSON.stringify(data), {
         maxAge: 60 * 60 * 24 * 365
       })
-      $axios.defaults.headers.common.uid = data.uid
+      $axios.defaults.headers.common.uid = data._id
     } catch (e) {
       error(e)
     }
