@@ -25,13 +25,19 @@ export default Vue.extend({
     }
   },
   methods: {
-    onSubmit(value: { username: string }) {
-      alert(value)
+    async onSubmit({ username }: { username: string }) {
+      const { data } = await this.$axios.put('/api/users', {
+        username,
+        photoURL: this.user.photoURL
+      })
+      this.$cookies.set('userInfo', JSON.stringify(data), {
+        maxAge: 60 * 60 * 24 * 365
+      })
     }
   },
   head() {
     return {
-      title: '設定 - カレンダー'
+      title: '設定 - プロフィール'
     }
   }
 })

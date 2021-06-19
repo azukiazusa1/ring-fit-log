@@ -17,6 +17,10 @@ const userSchema: Schema = new Schema(
     identifier: {
       type: String,
       required: true
+    },
+    photoURL: {
+      type: String,
+      required: false
     }
   },
   {
@@ -29,7 +33,8 @@ const queryHelpers = {
     return this.findOneAndUpdate(
       {
         strategy: user.strategy,
-        identifier: user.identifier
+        identifier: user.identifier,
+        photoURL: user.photoURL
       },
       user,
       {
