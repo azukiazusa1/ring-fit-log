@@ -7,12 +7,21 @@
         <v-list-item>
           <v-list-item-content>
             <v-list-item-title>ダークモード</v-list-item-title>
-            <v-list-item-subtitle
-              >ダークモードを適用します。</v-list-item-subtitle
-            >
+            <v-list-item-subtitle>
+              ダークモードを適用します。
+            </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
             <ToggleDarkMode />
+          </v-list-item-action>
+        </v-list-item>
+        <v-divider />
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>プロフィールの設定</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <AngleRight to="/setting/profile" />
           </v-list-item-action>
         </v-list-item>
         <v-divider />
@@ -53,9 +62,9 @@
       <v-list outlined>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="error--text"
-              >すべてのデータを削除</v-list-item-title
-            >
+            <v-list-item-title class="error--text">
+              すべてのデータを削除
+            </v-list-item-title>
           </v-list-item-content>
           <v-list-item-action>
             <TrashCan @clickOK="clickOK" />
