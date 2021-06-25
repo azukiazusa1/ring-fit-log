@@ -83,13 +83,33 @@ export default Vue.extend({
     }
   },
   methods: {
+    getWord() {
+      const words = [
+        'がんばってるね！',
+        'お疲れ様！',
+        'Congratulations!',
+        'さすが！',
+        'ナイス！',
+        'なかなかやるね！',
+        'いつもすごいね！',
+        'イキイキしてるね！',
+        'やったね！',
+        'かっこいい！',
+        'なかなかできることじゃないよ！',
+        'Awesome！'
+      ]
+
+      return words[Math.floor(Math.random() * words.length)]
+    },
     async onCreate(record: Record) {
       this.loading = true
       record.date = this.date
       try {
         await RecordsStore.createRecord(record)
-        SnackbarModule.info({
-          message: '新しい記録を登録しました。'
+        SnackbarModule.setSnackbar({
+          message: this.getWord(),
+          color: 'orange darken-1',
+          shaped: true
         })
       } catch (e) {
         this.$sentry.captureException(e)
@@ -105,8 +125,10 @@ export default Vue.extend({
       const { _id } = record
       try {
         await RecordsStore.updateRecord({ record, _id })
-        SnackbarModule.info({
-          message: '記録を更新しました。'
+        SnackbarModule.setSnackbar({
+          message: this.getWord(),
+          color: 'orange darken-1',
+          shaped: true
         })
       } catch (e) {
         this.$sentry.captureException(e)

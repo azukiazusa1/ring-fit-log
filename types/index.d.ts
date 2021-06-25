@@ -13,9 +13,11 @@ export interface SnackbarPayload {
   right?: boolean
   left?: boolean
   bottom?: boolean
+  color?: string
+  shaped?: boolean
   timeout?: number
 }
 
 export interface SnackbarTypePayload extends SnackbarPayload {
-  type: Types
+  type?: Types
 }

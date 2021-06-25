@@ -19,13 +19,14 @@ export default Vue.extend({
       switch (this.type) {
         case 'info':
           return 'fas fa-circle-info'
-        default:
         case 'error':
           return 'fas fa-exclamation-triangle'
         case 'warning':
           return 'fas fa-exclamation-circle'
         case 'success':
           return 'fas fa-check-circle'
+        default:
+          return ''
       }
     }
   }
