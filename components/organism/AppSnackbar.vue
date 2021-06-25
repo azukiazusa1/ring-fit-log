@@ -1,23 +1,25 @@
 <template>
   <v-snackbar
     v-model="appear"
-    :color="type"
+    :color="type || color"
     centered
     :top="top"
     :right="right"
     :left="left"
     :bottom="bottom"
+    elevation="4"
+    :shaped="shaped"
     :timeout="timeout"
     transition="scale-transition"
   >
     <template v-slot:action="{ attrs }">
       <v-btn dark icon v-bind="attrs" @click="close">
-        <v-icon>fas fa-times-circle</v-icon>
+        <v-icon size="18">fas fa-times-circle</v-icon>
       </v-btn>
     </template>
     <snackbar-icon :type="type"></snackbar-icon>
-    <span v-if="!escape" v-html="message"></span>
-    <span v-else>{{ message }}</span>
+    <span v-if="escape" v-html="message"></span>
+    <span v-else class="font-weight-bold">{{ message }}</span>
   </v-snackbar>
 </template>
 
@@ -60,6 +62,12 @@ export default Vue.extend({
     },
     timeout() {
       return SnackbarModule.getTimeout
+    },
+    shaped() {
+      return SnackbarModule.getShaped
+    },
+    color() {
+      return SnackbarModule.getColor
     },
     escape() {
       return SnackbarModule.isEscape

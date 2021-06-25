@@ -8,7 +8,7 @@ import { SnackbarPayload, SnackbarTypePayload, Types } from 'types/index'
 })
 export default class Snackbar extends VuexModule {
   private message: string = ''
-  private type: Types = 'info'
+  private type?: Types = 'info'
   private timeout: number = 3000
   private appear: boolean = false
   private escape: boolean = false
@@ -16,6 +16,8 @@ export default class Snackbar extends VuexModule {
   private right: boolean = false
   private left: boolean = false
   private bottom: boolean = false
+  private shaped: boolean = false
+  private color?: string = undefined
 
   public get getMessage() {
     return this.message
@@ -53,6 +55,14 @@ export default class Snackbar extends VuexModule {
     return this.bottom
   }
 
+  public get getShaped() {
+    return this.shaped
+  }
+
+  public get getColor() {
+    return this.color
+  }
+
   @Mutation
   private showSnackbar() {
     this.appear = true
@@ -69,7 +79,7 @@ export default class Snackbar extends VuexModule {
   }
 
   @Mutation
-  private setType(type: Types) {
+  private setType(type?: Types) {
     this.type = type
   }
 
@@ -103,15 +113,27 @@ export default class Snackbar extends VuexModule {
     this.timeout = timeout
   }
 
+  @Mutation
+  private setShaped(shaped: boolean) {
+    this.shaped = shaped
+  }
+
+  @Mutation
+  private setColor(color?: string) {
+    this.color = color
+  }
+
   @Action({ rawError: true })
   public setSnackbar({
     message = '',
-    type = 'info',
+    type = undefined,
     escape = false,
     top = false,
     right = false,
     left = false,
     bottom = false,
+    shaped = false,
+    color = undefined,
     timeout = 3000
   }: SnackbarTypePayload) {
     if (this.appear) return
@@ -122,6 +144,8 @@ export default class Snackbar extends VuexModule {
     this.setRight(right)
     this.setLeft(left)
     this.setBottom(bottom)
+    this.setShaped(shaped)
+    this.setColor(color)
     this.setTimeout(timeout)
     this.showSnackbar()
   }
