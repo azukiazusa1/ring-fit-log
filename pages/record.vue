@@ -147,12 +147,8 @@ export default Vue.extend({
           throw new Error('不正な操作です。')
         }
         await RecordsStore.deleteRecord(_id)
-        SnackbarModule.setSnackbar({
-          message: '記録を削除しました。',
-          color: 'orange darken-1',
-          border: 'left',
-          coloredBorder: true,
-          icon: 'mdi-twitter'
+        SnackbarModule.info({
+          message: '記録を削除しました。'
         })
       } catch (e) {
         this.$sentry.captureException(e)
