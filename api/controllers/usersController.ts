@@ -2,7 +2,6 @@ import Express from 'express'
 import httpStatus from 'http-status-codes'
 import Boom from '@hapi/boom'
 import AppUser from '../models/User'
-import { LoginUser } from '~/types/auth'
 
 export default {
   create: async (
