@@ -13,7 +13,7 @@ describe('intergration test', () => {
   })
 
   describe('POST /api/user', () => {
-    test('response uid', async () => {
+    test('response user data', async () => {
       const user: LoginUser = {
         username: 'username',
         strategy: 'github',
@@ -29,11 +29,49 @@ describe('intergration test', () => {
         .expect('Content-Type', /json/)
         .expect(200)
 
-      console.log(response)
-
       expect(response.body._id).toBeDefined()
     })
   })
+
+  describe('PUT /api/user', () => {
+    test('response user data', async () => {
+      const user: LoginUser = {
+        username: 'username',
+        strategy: 'github',
+        identifier: '12345',
+        email: 'aaa@example.com',
+        photoURL: 'aaa'
+      }
+
+      const response = await request(app)
+        .post('/api/users')
+        .send({ user })
+        .set('Accept', 'application/json')
+        .set('Cookie', ['userId=user1'])
+        .expect('Content-Type', /json/)
+        .expect(200)
+
+      expect(response.body._id).toBeDefined()
+    })
+
+    test('クッキーなし 401エラー', async () => {
+      const user: LoginUser = {
+        username: 'username',
+        strategy: 'github',
+        identifier: '12345',
+        email: 'aaa@example.com',
+        photoURL: 'aaa'
+      }
+
+      await request(app)
+        .put('/api/users')
+        .send({ user })
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(401)
+    })
+  })
+
   describe('GET /api/record/:date', () => {
     test('response with json', async () => {
       const response = await request(app)
