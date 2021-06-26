@@ -51,14 +51,14 @@ describe('~/api/models/User', () => {
     })
 
     test('ユーザーが存在するなら、そのユーザーを返す', async () => {
-      const result = await AppUser.findOne().findOrCreate(user1)
+      const result = await AppUser.findOrCreate(user1)
       const count = await AppUser.countDocuments({})
       expect(result._id).toEqual(_id)
       expect(count).toEqual(1)
     })
 
     test('ユーザーが存在しないなら、作成してユーザーを返す', async () => {
-      const result = await AppUser.findOne().findOrCreate(user2)
+      const result = await AppUser.findOrCreate(user2)
       const count = await AppUser.countDocuments({})
       expect(result.id).not.toEqual(_id)
       expect(result.username).toEqual(user2.username)
@@ -68,14 +68,14 @@ describe('~/api/models/User', () => {
     })
 
     test('strategyが一致するが、identifierが異なるユーザーは別のユーザー', async () => {
-      const result = await AppUser.findOne().findOrCreate(user3)
+      const result = await AppUser.findOrCreate(user3)
       const count = await AppUser.countDocuments({})
       expect(result.id).not.toEqual(_id)
       expect(count).toEqual(2)
     })
 
     test('identifierが一致するが、stragefyが異なるユーザーは別のユーザー', async () => {
-      const result = await AppUser.findOne().findOrCreate(user4)
+      const result = await AppUser.findOrCreate(user4)
       const count = await AppUser.countDocuments({})
       expect(result.id).not.toEqual(_id)
       expect(count).toEqual(2)
@@ -89,7 +89,7 @@ describe('~/api/models/User', () => {
         email: 'aaa@example.com',
         photoURL: 'http://example.com'
       }
-      await expect(AppUser.findOne().findOrCreate(invalidUser)).rejects.toThrow(
+      await expect(AppUser.findOrCreate(invalidUser)).rejects.toThrow(
         ValidationError
       )
     })

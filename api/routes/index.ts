@@ -8,8 +8,8 @@ import errorRoutes from './errorRoutes'
 
 const router = Express.Router()
 
-router.use('/users', userRoutes)
 router.use(auth)
+router.use('/users', userRoutes)
 router.use('/record', recordRoutes)
 router.use('/chart', chartRoutes)
 router.use('/aggregate', aggregateRoutes)

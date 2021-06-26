@@ -3,6 +3,15 @@ export function maxLengthError(name: string, max: number) {
 }
 
 /**
+ * ${name}は必須項目です。
+ * @param name
+ * @returns
+ */
+export function requiredError(name: string) {
+  return `${name}は必須項目です。`
+}
+
+/**
  * `${name}は数字で入力してください。`
  * @param name
  */

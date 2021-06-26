@@ -8,11 +8,14 @@ const uid: Middleware = async ({ error, $axios, $auth, app }) => {
     const user = app.$cookies.get('userInfo') || getLoginUser($auth)
     try {
       const { data } = await $axios.post('/api/users', { user })
-      $cookies.set('userId', data.uid, {
+      $cookies.set('userId', data._id, {
         maxAge: 60 * 60 * 24 * 7,
         sameSite: 'strict'
       })
-      $axios.defaults.headers.common.uid = data.uid
+      $cookies.set('userInfo', JSON.stringify(data), {
+        maxAge: 60 * 60 * 24 * 365
+      })
+      $axios.defaults.headers.common.uid = data._id
     } catch (e) {
       error(e)
     }

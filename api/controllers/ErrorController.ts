@@ -17,7 +17,7 @@ export default {
     const { statusCode, message } = boomErr.output.payload
     if (boomErr.isServer) {
       res.status(500)
-      res.json({ message: 'Internal Server Error' })
+      return res.json({ message: 'Internal Server Error' })
     }
     res.status(statusCode)
     res.json({ message })
