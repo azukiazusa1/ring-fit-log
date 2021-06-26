@@ -24,6 +24,9 @@ type Data = {
 }
 
 export default Vue.extend({
+  components: {
+    UsernameInputField
+  },
   props: {
     profile: {
       type: Object as PropType<LoginUser>,
@@ -48,9 +51,6 @@ export default Vue.extend({
         })
       }
     }
-  },
-  components: {
-    UsernameInputField
   }
 })
 </script>

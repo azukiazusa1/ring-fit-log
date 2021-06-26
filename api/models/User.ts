@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model, DocumentQuery } from 'mongoose'
+import mongoose, { Schema, Document, Model } from 'mongoose'
 import { LoginUser } from '~/types/auth'
 
 export interface UserDoc extends Document, LoginUser {}
