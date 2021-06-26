@@ -10,7 +10,8 @@ export default {
     res: Express.Response,
     next: Express.NextFunction
   ) => {
-    const user: LoginUser = req.body.user
+    const user = req.body.user
+    user.timeline = true
     try {
       const result = await AppUser.findOrCreate(user)
       res.status(httpStatus.OK).json(result)

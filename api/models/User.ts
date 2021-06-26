@@ -21,6 +21,10 @@ const userSchema: Schema = new Schema(
     photoURL: {
       type: String,
       required: false
+    },
+    timeline: {
+      type: Boolean,
+      default: false
     }
   },
   {
