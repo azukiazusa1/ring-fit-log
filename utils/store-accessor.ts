@@ -20,7 +20,7 @@ function initialiseStores(store: Store<any>): void {
   ChartsStore = getModule(ChartsModule, store)
   AggregateStore = getModule(AggregateModule, store)
   SettingStore = getModule(SettingModule, store)
-  TimelinesModule = getModule(TimelinesModule, store)
+  TimlinesStore = getModule(TimelinesModule, store)
 }
 
 export {
@@ -30,5 +30,5 @@ export {
   ChartsStore,
   AggregateStore,
   SettingStore,
-  TimelinesModule
+  TimlinesStore
 }
