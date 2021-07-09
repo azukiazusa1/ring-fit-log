@@ -1,11 +1,15 @@
-import { LoginUser } from './auth'
 import { IRecord } from './record'
 
+export interface User {
+  username: string
+  photoURL: string
+}
 export interface Timeline {
   record: IRecord
-  user: LoginUser
+  user: User
   createdAt: string
   updatedAt: string
   likeCount: number
   isLiked: boolean
+  me: boolean
 }

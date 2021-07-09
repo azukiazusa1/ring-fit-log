@@ -1,6 +1,7 @@
 import { Module, VuexModule, Mutation, Action } from 'vuex-module-decorators'
-import { $axios } from '~/utils/api'
+// import { $axios } from '~/utils/api'
 import { Timeline } from '~/types/timeline'
+import timelineFixture from '~/test/fixture/api/timelines/index.json'
 
 @Module({
   name: 'timelines',
@@ -10,7 +11,7 @@ import { Timeline } from '~/types/timeline'
 export default class TimelinesModule extends VuexModule {
   private timelines: Timeline[] = []
 
-  public get getRecords() {
+  public get getTimelines() {
     return this.timelines
   }
 
@@ -26,7 +27,11 @@ export default class TimelinesModule extends VuexModule {
 
   @Action({ rawError: true })
   public async fetchTimelines() {
-    const { data } = await $axios.get<Timeline[]>('/api/timelines')
+    function sleep(ms: number) {
+      return new Promise((resolve) => setTimeout(resolve, ms))
+    }
+    await sleep(3000)
+    const data: Timeline[] = timelineFixture
     this.addTimelines(data)
   }
 }
