@@ -1,13 +1,21 @@
 <template>
   <div class="wrapper">
-    <v-row v-if="loading">
+    <v-row v-if="initialLoading">
       <v-col v-for="n in 5" :key="n" cols="12">
-        <skelton-timeline-card v-if="loading" />
+        <skelton-timeline-card />
       </v-col>
     </v-row>
     <v-row v-else>
       <v-col v-for="(item, index) in timelines" :key="index" cols="12">
         <timeline-card :item="item" class="mb-2" />
+      </v-col>
+      <v-col cols="12" align="center">
+        <v-progress-circular
+          v-show="hasNextPage"
+          v-intersect="onIntersect"
+          indeterminate
+          color="primary"
+        ></v-progress-circular>
       </v-col>
     </v-row>
     <timeline-agree-dialog
@@ -24,14 +32,17 @@ import Vue from 'vue'
 import TimelineCard from '~/components/molecule/TimelineCard.vue'
 import TimelineAgreeDialog from '~/components/molecule/TimelineAgreeDialog.vue'
 import SkeltonTimelineCard from '~/components/molecule/SkeltonTimelineCard.vue'
-import { TimlinesStore, SnackbarModule } from '~/utils/store-accessor'
+import { TimelinesStore, SnackbarModule } from '~/utils/store-accessor'
 import { Timeline } from '~/types/timeline'
 import getLoginUser from '~/utils/getLoginUser'
 import { LoginUser } from '~/types/auth'
 
 type Data = {
+  initialLoading: boolean
   loading: boolean
   error: boolean
+  showDialog: boolean
+  page: number
 }
 
 export default Vue.extend({
@@ -54,30 +65,50 @@ export default Vue.extend({
   },
   data(): Data {
     return {
+      initialLoading: true,
       loading: true,
-      error: false
+      error: false,
+      showDialog: true,
+      page: 1
     }
   },
   computed: {
     timelines(): Timeline[] {
-      return TimlinesStore.getTimelines
+      return TimelinesStore.getTimelines
+    },
+    hasNextPage() {
+      return true
+      return TimelinesStore.getPaginate?.hasNextPage
     },
     user(): LoginUser {
       return getLoginUser(this.$auth) || this.$cookies.get('userInfo')
     }
   },
   async created(): Promise<void> {
-    try {
-      await TimlinesStore.fetchTimelines()
-      this.loading = false
-    } catch (e) {
-      this.$sentry.captureException(e)
-      SnackbarModule.error({
-        message: 'データの取得時にエラーが発生しました。'
-      })
-    }
+    await this.fetchTimeline()
+    this.initialLoading = false
   },
   methods: {
+    async fetchTimeline(): Promise<void> {
+      this.loading = true
+      try {
+        await TimelinesStore.fetchTimelines({ page: this.page })
+        this.loading = false
+      } catch (e) {
+        this.$sentry.captureException(e)
+        SnackbarModule.error({
+          message: 'データの取得時にエラーが発生しました。'
+        })
+      }
+    },
+    onIntersect(entries: any) {
+      console.log(this.loading)
+      console.log(entries[0].isIntersecting)
+      if (!this.loading && entries[0].isIntersecting) {
+        this.page++
+        this.fetchTimeline()
+      }
+    },
     async onAgree({ username }: { username: string }) {
       const { data } = await this.$axios.put('/api/users', {
         username,

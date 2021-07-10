@@ -13,14 +13,14 @@ let RecordsStore: RecordsModule
 let ChartsStore: ChartsModule
 let AggregateStore: AggregateModule
 let SettingStore: SettingModule
-let TimlinesStore: TimelinesModule
+let TimelinesStore: TimelinesModule
 function initialiseStores(store: Store<any>): void {
   SnackbarModule = getModule(Snackbar, store)
   RecordsStore = getModule(RecordsModule, store)
   ChartsStore = getModule(ChartsModule, store)
   AggregateStore = getModule(AggregateModule, store)
   SettingStore = getModule(SettingModule, store)
-  TimlinesStore = getModule(TimelinesModule, store)
+  TimelinesStore = getModule(TimelinesModule, store)
 }
 
 export {
@@ -30,5 +30,5 @@ export {
   ChartsStore,
   AggregateStore,
   SettingStore,
-  TimlinesStore
+  TimelinesStore
 }

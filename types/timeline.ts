@@ -4,6 +4,7 @@ export interface User {
   username: string
   photoURL: string
 }
+
 export interface Timeline {
   record: IRecord
   user: User
@@ -12,4 +13,9 @@ export interface Timeline {
   likeCount: number
   isLiked: boolean
   me: boolean
+}
+
+export interface TimelineRequest {
+  page?: number
+  limit: number
 }
