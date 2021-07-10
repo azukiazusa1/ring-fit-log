@@ -10,12 +10,14 @@
         <timeline-card :item="item" class="mb-2" />
       </v-col>
     </v-row>
+    <timeline-agree-dialog v-model="showDialog" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import TimelineCard from '~/components/molecule/TimelineCard.vue'
+import TimelineAgreeDialog from '~/components/molecule/TimelineAgreeDialog.vue'
 import SkeltonTimelineCard from '~/components/molecule/SkeltonTimelineCard.vue'
 import { TimlinesStore, SnackbarModule } from '~/utils/store-accessor'
 import { Timeline } from '~/types/timeline'
@@ -28,7 +30,20 @@ type Data = {
 export default Vue.extend({
   components: {
     TimelineCard,
+    TimelineAgreeDialog,
     SkeltonTimelineCard
+  },
+  asyncData({ app }) {
+    const { $cookies } = app
+    const user = $cookies.get('userInfo')
+    let showDialog = false
+    if (user.timeline) {
+      showDialog = false
+    } else {
+      showDialog = true
+    }
+
+    return { showDialog }
   },
   data(): Data {
     return {
