@@ -1,8 +1,8 @@
 <template>
-  <v-card max-width="90%">
+  <v-card>
     <v-card-title>
       <span class="text-h6">
-        <app-time :date="item.createdAt" format="YYYY-MM-DD" />
+        <app-time :date="item.createdAt" format="YYYY/MM/DD" />
       </span>
       <span class="ml-2">
         <ArmsIcon v-if="stamps.arms" value :ripple="false" />
@@ -15,17 +15,17 @@
     <v-card-text>
       <v-row>
         <v-col md="2" cols="4">
-          <span class="text-h5">{{ item.record.totalTimeExercising }}</span>
+          <span class="text-h6">{{ totalTimeExercising }}</span>
         </v-col>
         <v-col md="2" cols="4">
-          <span class="text-h5">{{ item.record.totalCaloriesBurned }}</span
+          <span class="text-h6">{{ item.record.totalCaloriesBurned }}</span
           >kcal
         </v-col>
         <v-col md="2" cols="4">
-          <span class="text-h5">{{ item.record.totalDistanceRun }}</span
+          <span class="text-h6">{{ item.record.totalDistanceRun }}</span
           >km
         </v-col>
-        <v-col cols="12">
+        <v-col v-if="item.record.comment" cols="12">
           {{ item.record.comment }}
         </v-col>
       </v-row>
@@ -55,12 +55,14 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { Timeline } from '~/types/timeline'
+import { ms2stringTime } from '~/utils/msConversion'
 import GoodIcon from '~/components/atom/icon/GoodIcon.vue'
 import ArmsIcon from '~/components/atom/icon/ArmsIcon.vue'
 import StomachIcon from '~/components/atom/icon/StomackIcon.vue'
 import LegsIcon from '~/components/atom/icon/LegsIcon.vue'
 import YogaIcon from '~/components/atom/icon/YogaIcon.vue'
 import AppTime from '~/components/atom/AppTime.vue'
+import { Stamps } from '~/types/record'
 
 export default Vue.extend({
   components: {
@@ -84,8 +86,11 @@ export default Vue.extend({
     }
   },
   computed: {
-    stamps() {
+    stamps(): Stamps {
       return this.item.record.stamps
+    },
+    totalTimeExercising(): string {
+      return ms2stringTime(this.item.record.totalTimeExercising)
     },
     color(): string {
       return this.isLiked ? 'orange--text text--darken-1' : ''

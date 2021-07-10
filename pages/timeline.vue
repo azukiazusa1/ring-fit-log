@@ -1,14 +1,13 @@
 <template>
   <div class="wrapper">
-    <skelton-timeline-card v-if="loading" />
+    <v-row v-if="loading">
+      <v-col v-for="n in 5" :key="n" cols="12">
+        <skelton-timeline-card v-if="loading" />
+      </v-col>
+    </v-row>
     <v-row v-else>
-      <v-col
-        v-for="(item, index) in timelines"
-        :key="index"
-        cols="12"
-        :offset="item.me ? 1 : 0"
-      >
-        <timeline-card :item="item" class="mb-5" />
+      <v-col v-for="(item, index) in timelines" :key="index" cols="12">
+        <timeline-card :item="item" class="mb-2" />
       </v-col>
     </v-row>
   </div>
@@ -51,6 +50,13 @@ export default Vue.extend({
       SnackbarModule.error({
         message: 'データの取得時にエラーが発生しました。'
       })
+    }
+  },
+  head(): {
+    title: string
+  } {
+    return {
+      title: 'タイムライン'
     }
   }
 })
