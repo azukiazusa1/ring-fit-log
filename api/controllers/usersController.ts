@@ -23,12 +23,12 @@ export default {
     res: Express.Response,
     next: Express.NextFunction
   ) => {
-    const { username, photoURL } = req.body
+    const { username, photoURL, timeline } = req.body
     const userId = res.locals.userId
     try {
       const result = await AppUser.findByIdAndUpdate(
         userId,
-        { username, photoURL },
+        { username, photoURL, timeline },
         { new: true }
       )
       res.status(httpStatus.OK).json(result)

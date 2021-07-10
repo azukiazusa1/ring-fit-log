@@ -31,10 +31,10 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog = false">
+        <v-btn color="blue darken-1" text @click="onClickCancel">
           同意しない
         </v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false">
+        <v-btn color="blue darken-1" text @click="onClickOK">
           同意する
         </v-btn>
       </v-card-actions>
@@ -45,7 +45,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import UsernameInputField from '@/components/atom/UsernameInputField.vue'
-import getLoginUser from '~/utils/getLoginUser'
 import { LoginUser } from '~/types/auth'
 
 type Data = {
@@ -62,6 +61,10 @@ export default Vue.extend({
       type: Boolean,
       required: false,
       default: false
+    },
+    user: {
+      type: Object as PropType<LoginUser>,
+      required: true
     }
   },
   data(): Data {
@@ -70,22 +73,20 @@ export default Vue.extend({
       valid: true
     }
   },
-  computed: {
-    user(): LoginUser {
-      return getLoginUser(this.$auth) || this.$cookies.get('userInfo')
-    }
-  },
   created() {
     this.username = this.user.username
   },
   methods: {
-    onSubmit() {
+    onClickOK() {
       ;(this.$refs.form as any).validate()
       if (this.valid) {
         this.$emit('submit', {
           username: this.username
         })
       }
+    },
+    onClickCancel() {
+      this.$emit('cancel')
     }
   }
 })

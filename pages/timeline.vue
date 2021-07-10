@@ -10,7 +10,12 @@
         <timeline-card :item="item" class="mb-2" />
       </v-col>
     </v-row>
-    <timeline-agree-dialog v-model="showDialog" />
+    <timeline-agree-dialog
+      v-model="showDialog"
+      :user="user"
+      @submit="onAgree"
+      @cancel="onCancel"
+    />
   </div>
 </template>
 
@@ -21,6 +26,8 @@ import TimelineAgreeDialog from '~/components/molecule/TimelineAgreeDialog.vue'
 import SkeltonTimelineCard from '~/components/molecule/SkeltonTimelineCard.vue'
 import { TimlinesStore, SnackbarModule } from '~/utils/store-accessor'
 import { Timeline } from '~/types/timeline'
+import getLoginUser from '~/utils/getLoginUser'
+import { LoginUser } from '~/types/auth'
 
 type Data = {
   loading: boolean
@@ -54,6 +61,9 @@ export default Vue.extend({
   computed: {
     timelines(): Timeline[] {
       return TimlinesStore.getTimelines
+    },
+    user(): LoginUser {
+      return getLoginUser(this.$auth) || this.$cookies.get('userInfo')
     }
   },
   async created(): Promise<void> {
@@ -65,6 +75,23 @@ export default Vue.extend({
       SnackbarModule.error({
         message: 'データの取得時にエラーが発生しました。'
       })
+    }
+  },
+  methods: {
+    async onAgree({ username }: { username: string }) {
+      const { data } = await this.$axios.put('/api/users', {
+        username,
+        photoURL: this.user.photoURL,
+        timeline: true
+      })
+      this.$cookies.set('userInfo', JSON.stringify(data), {
+        maxAge: 60 * 60 * 24 * 365,
+        path: '/'
+      })
+      this.showDialog = false
+    },
+    onCancel() {
+      this.$router.push('/record')
     }
   },
   head(): {
