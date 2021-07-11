@@ -85,6 +85,7 @@ export default Vue.extend({
     }
   },
   async created(): Promise<void> {
+    TimelinesStore.clear()
     await this.fetchTimeline()
     this.initialLoading = false
   },
@@ -139,5 +140,6 @@ export default Vue.extend({
 .wrapper {
   max-width: 980px;
   margin: 0 auto;
+  height: calc(100% - 56px);
 }
 </style>
