@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropType } from 'vue'
 import UsernameInputField from '@/components/atom/UsernameInputField.vue'
 import { LoginUser } from '~/types/auth'
 

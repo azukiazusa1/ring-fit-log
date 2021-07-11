@@ -46,7 +46,7 @@ export default Vue.extend({
   },
   created() {
     this.username = this.profile.username
-    this.timeline = this.profile.timeline
+    this.timeline = !!this.profile.timeline
   },
   methods: {
     onSubmit() {

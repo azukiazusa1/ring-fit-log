@@ -77,10 +77,9 @@ export default Vue.extend({
       return TimelinesStore.getTimelines
     },
     hasNextPage() {
-      return true
       return TimelinesStore.getPaginate?.hasNextPage
     },
-    user(): LoginUser {
+    user(): Partial<LoginUser> | undefined {
       return getLoginUser(this.$auth) || this.$cookies.get('userInfo')
     }
   },
@@ -103,8 +102,6 @@ export default Vue.extend({
       }
     },
     onIntersect(entries: any) {
-      console.log(this.loading)
-      console.log(entries[0].isIntersecting)
       if (!this.loading && entries[0].isIntersecting) {
         this.page++
         this.fetchTimeline()
@@ -113,7 +110,7 @@ export default Vue.extend({
     async onAgree({ username }: { username: string }) {
       const { data } = await this.$axios.put('/api/users', {
         username,
-        photoURL: this.user.photoURL,
+        photoURL: this.user?.photoURL,
         timeline: true
       })
       this.$cookies.set('userInfo', JSON.stringify(data), {

@@ -5,7 +5,8 @@ import mongoose, {
   DocumentQuery,
   PaginateOptions,
   PaginateResult,
-  FilterQuery
+  FilterQuery,
+  models
 } from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 import moment from 'moment'
@@ -222,4 +223,6 @@ recordSchema.statics = statics
 
 recordSchema.plugin(mongoosePaginate)
 
-export default mongoose.model<RecordDoc, RecordModel>('Record', recordSchema)
+export default models.Record
+  ? (models.Record as RecordModel)
+  : mongoose.model<RecordDoc, RecordModel>('Record', recordSchema)

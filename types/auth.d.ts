@@ -4,6 +4,7 @@ export interface LoginUser {
   strategy: string
   photoURL: string
   email: string
+  timeline?: boolean
 }
 
 export interface GitHubUser {

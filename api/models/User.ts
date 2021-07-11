@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Model } from 'mongoose'
+import mongoose, { Schema, Document, Model, models } from 'mongoose'
 import { LoginUser } from '~/types/auth'
 
 export interface UserDoc extends Document, LoginUser {}
@@ -48,4 +48,6 @@ const statics = {
 
 userSchema.statics = statics
 
-export default mongoose.model<UserDoc, UserModel>('User', userSchema)
+export default models.User
+  ? (models.User as UserModel)
+  : mongoose.model<UserDoc, UserModel>('User', userSchema)
