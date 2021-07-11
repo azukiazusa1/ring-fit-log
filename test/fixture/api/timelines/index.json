@@ -1,83 +1,94 @@
-[
-  {
-    "record": {
-      "comment": "ワイドスクワット3000回達成！",
-      "totalDistanceRun": 0.39,
-      "totalCaloriesBurned": 130.32,
-      "totalTimeExercising": 1963000,
-      "date": "2021-07-06T14:47:15.000Z",
-      "stamps": {
-        "arms": false,
-        "stomach": false,
-        "legs": false,
-        "yoga": false
+{
+  "totalDocs": 13,
+  "limit": 10,
+  "page": 1,
+  "nextPage": 2,
+  "prevPage": null,
+  "hasNextPage": true,
+  "hasPrevPage": false,
+  "totalPages": 2,
+  "pagingCounter": 1,
+  "docs": [
+    {
+      "record": {
+        "comment": "ワイドスクワット3000回達成！",
+        "totalDistanceRun": 0.39,
+        "totalCaloriesBurned": 130.32,
+        "totalTimeExercising": 1963000,
+        "date": "2021-07-06T14:47:15.000Z",
+        "stamps": {
+          "arms": false,
+          "stomach": false,
+          "legs": false,
+          "yoga": false
+        },
+        "userId": "5fa223ebbef52292ba309f23",
+        "createdAt": "2021-07-06T14:48:21.068Z",
+        "updatedAt": "2021-07-06T14:50:32.727Z"
       },
-      "userId": "5fa223ebbef52292ba309f23",
+      "user": {
+        "username": "user1",
+        "photoURL": "https://cdn.vuetifyjs.com/images/lists/1.jpg"
+      },
       "createdAt": "2021-07-06T14:48:21.068Z",
-      "updatedAt": "2021-07-06T14:50:32.727Z"
+      "updatedAt": "2021-07-06T14:50:32.727Z",
+      "isLiked": false,
+      "likeCount": 10,
+      "me": false
     },
-    "user": {
-      "username": "user1",
-      "photoURL": "https://cdn.vuetifyjs.com/images/lists/1.jpg"
-    },
-    "createdAt": "2021-07-06T14:48:21.068Z",
-    "updatedAt": "2021-07-06T14:50:32.727Z",
-    "isLiked": false,
-    "likeCount": 10,
-    "me": false
-  },
-  {
-    "record": {
-      "comment": "今日から始めた",
-      "totalDistanceRun": 1.15,
-      "totalCaloriesBurned": 44.4,
-      "totalTimeExercising": 746000,
-      "date": "2021-07-07T00:00:00.000Z",
-      "stamps": {
-        "arms": true,
-        "stomach": false,
-        "legs": true,
-        "yoga": false
+    {
+      "record": {
+        "comment": "今日から始めた",
+        "totalDistanceRun": 1.15,
+        "totalCaloriesBurned": 44.4,
+        "totalTimeExercising": 746000,
+        "date": "2021-07-07T00:00:00.000Z",
+        "stamps": {
+          "arms": true,
+          "stomach": false,
+          "legs": true,
+          "yoga": false
+        },
+        "userId": "60e6625ea7ff09f52f0917cc",
+        "createdAt": "2021-07-08T12:55:22.124Z",
+        "updatedAt": "2021-07-08T12:57:19.571Z"
       },
-      "userId": "60e6625ea7ff09f52f0917cc",
+      "user": {
+        "username": "user2",
+        "photoURL": "https://cdn.vuetifyjs.com/images/lists/2.jpg"
+      },
       "createdAt": "2021-07-08T12:55:22.124Z",
-      "updatedAt": "2021-07-08T12:57:19.571Z"
+      "updatedAt": "2021-07-08T12:55:22.124Z",
+      "isLiked": true,
+      "likeCount": 8,
+      "me": true
     },
-    "user": {
-      "username": "user2",
-      "photoURL": "https://cdn.vuetifyjs.com/images/lists/2.jpg"
-    },
-    "createdAt": "2021-07-08T12:55:22.124Z",
-    "updatedAt": "2021-07-08T12:55:22.124Z",
-    "isLiked": true,
-    "likeCount": 8,
-    "me": true
-  },
-  {
-    "record": {
-      "comment": "",
-      "totalDistanceRun": 1.18,
-      "totalCaloriesBurned": 108.41,
-      "totalTimeExercising": 1646000,
-      "date":"2021-07-08T08:45:50.000Z",
-      "stamps": {
+    {
+      "record": {
+        "comment": "",
+        "totalDistanceRun": 1.18,
+        "totalCaloriesBurned": 108.41,
+        "totalTimeExercising": 1646000,
+        "date": "2021-07-08T08:45:50.000Z",
+        "stamps": {
           "arms": true,
           "stomach": true,
           "legs": true,
           "yoga": true
+        },
+        "userId": "60e643a0a7ff09f52ffd74fd",
+        "createdAt": "2021-07-08T10:18:55.080Z",
+        "updatedAt": "2021-07-08T10:18:55.080Z"
       },
-      "userId": "60e643a0a7ff09f52ffd74fd",
+      "user": {
+        "username": "user3",
+        "photoURL": "https://cdn.vuetifyjs.com/images/lists/3.jpg"
+      },
       "createdAt": "2021-07-08T10:18:55.080Z",
-      "updatedAt": "2021-07-08T10:18:55.080Z"
-    },
-    "user": {
-      "username": "user3",
-      "photoURL": "https://cdn.vuetifyjs.com/images/lists/3.jpg"
-    },
-    "createdAt": "2021-07-08T10:18:55.080Z",
-    "updatedAt": "2021-07-08T10:18:55.080Z",
-    "isLiked": true,
-    "likeCount": 20,
-    "me": false
-  }
-]
+      "updatedAt": "2021-07-08T10:18:55.080Z",
+      "isLiked": true,
+      "likeCount": 20,
+      "me": false
+    }
+  ]
+}

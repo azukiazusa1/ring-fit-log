@@ -17,5 +17,5 @@ export interface Timeline {
 
 export interface TimelineRequest {
   page?: number
-  limit: number
+  limit?: number
 }
