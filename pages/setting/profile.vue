@@ -25,9 +25,16 @@ export default Vue.extend({
     }
   },
   methods: {
-    async onSubmit({ username }: { username: string }) {
+    async onSubmit({
+      username,
+      timeline
+    }: {
+      username: string
+      timeline: boolean
+    }) {
       const { data } = await this.$axios.put('/api/users', {
         username,
+        timeline,
         photoURL: this.user.photoURL
       })
       this.$cookies.set('userInfo', JSON.stringify(data), {

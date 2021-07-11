@@ -5,6 +5,9 @@
         <username-input-field :username.sync="username" />
       </v-col>
       <v-col cols="12">
+        <v-checkbox v-model="timeline" label="タイムラインを利用する" />
+      </v-col>
+      <v-col cols="12">
         <v-btn color="primary" :disabled="!valid" @click="onSubmit">
           更新する
         </v-btn>
@@ -20,6 +23,7 @@ import { LoginUser } from '~/types/auth'
 
 type Data = {
   username: string
+  timeline: boolean
   valid: boolean
 }
 
@@ -36,18 +40,21 @@ export default Vue.extend({
   data(): Data {
     return {
       username: '',
+      timeline: false,
       valid: true
     }
   },
   created() {
     this.username = this.profile.username
+    this.timeline = this.profile.timeline
   },
   methods: {
     onSubmit() {
       ;(this.$refs.form as any).validate()
       if (this.valid) {
         this.$emit('submit', {
-          username: this.username
+          username: this.username,
+          timeline: this.timeline
         })
       }
     }
