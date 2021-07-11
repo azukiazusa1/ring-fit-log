@@ -75,6 +75,7 @@ export default {
       }
       res.status(httpStatusCode.CREATED).json(result)
     } catch (e) {
+      console.log(e)
       next(Boom.internal())
     }
   },

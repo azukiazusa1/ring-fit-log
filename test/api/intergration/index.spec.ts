@@ -47,7 +47,7 @@ describe('intergration test', () => {
         .post('/api/users')
         .send({ user })
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(200)
 
@@ -77,7 +77,7 @@ describe('intergration test', () => {
       const response = await request(app)
         .get('/api/record/2020-07-31')
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(200)
 
@@ -88,7 +88,7 @@ describe('intergration test', () => {
       await request(app)
         .get('/api/record/abc')
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(400)
     })
@@ -107,7 +107,7 @@ describe('intergration test', () => {
       const response = await request(app)
         .get('/api/record/month/2020-08-01')
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(200)
 
@@ -118,7 +118,7 @@ describe('intergration test', () => {
       await request(app)
         .get('/api/record/month/abc')
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(400)
     })
@@ -152,7 +152,7 @@ describe('intergration test', () => {
         .post('/api/record')
         .send(record)
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(201)
 
@@ -179,7 +179,7 @@ describe('intergration test', () => {
         .post('/api/record')
         .send(invalidRecord)
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(500)
     })
@@ -207,14 +207,14 @@ describe('intergration test', () => {
         yoga: true
       },
       date: new Date('2020-07-31'),
-      userId: 'user1'
+      userId: '5f24196497a4c3076ab1e757'
     }
     test('respond with json', async () => {
       const response = await request(app)
         .put(`/api/record/${records[1]._id}`)
         .send(record)
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(200)
 
@@ -236,14 +236,14 @@ describe('intergration test', () => {
           yoga: true
         },
         date: '',
-        userId: 'user1'
+        userId: '5f24196497a4c3076ab1e757'
       }
 
       await request(app)
         .put(`/api/record/${records[1]._id}`)
         .send(invalidRecord)
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect('Content-Type', /json/)
         .expect(500)
     })
@@ -273,7 +273,7 @@ describe('intergration test', () => {
       const response = await request(app)
         .delete(`/api/record/${records[1]._id}`)
         .set('Accept', 'application/json')
-        .set('Cookie', ['userId=user1'])
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
         .expect(204)
 
       expect(response.body).toEqual({})

@@ -6,8 +6,30 @@ import recordsController from '~/api/controllers/recordsController'
 
 let mockError = false
 let mockEmpty = false
-const userId = 'jfalfjafhaffj'
+const userId = '5f24196497a4c3076ab1e757'
 const mockRecords: Record[] = require('~/test/fixture/api/record/month/2020-07')
+const user = {
+  username: 'test',
+  strategy: 'google',
+  identifier: '12345',
+  email: 'aaa@example.com',
+  photoURL: 'http://example.com',
+  timeline: false
+}
+
+jest.mock('~/api/models/User', () => ({
+  findById: jest.fn((_) => {
+    return {
+      exec() {
+        Promise.resolve(user)
+      }
+    }
+  })
+}))
+
+jest.mock('~/api/models/Timeline', () => ({
+  create: jest.fn()
+}))
 
 jest.mock('~/api/models/Record', () => ({
   findOne: jest.fn().mockReturnThis(),

@@ -17,7 +17,7 @@ describe('~/api/models/Record', () => {
   })
 
   describe('Query Helper & Statics', () => {
-    const userId = 'user1'
+    const userId = '5f24196497a4c3076ab1e757'
 
     describe('findByDate', () => {
       test('日付とuserIdからレコード1件を見つける', async () => {
@@ -72,7 +72,7 @@ describe('~/api/models/Record', () => {
             stomach: false,
             yoga: true
           },
-          userId: 'user1',
+          userId: '5f24196497a4c3076ab1e757',
           date: new Date('2020-07-31')
         }
 
@@ -92,7 +92,7 @@ describe('~/api/models/Record', () => {
             stomach: false,
             yoga: true
           },
-          userId: 'user1',
+          userId: '5f24196497a4c3076ab1e757',
           date: new Date('2020-07-31')
         }
 
@@ -117,7 +117,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
             await expect(Record.create(record)).resolves.toBeDefined()
@@ -135,7 +135,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
             await expect(Record.create(record)).rejects.toThrow(ValidationError)
@@ -155,7 +155,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
             await expect(Record.create(record)).resolves.toBeDefined()
@@ -177,7 +177,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
 
@@ -196,7 +196,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
 
@@ -217,7 +217,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
 
@@ -236,7 +236,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
 
@@ -257,7 +257,7 @@ describe('~/api/models/Record', () => {
                 stomach: false,
                 yoga: true
               },
-              userId: 'user1',
+              userId: '5f24196497a4c3076ab1e757',
               date: new Date('2020-10-31')
             }
 
@@ -281,7 +281,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: new Date('2020-10-31')
           }
 
@@ -300,7 +300,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: new Date('2020-10-31')
           }
 
@@ -321,7 +321,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: new Date('2020-10-31')
           }
 
@@ -340,7 +340,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: new Date('2020-10-31')
           }
 
@@ -361,7 +361,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: new Date('2020-10-31')
           }
 
@@ -384,7 +384,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: '2020-10-31'
           }
 
@@ -403,7 +403,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: 'abcde'
           }
 
@@ -424,7 +424,7 @@ describe('~/api/models/Record', () => {
               stomach: false,
               yoga: true
             },
-            userId: 'user1',
+            userId: '5f24196497a4c3076ab1e757',
             date: ''
           }
 
@@ -470,7 +470,7 @@ describe('~/api/models/Record', () => {
             yoga: false
           },
           date: new Date('2020-07-31'),
-          userId: 'user1'
+          userId: '5f24196497a4c3076ab1e757'
         }
 
         await expect(Record.create(record)).rejects.toThrow()
@@ -491,7 +491,7 @@ describe('~/api/models/Record', () => {
             yoga: false
           },
           date: new Date('2021-06-01'),
-          userId: 'user1'
+          userId: '5f24196497a4c3076ab1e757'
         }
 
         await expect(Record.create(record)).resolves.toBeDefined()
@@ -510,7 +510,7 @@ describe('~/api/models/Record', () => {
             yoga: false
           },
           date: new Date('2021-06-01'),
-          userId: 'user1'
+          userId: '5f24196497a4c3076ab1e757'
         }
 
         await expect(Record.create(record)).rejects.toThrow(ValidationError)

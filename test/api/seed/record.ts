@@ -27,7 +27,7 @@ const records: any[] = [
       yoga: false
     },
     date: new Date('2020-07-31'),
-    userId: 'user1'
+    userId: '5f24196497a4c3076ab1e757'
   },
   {
     totalCaloriesBurned: 100,
@@ -41,7 +41,7 @@ const records: any[] = [
       yoga: false
     },
     date: new Date('2020-08-01'),
-    userId: 'user1'
+    userId: '5f24196497a4c3076ab1e757'
   },
   {
     totalCaloriesBurned: 100,
@@ -55,7 +55,7 @@ const records: any[] = [
       yoga: false
     },
     date: new Date('2020-08-15'),
-    userId: 'user1'
+    userId: '5f24196497a4c3076ab1e757'
   },
   {
     totalCaloriesBurned: 100,
@@ -83,7 +83,7 @@ const records: any[] = [
       yoga: false
     },
     date: new Date('2020-08-31'),
-    userId: 'user1'
+    userId: '5f24196497a4c3076ab1e757'
   },
   {
     totalCaloriesBurned: 100,
@@ -97,7 +97,7 @@ const records: any[] = [
       yoga: false
     },
     date: new Date('2020-09-01'),
-    userId: 'user1'
+    userId: '5f24196497a4c3076ab1e757'
   }
 ]
 
