@@ -2,6 +2,7 @@ export type Item = {
   icon: string
   title: string
   to: string
+  badge?: boolean
 }
 
 export type Types = 'info' | 'error' | 'warning' | 'success'

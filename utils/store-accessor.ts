@@ -6,18 +6,21 @@ import RecordsModule from '~/store/records'
 import ChartsModule from '~/store/charts'
 import AggregateModule from '~/store/aggregate'
 import SettingModule from '~/store/setting'
+import TimelinesModule from '~/store/timelines'
 
 let SnackbarModule: Snackbar
 let RecordsStore: RecordsModule
 let ChartsStore: ChartsModule
 let AggregateStore: AggregateModule
 let SettingStore: SettingModule
+let TimelinesStore: TimelinesModule
 function initialiseStores(store: Store<any>): void {
   SnackbarModule = getModule(Snackbar, store)
   RecordsStore = getModule(RecordsModule, store)
   ChartsStore = getModule(ChartsModule, store)
   AggregateStore = getModule(AggregateModule, store)
   SettingStore = getModule(SettingModule, store)
+  TimelinesStore = getModule(TimelinesModule, store)
 }
 
 export {
@@ -26,5 +29,6 @@ export {
   RecordsStore,
   ChartsStore,
   AggregateStore,
-  SettingStore
+  SettingStore,
+  TimelinesStore
 }

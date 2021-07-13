@@ -4,6 +4,8 @@ import httpStatusCode from 'http-status-codes'
 import { isEmpty } from 'lodash'
 import { parse } from 'json2csv'
 import Record from '../models/Record'
+import AppUser from '../models/User'
+import Timeline from '../models/Timeline'
 import isInvalidDate from '../../utils/isInvalidDate'
 import { createPagenationOptions } from '../utils/createPaginationOptions'
 
@@ -59,11 +61,21 @@ export default {
   ) => {
     try {
       const record = req.body
+      const { userId } = res.locals
       delete record._id
-      record.userId = res.locals.userId
+      record.userId = userId
+      const user = await AppUser.findById(userId).exec()
       const result = await Record.create(req.body)
+      if (user && user.timeline) {
+        await Timeline.create({
+          user: user._id,
+          record: result._id,
+          likes: []
+        })
+      }
       res.status(httpStatusCode.CREATED).json(result)
     } catch (e) {
+      console.log(e)
       next(Boom.internal())
     }
   },

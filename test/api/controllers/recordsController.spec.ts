@@ -3,11 +3,35 @@ import { cloneDeep } from 'lodash'
 import getCallError from '~/utils/getCallError'
 import { Record } from '~/types/record'
 import recordsController from '~/api/controllers/recordsController'
+import Timeline from '~/api/models/Timeline'
 
 let mockError = false
 let mockEmpty = false
-const userId = 'jfalfjafhaffj'
+let mockTimeline = false
+const userId = '5f24196497a4c3076ab1e757'
 const mockRecords: Record[] = require('~/test/fixture/api/record/month/2020-07')
+const user = {
+  _id: '5f24196497a4c3076ab1e757',
+  username: 'test',
+  strategy: 'google',
+  identifier: '12345',
+  email: 'aaa@example.com',
+  photoURL: 'http://example.com'
+}
+
+jest.mock('~/api/models/User', () => ({
+  findById: jest.fn((_) => {
+    return {
+      exec() {
+        return Promise.resolve({ ...user, timeline: mockTimeline })
+      }
+    }
+  })
+}))
+
+jest.mock('~/api/models/Timeline', () => ({
+  create: jest.fn()
+}))
 
 jest.mock('~/api/models/Record', () => ({
   findOne: jest.fn().mockReturnThis(),
@@ -35,7 +59,7 @@ jest.mock('~/api/models/Record', () => ({
       return Promise.reject(new Error('mock error'))
     }
 
-    return { ...record, _id: '12345' }
+    return Promise.resolve({ ...record, _id: '12345' })
   }),
   updateById: jest.fn((_id: string, record: Record) => {
     if (mockError) {
@@ -55,6 +79,11 @@ describe('~/api/controllers/recordController', () => {
   beforeEach(() => {
     mockError = false
     mockEmpty = false
+    mockTimeline = false
+  })
+
+  afterEach(() => {
+    ;(Timeline as any).create.mockClear()
   })
 
   describe('show action', () => {
@@ -247,6 +276,23 @@ describe('~/api/controllers/recordController', () => {
           resRecord._id = '12345'
           resRecord.userId = userId
           expect(res.json.calledWith(resRecord)).toBeTruthy()
+        })
+
+        test('userのtimelineがtrueのとき、Timelineを作成する', async () => {
+          mockTimeline = true
+          await recordsController.create(req, res, next)
+
+          expect(Timeline.create).toHaveBeenCalledWith({
+            user: userId,
+            record: '12345',
+            likes: []
+          })
+        })
+
+        test('userのtimelineがfalseのとき、Timelineを作成する', async () => {
+          await recordsController.create(req, res, next)
+
+          expect(Timeline.create).not.toHaveBeenCalled()
         })
       })
     })
