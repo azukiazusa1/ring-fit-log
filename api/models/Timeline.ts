@@ -11,11 +11,14 @@ import mongoosePaginate from 'mongoose-paginate-v2'
 import mongooseAutoPopulate from 'mongoose-autopopulate'
 import { LoginUser } from '~/types/auth'
 import { Record } from '~/types/record'
+import { Timeline } from '~/types/timeline'
 
 export interface TimelineDoc extends Document {
-  user: LoginUser
+  user: LoginUser & { _id?: string }
   record: Record
   likes: string[]
+  createdAt: string
+  updatedAt: string
 }
 
 const timelineSchema: Schema = new Schema(
@@ -61,6 +64,35 @@ interface TimelineModel extends Model<TimelineDoc> {
 
 timelineSchema.plugin(mongoosePaginate)
 timelineSchema.plugin(mongooseAutoPopulate)
+
+export const convert = (
+  result: PaginateResult<TimelineDoc>,
+  userId: string
+): PaginateResult<Timeline> => {
+  const docs: Timeline[] = result.docs.map((doc) => {
+    const me = doc.user._id === userId
+    const likeCount = doc.likes.length
+    const isLiked = doc.likes.includes(userId)
+
+    delete doc.user._id
+
+    return {
+      _id: doc._id,
+      createdAt: doc.createdAt,
+      updatedAt: doc.updatedAt,
+      record: doc.record,
+      user: doc.user,
+      me,
+      likeCount,
+      isLiked
+    }
+  })
+
+  return {
+    ...result,
+    docs
+  }
+}
 
 export default models.Timeline
   ? (models.Timeline as TimelineModel)

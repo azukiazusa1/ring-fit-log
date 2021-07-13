@@ -1,7 +1,7 @@
 import Express from 'express'
 import httpStatus from 'http-status-codes'
 import Boom from '@hapi/boom'
-import Timeline from '../models/Timeline'
+import Timeline, { convert } from '../models/Timeline'
 
 export default {
   list: async (
@@ -19,7 +19,7 @@ export default {
           sort: { createdAt: -1 }
         }
       )
-      res.status(httpStatus.OK).json(result)
+      res.status(httpStatus.OK).json(convert(result, res.locals.userId))
     } catch (e) {
       console.log(e)
       next(Boom.internal())

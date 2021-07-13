@@ -6,6 +6,7 @@ export interface User {
 }
 
 export interface Timeline {
+  _id: string
   record: IRecord
   user: User
   createdAt: string
