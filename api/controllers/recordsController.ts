@@ -3,6 +3,7 @@ import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
 import { isEmpty } from 'lodash'
 import { parse } from 'json2csv'
+import { Types } from 'mongoose'
 import Record from '../models/Record'
 import AppUser from '../models/User'
 import Timeline from '../models/Timeline'
@@ -68,7 +69,7 @@ export default {
       const result = await Record.create(req.body)
       if (user && user.timeline) {
         await Timeline.create({
-          user: userId,
+          user: user._id,
           record: result._id,
           likes: []
         })

@@ -15,8 +15,8 @@ export interface TimelineDoc extends Document {
   user: TimelineUser & { _id?: string }
   record: TimelineRecord
   likes: string[]
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 const timelineSchema: Schema = new Schema(
@@ -76,8 +76,8 @@ export const convert = (
 
     return {
       _id: doc._id,
-      createdAt: doc.createdAt,
-      updatedAt: doc.updatedAt,
+      createdAt: doc.createdAt ?? '',
+      updatedAt: doc.updatedAt ?? '',
       record: doc.record,
       user,
       me,

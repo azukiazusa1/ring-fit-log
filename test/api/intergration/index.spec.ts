@@ -2,14 +2,15 @@ import request from 'supertest'
 import app from '~/api'
 import { RecordDoc } from '~/api/models/Record'
 import { disConnect } from '~/api/db'
-import seed from '~/test/api/seed/record'
+import seed from '~/test/api/seed'
 import { LoginUser } from '~/types/auth'
 import { IRecord } from '~/types/record'
 
 describe('intergration test', () => {
   let records: RecordDoc[]
   beforeEach(async () => {
-    records = await seed()
+    const result = await seed()
+    records = result.records
   })
 
   describe('POST /api/user', () => {
@@ -282,6 +283,26 @@ describe('intergration test', () => {
     test('クッキーなし 401エラー', async () => {
       await request(app)
         .delete(`/api/record/${records[1]._id}`)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(401)
+    })
+  })
+
+  describe('GET /api/timelines', () => {
+    test('response timelines', async () => {
+      const response = await request(app)
+        .get(`/api/timelines`)
+        .set('Accept', 'application/json')
+        .set('Cookie', ['userId=5f24196497a4c3076ab1e757'])
+        .expect(200)
+
+      expect(response.body).toBeDefined()
+    })
+
+    test('クッキーなし 401エラー', async () => {
+      await request(app)
+        .delete(`/api/timelines`)
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
         .expect(401)
