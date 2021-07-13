@@ -9,13 +9,11 @@ import mongoose, {
 } from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 import mongooseAutoPopulate from 'mongoose-autopopulate'
-import { LoginUser } from '~/types/auth'
-import { Record } from '~/types/record'
-import { Timeline } from '~/types/timeline'
+import { Timeline, TimelineRecord, TimelineUser } from '~/types/timeline'
 
 export interface TimelineDoc extends Document {
-  user: LoginUser & { _id?: string }
-  record: Record
+  user: TimelineUser & { _id?: string }
+  record: TimelineRecord
   likes: string[]
   createdAt: string
   updatedAt: string
@@ -74,14 +72,14 @@ export const convert = (
     const likeCount = doc.likes.length
     const isLiked = doc.likes.includes(userId)
 
-    delete doc.user._id
+    const user = { username: doc.user.username, photoURL: doc.user.photoURL }
 
     return {
       _id: doc._id,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
       record: doc.record,
-      user: doc.user,
+      user,
       me,
       likeCount,
       isLiked

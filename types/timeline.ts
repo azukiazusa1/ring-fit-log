@@ -1,14 +1,21 @@
-import { IRecord } from './record'
+import { Record } from './record'
+import { LoginUser } from './auth'
 
-export interface User {
-  username: string
-  photoURL: string
-}
+export type TimelineUser = Pick<LoginUser, 'username' | 'photoURL'>
+
+export type TimelineRecord = Pick<
+  Record,
+  | 'stamps'
+  | 'comment'
+  | 'totalDistanceRun'
+  | 'totalCaloriesBurned'
+  | 'totalTimeExercising'
+>
 
 export interface Timeline {
   _id: string
-  record: IRecord
-  user: User
+  record: TimelineRecord
+  user: TimelineUser
   createdAt: string
   updatedAt: string
   likeCount: number
