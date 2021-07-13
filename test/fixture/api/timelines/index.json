@@ -11,6 +11,7 @@
   "docs": [
     {
       "record": {
+        "_id": "60ec0b4ce31dee00040e07e9",
         "comment": "ワイドスクワット3000回達成！",
         "totalDistanceRun": 0.39,
         "totalCaloriesBurned": 130.32,
@@ -22,7 +23,6 @@
           "legs": false,
           "yoga": false
         },
-        "userId": "5fa223ebbef52292ba309f23",
         "createdAt": "2021-07-06T14:48:21.068Z",
         "updatedAt": "2021-07-06T14:50:32.727Z"
       },
@@ -38,6 +38,7 @@
     },
     {
       "record": {
+        "_id": "60eaf83dfa54a8000483d221",
         "comment": "今日から始めた",
         "totalDistanceRun": 1.15,
         "totalCaloriesBurned": 44.4,
@@ -49,7 +50,6 @@
           "legs": true,
           "yoga": false
         },
-        "userId": "60e6625ea7ff09f52f0917cc",
         "createdAt": "2021-07-08T12:55:22.124Z",
         "updatedAt": "2021-07-08T12:57:19.571Z"
       },
@@ -65,6 +65,7 @@
     },
     {
       "record": {
+        "_id": "60ea9eebfa54a8000483d220",
         "comment": "",
         "totalDistanceRun": 1.18,
         "totalCaloriesBurned": 108.41,
@@ -76,7 +77,6 @@
           "legs": true,
           "yoga": true
         },
-        "userId": "60e643a0a7ff09f52ffd74fd",
         "createdAt": "2021-07-08T10:18:55.080Z",
         "updatedAt": "2021-07-08T10:18:55.080Z"
       },
