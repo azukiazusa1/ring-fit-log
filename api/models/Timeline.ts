@@ -5,8 +5,7 @@ import mongoose, {
   models,
   FilterQuery,
   PaginateOptions,
-  PaginateResult,
-  Types
+  PaginateResult
 } from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 import mongooseAutoPopulate from 'mongoose-autopopulate'
