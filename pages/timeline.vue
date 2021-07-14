@@ -7,7 +7,7 @@
     </v-row>
     <v-row v-else>
       <v-col v-for="(item, index) in timelines" :key="index" cols="12">
-        <timeline-card :item="item" class="mb-2" />
+        <timeline-card :item="item" class="mb-2" @toggleLike="toggleLike" />
       </v-col>
       <v-col cols="12" align="center">
         <v-progress-circular
@@ -100,6 +100,9 @@ export default Vue.extend({
           message: 'データの取得時にエラーが発生しました。'
         })
       }
+    },
+    toggleLike({ id }: { id: string }) {
+      TimelinesStore.toggleLike({ id })
     },
     onIntersect(entries: any) {
       if (!this.loading && entries[0].isIntersecting) {

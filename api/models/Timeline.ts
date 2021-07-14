@@ -58,7 +58,30 @@ interface TimelineModel extends Model<TimelineDoc> {
     options?: PaginateOptions,
     callback?: (err: any, result: PaginateResult<TimelineDoc>) => void
   ): Promise<PaginateResult<TimelineDoc>>
+  toggleLike(id: string, userId: string): Promise<void>
 }
+
+const statics = {
+  async toggleLike(
+    this: TimelineModel,
+    id: string,
+    userId: string
+  ): Promise<void> {
+    const timeline = await this.findById(id)
+
+    if (!timeline) {
+      throw new Error('not found')
+    }
+
+    if (timeline.likes.includes(userId)) {
+      await this.findByIdAndUpdate(id, { $pull: { likes: userId } })
+    } else {
+      await this.findByIdAndUpdate(id, { $addToSet: { likes: userId } })
+    }
+  }
+}
+
+timelineSchema.statics = statics
 
 timelineSchema.plugin(mongoosePaginate)
 timelineSchema.plugin(mongooseAutoPopulate)

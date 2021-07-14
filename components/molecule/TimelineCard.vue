@@ -42,9 +42,9 @@
         </v-list-item-content>
 
         <v-row align="center" justify="end">
-          <good-icon class="mr-2" :value="isLiked" @click="toggleLike" />
+          <good-icon class="mr-2" :value="item.isLiked" @click="toggleLike" />
           <span :class="color" class="pointer" @click="toggleLike">
-            {{ likeCount }}
+            {{ item.likeCount }}
           </span>
         </v-row>
       </v-list-item>
@@ -79,12 +79,6 @@ export default Vue.extend({
       required: true
     }
   },
-  data() {
-    return {
-      isLiked: false,
-      likeCount: 0
-    }
-  },
   computed: {
     stamps(): Stamps {
       return this.item.record.stamps
@@ -93,22 +87,12 @@ export default Vue.extend({
       return ms2stringTime(this.item.record.totalTimeExercising)
     },
     color(): string {
-      return this.isLiked ? 'orange--text text--darken-1' : ''
+      return this.item.isLiked ? 'orange--text text--darken-1' : ''
     }
-  },
-  created(): void {
-    this.isLiked = this.item.isLiked
-    this.likeCount = this.item.likeCount
   },
   methods: {
     toggleLike(): void {
-      this.isLiked = !this.isLiked
-      if (this.isLiked) {
-        this.likeCount++
-      } else {
-        this.likeCount--
-      }
-      this.$emit('toggleLike')
+      this.$emit('toggleLike', { id: this.item._id })
     }
   }
 })
