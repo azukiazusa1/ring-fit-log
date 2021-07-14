@@ -68,20 +68,19 @@ const statics = {
     id: string,
     userId: string
   ): Promise<void> {
+    console.log({ id, userId })
     const timeline = await this.findById(id)
 
+    console.log({ timeline })
     if (!timeline) {
       throw new Error('not found')
     }
 
-    const { likes } = timeline
-    if (likes.includes(userId)) {
-      likes.filter((like) => like !== userId)
+    if (timeline.likes.includes(userId)) {
+      await this.findByIdAndUpdate(id, { $pull: { likes: userId } })
     } else {
-      likes.push(userId)
+      await this.findByIdAndUpdate(id, { $addToSet: { likes: userId } })
     }
-
-    this.findByIdAndUpdate(id, { likes })
   }
 }
 

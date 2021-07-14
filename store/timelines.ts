@@ -16,6 +16,11 @@ export default class TimelinesModule extends VuexModule {
     return this.timelines
   }
 
+  public get getTimelineById() {
+    return (id: string) =>
+      this.timelines.find((timeline) => timeline._id === id)
+  }
+
   public get getPaginate() {
     return this.paginate
   }
@@ -23,6 +28,23 @@ export default class TimelinesModule extends VuexModule {
   @Mutation
   private addTimelines(timelines: Timeline[]) {
     this.timelines = [...this.timelines, ...timelines]
+  }
+
+  @Mutation
+  private addLike(id: string) {
+    console.log('add')
+    const index = this.timelines.findIndex((timeline) => timeline._id === id)
+    this.timelines[index].isLiked = true
+    this.timelines[index].likeCount++
+    console.log(this.timelines[index])
+  }
+
+  @Mutation
+  private removeLike(id: string) {
+    console.log('remove')
+    const index = this.timelines.findIndex((timeline) => timeline._id === id)
+    this.timelines[index].isLiked = false
+    this.timelines[index].likeCount--
   }
 
   @Mutation
@@ -43,6 +65,21 @@ export default class TimelinesModule extends VuexModule {
     )
     this.addTimelines(data.docs)
     this.setPaginagte(data)
+  }
+
+  @Action({ rawError: true })
+  public toggleLike({ id }: { id: string }) {
+    $axios.put(`/api/timelines/${id}/like`)
+    const timeline = this.getTimelineById(id)
+    console.log(timeline)
+    if (!timeline) {
+      return
+    }
+    if (timeline.isLiked) {
+      this.removeLike(id)
+    } else {
+      this.addLike(id)
+    }
   }
 
   @Action({ rawError: true })
