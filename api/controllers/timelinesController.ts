@@ -33,6 +33,7 @@ export default {
     const { id } = req.params
     try {
       await Timeline.toggleLike(id, res.locals.userId)
+      res.sendStatus(204)
     } catch (e) {
       console.log(e)
       next(Boom.internal())

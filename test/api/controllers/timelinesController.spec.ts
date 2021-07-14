@@ -59,6 +59,12 @@ jest.mock('~/api/models/Timeline', () => {
           }
         ]
       })
+    }),
+    toggleLike: jest.fn((_id: string, _userId: string) => {
+      if (mockError) {
+        return Promise.reject(new Error('mock error'))
+      }
+      return Promise.resolve()
     })
   }
 })
@@ -190,6 +196,56 @@ describe('~/api/controllers/timelineController', () => {
       expect(next).toHaveBeenCalled()
       const { output } = getCallError(next)
       expect(output.statusCode).toEqual(500)
+    })
+  })
+
+  describe('like action', () => {
+    describe('正常系', () => {
+      const next = jest.fn()
+
+      test('idを受け取り、対象のレコードのlikesを更新する', async () => {
+        const req = mockReq({
+          params: {
+            id: 'test'
+          }
+        })
+
+        const res = mockRes({
+          locals: { userId: '5f24196497a4c3076ab1e757' }
+        })
+
+        await timelinesController.like(req, res, next)
+
+        expect(Timeline.toggleLike).toHaveBeenCalledWith(
+          'test',
+          '5f24196497a4c3076ab1e757'
+        )
+
+        expect(res.sendStatus.calledWith(204)).toBeTruthy()
+      })
+    })
+
+    describe('異常系', () => {
+      const req = mockReq({
+        params: {
+          id: 'test'
+        }
+      })
+
+      const res = mockRes({
+        locals: { userId: '5f24196497a4c3076ab1e757' }
+      })
+
+      const next = jest.fn()
+
+      test('dbエラー', async () => {
+        mockError = true
+        await timelinesController.like(req, res, next)
+
+        expect(next).toHaveBeenCalled()
+        const { output } = getCallError(next)
+        expect(output.statusCode).toEqual(500)
+      })
     })
   })
 })
