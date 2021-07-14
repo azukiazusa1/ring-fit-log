@@ -55,7 +55,7 @@ export default Vue.extend({
     const { $cookies } = app
     const user = $cookies.get('userInfo')
     let showDialog = false
-    if (user.timeline) {
+    if (user?.timeline) {
       showDialog = false
     } else {
       showDialog = true
