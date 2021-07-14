@@ -1,0 +1,97 @@
+{
+  "totalDocs": 13,
+  "limit": 10,
+  "page": 1,
+  "nextPage": 2,
+  "prevPage": null,
+  "hasNextPage": true,
+  "hasPrevPage": false,
+  "totalPages": 2,
+  "pagingCounter": 1,
+  "docs": [
+    {
+      "record": {
+        "_id": "60ec0b4ce31dee00040e07e9",
+        "comment": "ワイドスクワット3000回達成！",
+        "totalDistanceRun": 0.39,
+        "totalCaloriesBurned": 130.32,
+        "totalTimeExercising": 1963000,
+        "date": "2021-07-06T14:47:15.000Z",
+        "stamps": {
+          "arms": false,
+          "stomach": false,
+          "legs": false,
+          "yoga": false
+        },
+        "createdAt": "2021-07-06T14:48:21.068Z",
+        "updatedAt": "2021-07-06T14:50:32.727Z"
+      },
+      "user": {
+        "username": "user1",
+        "photoURL": "https://cdn.vuetifyjs.com/images/lists/1.jpg"
+      },
+      "_id": "60ea4f18005d0c7f927d953a",
+      "createdAt": "2021-07-06T14:48:21.068Z",
+      "updatedAt": "2021-07-06T14:50:32.727Z",
+      "isLiked": false,
+      "likeCount": 10,
+      "me": false
+    },
+    {
+      "record": {
+        "_id": "60eaf83dfa54a8000483d221",
+        "comment": "今日から始めた",
+        "totalDistanceRun": 1.15,
+        "totalCaloriesBurned": 44.4,
+        "totalTimeExercising": 746000,
+        "date": "2021-07-07T00:00:00.000Z",
+        "stamps": {
+          "arms": true,
+          "stomach": false,
+          "legs": true,
+          "yoga": false
+        },
+        "createdAt": "2021-07-08T12:55:22.124Z",
+        "updatedAt": "2021-07-08T12:57:19.571Z"
+      },
+      "user": {
+        "username": "user2",
+        "photoURL": "https://cdn.vuetifyjs.com/images/lists/2.jpg"
+      },
+      "_id": "60ea4f18005d0c7f927d953c",
+      "createdAt": "2021-07-08T12:55:22.124Z",
+      "updatedAt": "2021-07-08T12:55:22.124Z",
+      "isLiked": true,
+      "likeCount": 8,
+      "me": true
+    },
+    {
+      "record": {
+        "_id": "60ea9eebfa54a8000483d220",
+        "comment": "",
+        "totalDistanceRun": 1.18,
+        "totalCaloriesBurned": 108.41,
+        "totalTimeExercising": 1646000,
+        "date": "2021-07-08T08:45:50.000Z",
+        "stamps": {
+          "arms": true,
+          "stomach": true,
+          "legs": true,
+          "yoga": true
+        },
+        "createdAt": "2021-07-08T10:18:55.080Z",
+        "updatedAt": "2021-07-08T10:18:55.080Z"
+      },
+      "user": {
+        "username": "user3",
+        "photoURL": "https://cdn.vuetifyjs.com/images/lists/3.jpg"
+      },
+      "_id": "60ea4f18005d0c7f927d953b",
+      "createdAt": "2021-07-08T10:18:55.080Z",
+      "updatedAt": "2021-07-08T10:18:55.080Z",
+      "isLiked": true,
+      "likeCount": 20,
+      "me": false
+    }
+  ]
+}

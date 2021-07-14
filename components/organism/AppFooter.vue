@@ -1,7 +1,13 @@
 <template>
   <v-bottom-navigation class="d-md-none" color="main" app>
     <template v-for="(item, key) in items">
-      <NavItem :key="key" :title="item.title" :icon="item.icon" :to="item.to" />
+      <NavItem
+        :key="key"
+        :title="item.title"
+        :icon="item.icon"
+        :to="item.to"
+        :badge="item.badge"
+      />
     </template>
   </v-bottom-navigation>
 </template>

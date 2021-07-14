@@ -7,6 +7,7 @@
         :title="item.title"
         :icon="item.icon"
         :to="item.to"
+        :badge="item.badge"
         prepend-icon
         text
       />

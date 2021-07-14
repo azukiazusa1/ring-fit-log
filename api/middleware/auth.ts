@@ -6,6 +6,7 @@ export default (
   res: Express.Response,
   next: Express.NextFunction
 ) => {
+  if (req.method === 'POST' && req.path === '/users') return next()
   const userId = req.cookies.userId ?? req.headers?.uid
   if (userId) {
     res.locals.userId = userId

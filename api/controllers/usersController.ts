@@ -2,7 +2,6 @@ import Express from 'express'
 import httpStatus from 'http-status-codes'
 import Boom from '@hapi/boom'
 import AppUser from '../models/User'
-import { LoginUser } from '~/types/auth'
 
 export default {
   create: async (
@@ -10,12 +9,31 @@ export default {
     res: Express.Response,
     next: Express.NextFunction
   ) => {
-    const user: LoginUser = req.body.user
+    const user = req.body.user
+    user.timeline = true
     try {
-      const result = await AppUser.findOne().findOrCreate(user)
-      res.status(httpStatus.OK).json({ uid: result._id })
+      const result = await AppUser.findOrCreate(user)
+      res.status(httpStatus.OK).json(result)
     } catch (e) {
-      next(Boom.internal('予期せぬエラーが発生しました。'))
+      next(Boom.internal())
+    }
+  },
+  update: async (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const { username, photoURL, timeline } = req.body
+    const userId = res.locals.userId
+    try {
+      const result = await AppUser.findByIdAndUpdate(
+        userId,
+        { username, photoURL, timeline },
+        { new: true }
+      )
+      res.status(httpStatus.OK).json(result)
+    } catch (e) {
+      next(Boom.internal())
     }
   }
 }

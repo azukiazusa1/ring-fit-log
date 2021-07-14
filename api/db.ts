@@ -12,6 +12,7 @@ export const connect = () => {
   if (process.env.NODE_ENV === 'test') {
     return mongoose.connect((global as any).__MONGO_URI__, options, (err) => {
       if (err) {
+        // eslint-disable-next-line no-console
         console.error(err)
         process.exit(1)
       }
