@@ -5,7 +5,8 @@ import mongoose, {
   models,
   FilterQuery,
   PaginateOptions,
-  PaginateResult
+  PaginateResult,
+  Types
 } from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 import mongooseAutoPopulate from 'mongoose-autopopulate'
@@ -58,7 +59,33 @@ interface TimelineModel extends Model<TimelineDoc> {
     options?: PaginateOptions,
     callback?: (err: any, result: PaginateResult<TimelineDoc>) => void
   ): Promise<PaginateResult<TimelineDoc>>
+  toggleLike(_id: Types.ObjectId, userId: string): Promise<void>
 }
+
+const static = {
+  async toggleLike(
+    this: TimelineModel,
+    id: Types.ObjectId,
+    userId: string
+  ): Promise<void> {
+    const timeline = await this.findById(id)
+
+    if (!timeline) {
+      throw new Error('not found')
+    }
+
+    const { likes } = timeline
+    if (likes.includes(userId)) {
+      likes.filter((like) => like !== userId)
+    } else {
+      likes.push(userId)
+    }
+
+    this.findByIdAndUpdate(id, { likes })
+  }
+}
+
+timelineSchema.static = static
 
 timelineSchema.plugin(mongoosePaginate)
 timelineSchema.plugin(mongooseAutoPopulate)

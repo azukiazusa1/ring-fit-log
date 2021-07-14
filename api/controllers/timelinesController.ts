@@ -24,5 +24,18 @@ export default {
       console.log(e)
       next(Boom.internal())
     }
+  },
+  like: async (
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const { id } = req.params
+    try {
+      await Timeline.toggleLike(id, res.locals.userId)
+    } catch (e) {
+      console.log(e)
+      next(Boom.internal())
+    }
   }
 }
