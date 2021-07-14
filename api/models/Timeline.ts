@@ -59,13 +59,13 @@ interface TimelineModel extends Model<TimelineDoc> {
     options?: PaginateOptions,
     callback?: (err: any, result: PaginateResult<TimelineDoc>) => void
   ): Promise<PaginateResult<TimelineDoc>>
-  toggleLike(_id: Types.ObjectId, userId: string): Promise<void>
+  toggleLike(id: string, userId: string): Promise<void>
 }
 
-const static = {
+const statics = {
   async toggleLike(
     this: TimelineModel,
-    id: Types.ObjectId,
+    id: string,
     userId: string
   ): Promise<void> {
     const timeline = await this.findById(id)
@@ -85,7 +85,7 @@ const static = {
   }
 }
 
-timelineSchema.static = static
+timelineSchema.statics = statics
 
 timelineSchema.plugin(mongoosePaginate)
 timelineSchema.plugin(mongooseAutoPopulate)

@@ -18,4 +18,11 @@ describe('~/api/routes/timelineRoutes', () => {
       timelinesController.list
     )
   })
+
+  test('put /api/timeline/:id/like', () => {
+    expect(timelineRoutes.put).toHaveBeenCalledWith(
+      '/:id/like',
+      timelinesController.like
+    )
+  })
 })
