@@ -68,10 +68,8 @@ const statics = {
     id: string,
     userId: string
   ): Promise<void> {
-    console.log({ id, userId })
     const timeline = await this.findById(id)
 
-    console.log({ timeline })
     if (!timeline) {
       throw new Error('not found')
     }

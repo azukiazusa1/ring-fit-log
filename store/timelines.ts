@@ -32,19 +32,34 @@ export default class TimelinesModule extends VuexModule {
 
   @Mutation
   private addLike(id: string) {
-    console.log('add')
-    const index = this.timelines.findIndex((timeline) => timeline._id === id)
-    this.timelines[index].isLiked = true
-    this.timelines[index].likeCount++
-    console.log(this.timelines[index])
+    this.timelines = this.timelines.map((timeline) => {
+      if (timeline._id === id) {
+        const { likeCount } = timeline
+        return {
+          ...timeline,
+          isLiked: true,
+          likeCount: likeCount + 1
+        }
+      } else {
+        return timeline
+      }
+    })
   }
 
   @Mutation
   private removeLike(id: string) {
-    console.log('remove')
-    const index = this.timelines.findIndex((timeline) => timeline._id === id)
-    this.timelines[index].isLiked = false
-    this.timelines[index].likeCount--
+    this.timelines = this.timelines.map((timeline) => {
+      if (timeline._id === id) {
+        const { likeCount } = timeline
+        return {
+          ...timeline,
+          isLiked: false,
+          likeCount: likeCount - 1
+        }
+      } else {
+        return timeline
+      }
+    })
   }
 
   @Mutation
@@ -71,7 +86,6 @@ export default class TimelinesModule extends VuexModule {
   public toggleLike({ id }: { id: string }) {
     $axios.put(`/api/timelines/${id}/like`)
     const timeline = this.getTimelineById(id)
-    console.log(timeline)
     if (!timeline) {
       return
     }
