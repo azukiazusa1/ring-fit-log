@@ -25,5 +25,19 @@ export default {
     } catch (e) {
       next(Boom.internal())
     }
+  },
+  frequentTimes: async (
+    _req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
+  ) => {
+    const userId = res.locals.userId
+    try {
+      const frequentTime = await Record.frequentTimeByUserd(userId)
+      const userFrequentTime = await Record.frequentTimeByUserId(userId)
+      res.status(httpStatusCode.OK).json([...frequentTime, ...userFrequentTime])
+    } catch (e) {
+      next(Boom.internal())
+    }
   }
 }
