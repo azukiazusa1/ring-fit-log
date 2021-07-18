@@ -129,6 +129,8 @@ interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   findByYear(date: Date, userId: string): Promise<RecordDoc[]>
   average(): Promise<AverageRecordDoc[]>
   averageByUser(userId: string): Promise<AverageRecordDoc[]>
+  frequentTimes(): Promise<AverageRecordDoc[]>
+  frequentTimesByUser(userId: string): Promise<AverageRecordDoc[]>
   paginate(
     query?: FilterQuery<RecordDoc>,
     options?: PaginateOptions,
@@ -216,6 +218,27 @@ const statics = {
         avgTimeExercising: { $avg: '$totalTimeExercising' },
         avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
         avgDistanceRun: { $avg: '$totalDistanceRun' }
+      })
+  },
+  frequentTimes(this: RecordModel) {
+    return this.aggregate<AverageRecordDoc>()
+      .project({
+        h: { $hour: { $add: ['$createdAt', 9 * 60 * 60 * 1000] } }
+      })
+      .group({
+        _id: { hour: '$h' },
+        count: { $sum: 1 }
+      })
+  },
+  frequentTimesByUser(this: RecordModel, userId: string) {
+    return this.aggregate<AverageRecordDoc>()
+      .match({ userId })
+      .project({
+        h: { $hour: { $add: ['$createdAt', 9 * 60 * 60 * 1000] } }
+      })
+      .group({
+        _id: { hour: '$h' },
+        count: { $sum: 1 }
       })
   }
 }
