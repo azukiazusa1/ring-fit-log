@@ -2,6 +2,7 @@ import Express from 'express'
 import Boom from '@hapi/boom'
 import httpStatusCode from 'http-status-codes'
 import Record from '../models/Record'
+import frequentTimesResouce from '../resouces/frequentTimesResouce'
 
 export default {
   average: async (
@@ -33,10 +34,28 @@ export default {
   ) => {
     const userId = res.locals.userId
     try {
-      const frequentTime = await Record.frequentTimeByUserd(userId)
-      const userFrequentTime = await Record.frequentTimeByUserId(userId)
-      res.status(httpStatusCode.OK).json([...frequentTime, ...userFrequentTime])
+      const PromiseFrequentTimes = Record.frequentTimes()
+      const promiseTotal = Record.countDocuments({})
+      const PromiseUserFrequentTimes = Record.frequentTimesByUser(userId)
+      const promiseUserTotal = Record.countDocuments({ userId })
+      const [
+        frequentTimes,
+        total,
+        userFrequentTimes,
+        userTotal
+      ] = await Promise.all([
+        PromiseFrequentTimes,
+        promiseTotal,
+        PromiseUserFrequentTimes,
+        promiseUserTotal
+      ])
+
+      res.status(httpStatusCode.OK).json({
+        frequentTime: frequentTimesResouce(frequentTimes, total),
+        userFrequentTimes: frequentTimesResouce(userFrequentTimes, userTotal)
+      })
     } catch (e) {
+      console.log(e)
       next(Boom.internal())
     }
   }

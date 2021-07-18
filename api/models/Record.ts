@@ -116,11 +116,18 @@ const queryHelpers = {
 }
 recordSchema.query = queryHelpers
 
-type AverageRecordDoc = {
+export type AverageRecordDoc = {
   _id: null
   avgTimeExercising: number | null
   avgCaloriesBurned: number | null
   avgDistanceRun: number | null
+}
+
+export type FrequentTimeDoc = {
+  _id: {
+    hour: number
+  }
+  count: number
 }
 
 interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
@@ -129,8 +136,8 @@ interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   findByYear(date: Date, userId: string): Promise<RecordDoc[]>
   average(): Promise<AverageRecordDoc[]>
   averageByUser(userId: string): Promise<AverageRecordDoc[]>
-  frequentTimes(): Promise<AverageRecordDoc[]>
-  frequentTimesByUser(userId: string): Promise<AverageRecordDoc[]>
+  frequentTimes(): Promise<FrequentTimeDoc[]>
+  frequentTimesByUser(userId: string): Promise<FrequentTimeDoc[]>
   paginate(
     query?: FilterQuery<RecordDoc>,
     options?: PaginateOptions,
@@ -221,7 +228,7 @@ const statics = {
       })
   },
   frequentTimes(this: RecordModel) {
-    return this.aggregate<AverageRecordDoc>()
+    return this.aggregate<FrequentTimeDoc>()
       .project({
         h: { $hour: { $add: ['$createdAt', 9 * 60 * 60 * 1000] } }
       })
@@ -231,7 +238,7 @@ const statics = {
       })
   },
   frequentTimesByUser(this: RecordModel, userId: string) {
-    return this.aggregate<AverageRecordDoc>()
+    return this.aggregate<FrequentTimeDoc>()
       .match({ userId })
       .project({
         h: { $hour: { $add: ['$createdAt', 9 * 60 * 60 * 1000] } }
