@@ -3,3 +3,13 @@ export interface AverageData {
   avgCaloriesBurned: number
   avgDistanceRun: number
 }
+
+export interface FrequentTime {
+  hour: number
+  percentage: number
+}
+
+export interface FrequentTimeResponse {
+  frequentTimes: FrequentTime[]
+  userFequentTimes: FrequentTime[]
+}

@@ -1,36 +1,50 @@
 <template>
   <div>
-    <average-data-list
-      :user-average-data="userAverageData"
-      :average-data="averageData"
-    />
-    <v-toolbar class="my-5" color="#ffbb00" dark flat>
-      <v-toolbar-title class="font-weight-bold">すべての記録</v-toolbar-title>
-      <v-spacer></v-spacer>
+    <v-tabs v-model="tab">
+      <v-tab v-for="tabItem in tabItems" :key="tabItem" class="mr-4">
+        {{ tabItem }}
+      </v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item>
+        <average-data-list
+          :user-average-data="userAverageData"
+          :average-data="averageData"
+        />
+      </v-tab-item>
+      <v-tab-item>
+        <v-toolbar class="my-5" color="#ffbb00" dark flat>
+          <v-toolbar-title class="font-weight-bold"
+            >すべての記録</v-toolbar-title
+          >
+          <v-spacer></v-spacer>
 
-      <v-btn text href="/api/record/csv" download>
-        <span class="font-weight-bold">CSVでダウンロード</span>
-        <v-icon small class="ml-2">fas fa-download</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      :options.sync="options"
-      :server-items-length="total"
-      :loading="loading"
-      :footer-props="footerProps"
-      locale="ja"
-      class="elevation-1"
-      @click:row="clickTableTow"
-    >
-      <template v-slot:item.date="{ item }">
-        <app-time :date="item.date" format="YYYY/MM/DD（ddd）" />
-      </template>
-      <template v-slot:item.totalTimeExercising="{ item }">
-        {{ ms2stringTime(item.totalTimeExercising) }}
-      </template>
-    </v-data-table>
+          <v-btn text href="/api/record/csv" download>
+            <span class="font-weight-bold">CSVでダウンロード</span>
+            <v-icon small class="ml-2">fas fa-download</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          :options.sync="options"
+          :server-items-length="total"
+          :loading="loading"
+          :footer-props="footerProps"
+          locale="ja"
+          class="elevation-1"
+          @click:row="clickTableTow"
+        >
+          <template v-slot:item.date="{ item }">
+            <app-time :date="item.date" format="YYYY/MM/DD（ddd）" />
+          </template>
+          <template v-slot:item.totalTimeExercising="{ item }">
+            {{ ms2stringTime(item.totalTimeExercising) }}
+          </template>
+        </v-data-table>
+      </v-tab-item>
+      <v-tab-item>a</v-tab-item>
+    </v-tabs-items>
   </div>
 </template>
 
@@ -59,6 +73,8 @@ export default Vue.extend({
   },
   data() {
     return {
+      tab: null,
+      tabItems: ['集計', '運動履歴', '分析'],
       loading: true,
       options: {},
       headers: [
@@ -123,7 +139,7 @@ export default Vue.extend({
   },
   head() {
     return {
-      title: '集計'
+      title: 'レポート'
     }
   }
 })

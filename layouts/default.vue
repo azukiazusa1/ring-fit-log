@@ -55,8 +55,8 @@ export default Vue.extend({
         },
         {
           icon: 'fas fa-calculator',
-          title: '集計',
-          to: '/aggregation'
+          title: 'レポート',
+          to: '/report'
         }
       ],
       title: 'リングフィットログ'
