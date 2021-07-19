@@ -79,8 +79,11 @@ const config = {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
-    ['@nuxtjs/moment', { locals: ['ja'] }]
+    ['@nuxtjs/moment']
   ],
+  moment: {
+    locales: ['ja']
+  },
   /*
    ** Nuxt.js modules
    */

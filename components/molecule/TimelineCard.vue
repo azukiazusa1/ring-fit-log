@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <span class="text-h6">
-        <app-time :date="item.createdAt" format="YYYY/MM/DD" />
+        {{ $moment(item.createdAt).fromNow() }}
       </span>
       <span class="ml-2">
         <ArmsIcon v-if="stamps.arms" value :ripple="false" />
@@ -61,12 +61,10 @@ import ArmsIcon from '~/components/atom/icon/ArmsIcon.vue'
 import StomachIcon from '~/components/atom/icon/StomackIcon.vue'
 import LegsIcon from '~/components/atom/icon/LegsIcon.vue'
 import YogaIcon from '~/components/atom/icon/YogaIcon.vue'
-import AppTime from '~/components/atom/AppTime.vue'
 import { Stamps } from '~/types/record'
 
 export default Vue.extend({
   components: {
-    AppTime,
     GoodIcon,
     ArmsIcon,
     StomachIcon,
