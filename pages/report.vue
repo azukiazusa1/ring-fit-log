@@ -34,7 +34,8 @@ export default Vue.extend({
   },
   async asyncData({ $sentry }): Promise<void> {
     try {
-      await AggregateStore.fetch()
+      await AggregateStore.fetchAverage()
+      await AggregateStore.fetchFrequentTimes()
     } catch (e) {
       $sentry.captureException(e)
       SnackbarModule.error({

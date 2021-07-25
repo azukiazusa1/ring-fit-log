@@ -11,5 +11,5 @@ export interface FrequentTime {
 
 export interface FrequentTimeResponse {
   frequentTimes: FrequentTime[]
-  userFequentTimes: FrequentTime[]
+  userFrequentTimes: FrequentTime[]
 }

@@ -51,7 +51,7 @@ export default {
       ])
 
       res.status(httpStatusCode.OK).json({
-        frequentTime: frequentTimesResouce(frequentTimes, total),
+        frequentTimes: frequentTimesResouce(frequentTimes, total),
         userFrequentTimes: frequentTimesResouce(userFrequentTimes, userTotal)
       })
     } catch (e) {

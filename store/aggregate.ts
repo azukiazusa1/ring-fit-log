@@ -92,11 +92,11 @@ export default class AggregateModule extends VuexModule {
   @Action({ rawError: true })
   public async fetchFrequentTimes() {
     const { data } = await $axios.get<FrequentTimeResponse>(
-      `/api/frequent/times`
+      `/api/aggregate/frequent/times`
     )
-    const { frequentTimes, userFequentTimes } = data
+    const { frequentTimes, userFrequentTimes } = data
 
     this.setFrequentTimes(frequentTimes)
-    this.setUserFrequentTimes(userFequentTimes)
+    this.setUserFrequentTimes(userFrequentTimes)
   }
 }
