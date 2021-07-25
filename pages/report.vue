@@ -12,7 +12,9 @@
       <v-tab-item>
         <all-data-tab />
       </v-tab-item>
-      <v-tab-item>a</v-tab-item>
+      <v-tab-item>
+        <analysis-tab />
+      </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
@@ -22,11 +24,13 @@ import Vue from 'vue'
 import { AggregateStore, SnackbarModule } from '~/store'
 import AggregateTab from '~/components/organism/Report/AggregateTab.vue'
 import AllDataTab from '~/components/organism/Report/AllDataTab.vue'
+import AnalysisTab from '~/components/organism/Report/AnalysisTab.vue'
 
 export default Vue.extend({
   components: {
     AggregateTab,
-    AllDataTab
+    AllDataTab,
+    AnalysisTab
   },
   async asyncData({ $sentry }): Promise<void> {
     try {
