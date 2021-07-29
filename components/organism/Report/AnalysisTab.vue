@@ -17,7 +17,7 @@ export default Vue.extend({
     ReportHeader
   },
   computed: {
-    hour(): number {
+    hour(): number | undefined {
       return AggregateStore.getUserMostFrequentTime?.hour
     }
   }
