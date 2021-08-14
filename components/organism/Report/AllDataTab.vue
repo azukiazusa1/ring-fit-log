@@ -1,18 +1,11 @@
 <template>
   <div>
-    <average-data-list
-      :user-average-data="userAverageData"
-      :average-data="averageData"
-    />
-    <v-toolbar class="my-5" color="#ffbb00" dark flat>
-      <v-toolbar-title class="font-weight-bold">すべての記録</v-toolbar-title>
-      <v-spacer></v-spacer>
+    <report-header>すべての記録</report-header>
 
-      <v-btn text href="/api/record/csv" download>
-        <span class="font-weight-bold">CSVでダウンロード</span>
-        <v-icon small class="ml-2">fas fa-download</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <v-btn text href="/api/record/csv" download>
+      <span class="font-weight-bold">CSVでダウンロード</span>
+      <v-icon small class="ml-2">fas fa-download</v-icon>
+    </v-btn>
     <v-data-table
       :headers="headers"
       :items="items"
@@ -37,25 +30,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import { AggregateStore, RecordsStore, SnackbarModule } from '~/store'
-import AverageDataList from '~/components/molecule/AverageDataList.vue'
 import AppTime from '~/components/atom/AppTime.vue'
+import ReportHeader from '@/components/atom/Report/Header.vue'
 import { ms2stringTime } from '~/utils/msConversion'
 import { Record } from '~/types/record'
 
 export default Vue.extend({
   components: {
-    AverageDataList,
-    AppTime
-  },
-  async asyncData({ $sentry }): Promise<void> {
-    try {
-      await AggregateStore.fetch()
-    } catch (e) {
-      $sentry.captureException(e)
-      SnackbarModule.error({
-        message: 'データの取得に失敗しました。'
-      })
-    }
+    AppTime,
+    ReportHeader
   },
   data() {
     return {
@@ -119,11 +102,6 @@ export default Vue.extend({
           date: this.$moment(item.date).format('YYYY-MM-DD')
         }
       })
-    }
-  },
-  head() {
-    return {
-      title: '集計'
     }
   }
 })
