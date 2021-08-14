@@ -43,7 +43,7 @@ export default Vue.extend({
             type: 'bar',
             label: 'みんな',
             backgroundColor: '#f87979',
-            data: AggregateStore.getUserFrequentTimes.map((v) => v.percentage)
+            data: AggregateStore.getFrequentTimes.map((v) => v.percentage)
           }
         ]
       }
