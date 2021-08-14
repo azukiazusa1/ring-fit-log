@@ -60,6 +60,10 @@ export default class AggregateModule extends VuexModule {
     return maxBy(this.userFrequentTimes, 'percentage')
   }
 
+  public get getMostFrequentTime() {
+    return maxBy(this.frequentTimes, 'percentage')
+  }
+
   @Mutation
   private setAverageData(averageData: AverageData) {
     this.averageData = averageData

@@ -81,6 +81,7 @@ export default Vue.extend({
   },
   computed: {
     stamps(): Stamps {
+      console.log(this.item)
       return this.item.record.stamps
     },
     totalTimeExercising(): string {

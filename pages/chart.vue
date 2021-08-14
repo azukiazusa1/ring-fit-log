@@ -76,6 +76,32 @@ export default Vue.extend({
   computed: {
     chartData(): ChartData {
       return {
+        labels: [
+          '0時',
+          '1時',
+          '2時',
+          '3時',
+          '4時',
+          '5時',
+          '6時',
+          '7時',
+          '8時',
+          '9時',
+          '10時',
+          '11時',
+          '12時',
+          '13時',
+          '14時',
+          '15時',
+          '16時',
+          '17時',
+          '18時',
+          '19時',
+          '20時',
+          '21時',
+          '22時',
+          '23時'
+        ],
         datasets: [
           {
             type: 'line',
@@ -106,7 +132,7 @@ export default Vue.extend({
             data: ChartsStore.getTotalTimeExercising(this.date, this.dateRange)
           }
         ]
-      } as ChartData
+      }
     },
     options(): ChartOptions {
       return {
@@ -209,7 +235,7 @@ export default Vue.extend({
             }
           ]
         }
-      } as ChartOptions
+      }
     },
     dateRangeUnit(): TimeUnit {
       switch (this.dateRange) {
