@@ -106,7 +106,7 @@ export default Vue.extend({
             data: ChartsStore.getTotalTimeExercising(this.date, this.dateRange)
           }
         ]
-      } as ChartData
+      }
     },
     options(): ChartOptions {
       return {
@@ -209,7 +209,7 @@ export default Vue.extend({
             }
           ]
         }
-      } as ChartOptions
+      }
     },
     dateRangeUnit(): TimeUnit {
       switch (this.dateRange) {

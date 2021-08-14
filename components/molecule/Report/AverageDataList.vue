@@ -1,9 +1,7 @@
 <template>
   <v-data-iterator :items="items" hide-default-footer>
     <template v-slot:header>
-      <v-toolbar class="mb-2" color="#ffbb00" dark flat>
-        <v-toolbar-title class="font-weight-bold">１日の平均</v-toolbar-title>
-      </v-toolbar>
+      <report-header>１日の平均</report-header>
     </template>
 
     <template v-slot:default="props">
@@ -48,12 +46,16 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue'
 import { floor } from 'lodash'
+import ReportHeader from '@/components/atom/Report/Header.vue'
 import { AverageData } from '~/types/aggregate'
 import { ms2stringTime } from '~/utils/msConversion'
 import { PRECISION } from '~/config/constant'
 
 export default Vue.extend({
   name: 'AverageDataList',
+  components: {
+    ReportHeader
+  },
   props: {
     userAverageData: {
       type: Object as PropType<AverageData>,
