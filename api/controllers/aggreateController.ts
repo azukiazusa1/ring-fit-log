@@ -14,6 +14,14 @@ export default {
     try {
       const average = await Record.average()
       const userAverage = await Record.averageByUser(userId)
+      if (average.length === 0) {
+        average.push({
+          _id: null,
+          avgTimeExercising: 0,
+          avgCaloriesBurned: 0,
+          avgDistanceRun: 0
+        })
+      }
       if (userAverage.length === 0) {
         userAverage.push({
           _id: null,
