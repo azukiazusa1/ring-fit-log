@@ -121,6 +121,12 @@ export type AverageRecordDoc = {
   avgTimeExercising: number | null
   avgCaloriesBurned: number | null
   avgDistanceRun: number | null
+  maxTimeExercising: number | null
+  maxCaloriesBurned: number | null
+  maxDistanceRun: number | null
+  sumTimeExercising: number | null
+  sumCaloriesBurned: number | null
+  sumDistanceRun: number | null
 }
 
 export type FrequentTimeDoc = {
@@ -214,7 +220,13 @@ const statics = {
       _id: null,
       avgTimeExercising: { $avg: '$totalTimeExercising' },
       avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
-      avgDistanceRun: { $avg: '$totalDistanceRun' }
+      avgDistanceRun: { $avg: '$totalDistanceRun' },
+      maxTimeExercising: { $max: '$totalTimeExercising' },
+      maxCaloriesBurned: { $max: '$totalCaloriesBurned' },
+      maxDistanceRun: { $max: '$totalDistanceRun' },
+      sumTimeExercising: { $sum: '$totalTimeExercising' },
+      sumCaloriesBurned: { $sum: '$totalCaloriesBurned' },
+      sumDistanceRun: { $sum: '$totalDistanceRun' }
     })
   },
   averageByUser(this: RecordModel, userId: string) {
@@ -224,7 +236,13 @@ const statics = {
         _id: null,
         avgTimeExercising: { $avg: '$totalTimeExercising' },
         avgCaloriesBurned: { $avg: '$totalCaloriesBurned' },
-        avgDistanceRun: { $avg: '$totalDistanceRun' }
+        avgDistanceRun: { $avg: '$totalDistanceRun' },
+        maxTimeExercising: { $max: '$totalTimeExercising' },
+        maxCaloriesBurned: { $max: '$totalCaloriesBurned' },
+        maxDistanceRun: { $max: '$totalDistanceRun' },
+        sumTimeExercising: { $sum: '$totalTimeExercising' },
+        sumCaloriesBurned: { $sum: '$totalCaloriesBurned' },
+        sumDistanceRun: { $sum: '$totalDistanceRun' }
       })
   },
   frequentTimes(this: RecordModel) {
