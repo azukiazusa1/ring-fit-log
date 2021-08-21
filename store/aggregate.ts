@@ -27,13 +27,25 @@ export default class AggregateModule extends VuexModule {
   private averageData: AverageData = {
     avgCaloriesBurned: 0,
     avgDistanceRun: 0,
-    avgTimeExercising: 0
+    avgTimeExercising: 0,
+    maxTimeExercising: 0,
+    maxCaloriesBurned: 0,
+    maxDistanceRun: 0,
+    sumTimeExercising: 0,
+    sumCaloriesBurned: 0,
+    sumDistanceRun: 0
   }
 
   private userAverageData: AverageData = {
     avgCaloriesBurned: 0,
     avgDistanceRun: 0,
-    avgTimeExercising: 0
+    avgTimeExercising: 0,
+    maxTimeExercising: 0,
+    maxCaloriesBurned: 0,
+    maxDistanceRun: 0,
+    sumTimeExercising: 0,
+    sumCaloriesBurned: 0,
+    sumDistanceRun: 0
   }
 
   private frequentTimes: FrequentTime[] = initialFrequentTimes()
