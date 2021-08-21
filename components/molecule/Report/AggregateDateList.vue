@@ -1,7 +1,7 @@
 <template>
   <v-data-iterator :items="items" hide-default-footer>
     <template v-slot:header>
-      <report-header>１日の平均</report-header>
+      <report-header>{{ header }} </report-header>
     </template>
 
     <template v-slot:default="props">
@@ -44,26 +44,46 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue from 'vue'
 import { floor } from 'lodash'
 import ReportHeader from '@/components/atom/Report/Header.vue'
-import { AverageData } from '~/types/aggregate'
 import { ms2stringTime } from '~/utils/msConversion'
 import { PRECISION } from '~/config/constant'
 
 export default Vue.extend({
-  name: 'AverageDataList',
+  name: 'AggregateDataList',
   components: {
     ReportHeader
   },
   props: {
-    userAverageData: {
-      type: Object as PropType<AverageData>,
-      required: true
+    header: {
+      type: String,
+      required: false,
+      default: ''
     },
-    averageData: {
-      type: Object as PropType<AverageData>,
-      required: true
+    userTimeExercising: {
+      type: Number,
+      default: 0
+    },
+    userCaloriesBurned: {
+      type: Number,
+      default: 0
+    },
+    userDistanceRun: {
+      type: Number,
+      default: 0
+    },
+    timeExercising: {
+      type: Number,
+      default: 0
+    },
+    caloriesBurned: {
+      type: Number,
+      default: 0
+    },
+    distanceRun: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
@@ -71,18 +91,18 @@ export default Vue.extend({
       return [
         {
           name: '活動時間',
-          my: ms2stringTime(this.userAverageData.avgTimeExercising),
-          all: ms2stringTime(this.averageData.avgTimeExercising)
+          my: ms2stringTime(this.userTimeExercising),
+          all: ms2stringTime(this.timeExercising)
         },
         {
           name: '消費カロリー（kcal）',
-          my: floor(this.userAverageData.avgCaloriesBurned, PRECISION),
-          all: floor(this.averageData.avgCaloriesBurned, PRECISION)
+          my: floor(this.userCaloriesBurned, PRECISION),
+          all: floor(this.caloriesBurned, PRECISION)
         },
         {
           name: '走行距離（km）',
-          my: floor(this.userAverageData.avgDistanceRun, PRECISION),
-          all: floor(this.averageData.avgDistanceRun, PRECISION)
+          my: floor(this.userDistanceRun, PRECISION),
+          all: floor(this.distanceRun, PRECISION)
         }
       ]
     }

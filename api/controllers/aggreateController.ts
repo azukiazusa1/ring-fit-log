@@ -19,7 +19,13 @@ export default {
           _id: null,
           avgTimeExercising: 0,
           avgCaloriesBurned: 0,
-          avgDistanceRun: 0
+          avgDistanceRun: 0,
+          maxTimeExercising: 0,
+          maxCaloriesBurned: 0,
+          maxDistanceRun: 0,
+          sumTimeExercising: 0,
+          sumCaloriesBurned: 0,
+          sumDistanceRun: 0
         })
       }
       if (userAverage.length === 0) {
@@ -27,7 +33,13 @@ export default {
           _id: null,
           avgTimeExercising: 0,
           avgCaloriesBurned: 0,
-          avgDistanceRun: 0
+          avgDistanceRun: 0,
+          maxTimeExercising: 0,
+          maxCaloriesBurned: 0,
+          maxDistanceRun: 0,
+          sumTimeExercising: 0,
+          sumCaloriesBurned: 0,
+          sumDistanceRun: 0
         })
       }
       res.status(httpStatusCode.OK).json([...average, ...userAverage])
