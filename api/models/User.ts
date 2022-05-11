@@ -35,8 +35,8 @@ interface UserModel extends Model<UserDoc> {
   findOrCreate(user: LoginUser): Promise<UserDoc>
 }
 
-const statics = {
-  async findOrCreate(this: UserModel, user: LoginUser) {
+userSchema.statics = {
+  async findOrCreate(user: LoginUser) {
     const exists = await this.findOne({
       strategy: user.strategy,
       identifier: user.identifier
@@ -45,8 +45,6 @@ const statics = {
     return exists || (await this.create(user))
   }
 }
-
-userSchema.statics = statics
 
 export default models.User
   ? (models.User as UserModel)
