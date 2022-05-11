@@ -103,6 +103,6 @@ const records: any[] = [
 
 export default async () => {
   await Record.deleteMany({})
-  await Record.collection.insertMany(records)
+  await (Record.collection as any).insertMany(records)
   return records
 }
