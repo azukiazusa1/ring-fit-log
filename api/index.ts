@@ -32,7 +32,7 @@ passport.use(
       consumerSecret: process.env.TWITTER_CLIENT_SECRET || 'test',
       callbackURL: process.env.BASE_URL + '/login'
     },
-    function (_token, _tokenSecret, profile, done) {
+    function(_token, _tokenSecret, profile, done) {
       return done(null, profile)
     }
   )
