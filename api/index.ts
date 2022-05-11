@@ -1,4 +1,4 @@
-import Express from 'express'
+import Express, { RequestHandler } from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
@@ -32,7 +32,7 @@ passport.use(
       consumerSecret: process.env.TWITTER_CLIENT_SECRET || 'test',
       callbackURL: process.env.BASE_URL + '/login'
     },
-    function(_token, _tokenSecret, profile, done) {
+    function (_token, _tokenSecret, profile, done) {
       return done(null, profile)
     }
   )
@@ -44,11 +44,11 @@ passport.deserializeUser((obj, done) => {
   done(null, obj)
 })
 app.use(
-  bodyParser.urlencoded({
+  Express.urlencoded({
     extended: true
-  })
+  }) as RequestHandler
 )
-app.use(bodyParser.json())
+app.use(Express.json() as RequestHandler)
 app.use(cookieParser())
 app.get('/api/auth/twitter', passport.authenticate('twitter'))
 app.get(
