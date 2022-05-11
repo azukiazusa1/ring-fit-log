@@ -151,14 +151,14 @@ interface RecordModel extends Model<RecordDoc, typeof queryHelpers> {
   ): Promise<PaginateResult<RecordDoc>>
 }
 
-const statics = {
-  updateById(this: RecordModel, id: string, record: IRecord) {
+recordSchema.statics = {
+  updateById(id: string, record: IRecord) {
     return this.findByIdAndUpdate(id, record, {
       new: true,
       runValidators: true
     })
   },
-  findByQuater(this: RecordModel, date: Date, userId: string) {
+  findByQuaterc(date: Date, userId: string) {
     return this.aggregate()
       .match({
         date: {
@@ -187,7 +187,7 @@ const statics = {
         date: -1
       })
   },
-  findByYear(this: RecordModel, date: Date, userId: string) {
+  findByYear(date: Date, userId: string) {
     return this.aggregate()
       .match({
         date: {
@@ -215,7 +215,7 @@ const statics = {
         date: -1
       })
   },
-  average(this: RecordModel) {
+  average() {
     return this.aggregate<AverageRecordDoc>().group({
       _id: null,
       avgTimeExercising: { $avg: '$totalTimeExercising' },
@@ -229,7 +229,7 @@ const statics = {
       sumDistanceRun: { $sum: '$totalDistanceRun' }
     })
   },
-  averageByUser(this: RecordModel, userId: string) {
+  averageByUser(userId: string) {
     return this.aggregate<AverageRecordDoc>()
       .match({ userId })
       .group({
@@ -245,7 +245,7 @@ const statics = {
         sumDistanceRun: { $sum: '$totalDistanceRun' }
       })
   },
-  frequentTimes(this: RecordModel) {
+  frequentTimes() {
     return this.aggregate<FrequentTimeDoc>()
       .project({
         h: { $hour: { $add: ['$createdAt', 9 * 60 * 60 * 1000] } }
@@ -255,7 +255,7 @@ const statics = {
         count: { $sum: 1 }
       })
   },
-  frequentTimesByUser(this: RecordModel, userId: string) {
+  frequentTimesByUser(userId: string) {
     return this.aggregate<FrequentTimeDoc>()
       .match({ userId })
       .project({
@@ -267,7 +267,6 @@ const statics = {
       })
   }
 }
-recordSchema.statics = statics
 
 recordSchema.plugin(mongoosePaginate)
 
