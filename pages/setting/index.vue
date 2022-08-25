@@ -55,6 +55,14 @@
             <AngleRight to="/privacy" />
           </v-list-item-action>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>サービス終了のお知らせ</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <AngleRight to="/end-of-service" />
+          </v-list-item-action>
+        </v-list-item>
       </v-list>
     </v-card>
     <h2 class="headline my-5">データ</h2>
