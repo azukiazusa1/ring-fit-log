@@ -88,5 +88,8 @@
     "ts-node": "^8.10.2",
     "vue-jest": "^4.0.0-0",
     "vuex-module-decorators": "^0.17.0"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
