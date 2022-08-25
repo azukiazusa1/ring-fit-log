@@ -7,6 +7,9 @@
         <nuxt />
       </v-container>
     </v-main>
+    <v-snacknar :value="read">
+      <nuxt-link to="/end-of-service">重要なお知らせ</nuxt-link>
+    </v-snacknar>
     <AppFooter :items="items" />
   </v-app>
 </template>
@@ -60,6 +63,11 @@ export default Vue.extend({
         }
       ],
       title: 'リングフィットログ'
+    }
+  },
+  computed: {
+    read() {
+      return !this.$cookies.get('read')
     }
   }
 })
