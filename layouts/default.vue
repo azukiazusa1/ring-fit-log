@@ -7,9 +7,9 @@
         <nuxt />
       </v-container>
     </v-main>
-    <v-snacknar :value="read">
+    <v-snackbar :value="read">
       <nuxt-link to="/end-of-service">重要なお知らせ</nuxt-link>
-    </v-snacknar>
+    </v-snackbar>
     <AppFooter :items="items" />
   </v-app>
 </template>
